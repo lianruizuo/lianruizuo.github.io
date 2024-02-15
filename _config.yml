@@ -18,18 +18,18 @@ repository               : "lianruizuo/lianruizuo.github.io"
 # Site Author
 author:
   name             : "Lianrui Zuo"
-  avatar           : "profile.png"
-  bio              : "Ph.D. at Johns Hopkins University | Former predoctoral fellow at National Institute of Health"
+  avatar           : "prof_pic.jpg"
+  bio              : "Johns Hopkins University | National Institute of Health"
   pronouns         : "he/his/him"
   location         : "Baltimore, Maryland"
-  orcid            : "http://orcid.org/yourorcidurl"
+  orcid            : "https://orcid.org/0000-0002-5923-9097"
   employer         :
-  email            :  
+  email            :  "lr_zuo@jhu.edu"
   uri              :
 
   # Manuscript repositories
-  googlescholar    : "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"         # Update with the correct link to your profile
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
+  googlescholar    : "https://scholar.google.com/citations?user=GQGYangAAAAJ"         # Update with the correct link to your profile
+  pubmed           : 
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
 
   # Social media
@@ -39,23 +39,23 @@ author:
   facebook         :
   flickr           :
   foursquare       :
-  github           : "academicpages"
+  github           : "lianruizuo"
   goodreads        :
   google_plus      :
   keybase          :
   impactstory      : # "https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
   instagram        :
   lastfm           :
-  linkedin         :
+  linkedin         : "https://www.linkedin.com/in/lianrui-zuo-546092143/"
   kaggle           : # "kaggleusername"
-  mastodon         : "mastodonhandle"
+  mastodon         : 
   medium           : # "add medium profile url here"
   pinterest        :
   soundcloud       :
   stackoverflow    : # http://stackoverflow.com/users/123456/username
   steam            :
   tumblr           :
-  twitter          : "replacethistwitterhandle"
+  twitter          : "https://twitter.com/LianruiZuo"
   vine             :
   weibo            :
   wikipedia        :
