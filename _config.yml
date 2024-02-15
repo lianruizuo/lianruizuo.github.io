@@ -7,21 +7,21 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-title                    : "Your Name / Site Title"
+title                    : "Lianrui Zuo"
 title_separator          : "-"
-name                     : &name "Your Name"
-description              : &description "personal description"
-url                      : https://academicpages.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+name                     : &name "Lianrui Zuo, Ph.D"
+description              : &description "Johns Hopkins University | National Institute of Health"
+url                      : https://lianruizuo.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "academicpages/academicpages.github.io"
+repository               : "lianruizuo/lianruizuo.github.io"
 
 # Site Author
 author:
-  name             : "Your Sidebar Name"
+  name             : "Lianrui Zuo"
   avatar           : "profile.png"
-  bio              : "Your biography for the left-hand sidebar"
-  pronouns         : # example: "she/her"
-  location         : "Location"
+  bio              : "Ph.D. at Johns Hopkins University | Former predoctoral fellow at National Institute of Health"
+  pronouns         : "he/his/him"
+  location         : "Baltimore, Maryland"
   orcid            : "http://orcid.org/yourorcidurl"
   employer         :
   email            :  
