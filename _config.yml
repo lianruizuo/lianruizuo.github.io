@@ -17,7 +17,7 @@ repository               : "lianruizuo/lianruizuo.github.io"
 
 # Site Author
 author:
-  name             : "Lianrui Zuo"
+  name             : "Lianrui Zuo, Ph.D."
   avatar           : "prof_pic.jpg"
   bio              : "Johns Hopkins University | National Institute of Health"
   pronouns         : "he/his/him"
@@ -46,7 +46,7 @@ author:
   impactstory      : # "https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
   instagram        :
   lastfm           :
-  linkedin         : "https://www.linkedin.com/in/lianrui-zuo-546092143/"
+  linkedin         : "lianrui-zuo-546092143"
   kaggle           : # "kaggleusername"
   mastodon         : 
   medium           : # "add medium profile url here"
@@ -55,7 +55,7 @@ author:
   stackoverflow    : # http://stackoverflow.com/users/123456/username
   steam            :
   tumblr           :
-  twitter          : "https://twitter.com/LianruiZuo"
+  twitter          : "LianruiZuo"
   vine             :
   weibo            :
   wikipedia        :
