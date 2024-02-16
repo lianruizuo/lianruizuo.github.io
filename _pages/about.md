@@ -26,6 +26,7 @@ I earned my Ph.D. from Image Analysis and Communications Laboratory (IACL) at [J
 ### 2023
 - [12/2023] I gave a seminar talk titled [**"From voxels to patients: A data-centric journey towards consistent translational AI"**](https://twitter.com/LianruiZuo/status/1726652134471639231) at Vanderbilt University. Thanks for the invitation from Dr. Bennett Landman.
 - [11/2023] I won the **Best Poster Award** at Americas Committee for Treatment and Research in Multiple Sclerosis (ACTRIMS) Young Scientist Summit, 2023.
+- [09/2023] My new harmonization work [**"HACA3: A unified approach for multi-site MR image harmonization"**](https://www.sciencedirect.com/science/article/pii/S0895611123001039?via%3Dihub) is published in Computerized Medical Imaging and Graphics. Code is available at [link](https://github.com/lianruizuo/haca3).
 
 ## EDUCATION
 - **Ph.D. in Electrical & Computer Engineering**, [Johns Hopkins University](https://www.jhu.edu) (United States), *Jan 2024*
