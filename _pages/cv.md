@@ -1,6 +1,6 @@
 ---
 layout: archive
-title: "CV"
+title: "Lianrui Zuo's Curriculum Vitae"
 permalink: /cv/
 author_profile: true
 redirect_from:
@@ -9,51 +9,25 @@ redirect_from:
 
 {% include base_path %}
 
-Education
-======
-* B.S. in GitHub, GitHub University, 2012
-* M.S. in Jekyll, GitHub University, 2014
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
+Download my full [CV]()
 
-Work experience
-======
-* Summer 2015: Research Assistant
-  * Github University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
+### EDUCATION
+- **Ph.D. in Electrical and Computer Engineering**, Johns Hopkins University, USA. Jan 2024.
+   - Thesis: *Unsupervised structural MRI harmonization by learning disentangled representations.*
+- **M.S.E. in Electrical and Computer Engineering**, Johns Hopkins University, USA. May 2018.
+   - Thesis: *Quality Assurance Using Outlier Detections For Cerebellar Lobule Segmentation.*
+- **B.S. in Instrument Science and Technology**, Jilin University, China. May 2016.
 
-* Fall 2015: Research Assistant
-  * Github University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
-  
-Skills
-======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
-
-Publications
-======
-  <ul>{% for post in site.publications %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks %}
-    {% include archive-single-talk-cv.html %}
-  {% endfor %}</ul>
-  
-Teaching
-======
-  <ul>{% for post in site.teaching %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
+### HONORS & AWARDS
+*Bold fonts indicate sole award recipient or as first author.*
+- **Best Poster Award.** (First author) [*"Inconsistent MR acquisition in longitudinal volumetric analysis: impacts and solutions."*](https://github.com/lianruizuo/inconsistent_acquisition/blob/main/README.md) America's Committee for Treatment and Research in Multiple Sclerosis (ACTRIMS) Young Scientist Summit, 2023.
+- Best Paper Award. (Third author) [*"Self-supervised super-resolution for anisotropic MR images with and without slice gap."*](https://link.springer.com/chapter/10.1007/978-3-031-44689-4_12) The 8th Workshop in Simulation and Synthesis in Medical Imaging (SASHIMI) in conjunction with MICCAI 2023.
+- **Pre-doctoral Intramural Research Training Award.** National Institutes of Health, 2019--2023.
+- **Young Scientist Summit Travel Award.** America's Committee for Treatment and Research in Multiple Sclerosis (ACTRIMS), 2023.
+- **(Finalist) Siebel Scholarship 2024.** Siebel Scholar Foundation.
+- **(Nomination) Best Platform in Multiple Sclerosis Research Award.** Consortium of Multiple Sclerosis Centers (CMSC) Annual Meeting, 2023.
+- **Best Paper Award.** (First author) [**"Disentangling A Single MR Modality."**](https://link.springer.com/chapter/10.1007/978-3-031-17027-0_6) The 2nd Workshop on Data Augmentation, Labeling, and Imperfections (DALI 2022) in conjunction with MICCAI 2022.
+- **Best Poster Award.** (First author) [**"Information-based Disentangled Representation Learning for Unsupervised MR Harmonization."**](https://www.sciencedirect.com/science/article/pii/S1053811921008429) The 27th International Conference on Information Processing in Medical Imaging (IPMI), 2021. 
+- Best Paper Award. (Second author) [**"Variational intensity cross-channel encoder for unsupervised vessel segmentation on OCT angiography."**](https://iacl.ece.jhu.edu/~yihao/papers/SPIE-2020-VICCE.pdf) In Medical Imaging: International Society for Optics and Photonics (SPIE), 2020.
+- **Scientific Director Award.** The 25th Annual National Institute on Aging Intramural Research Program Scientific Retreat, 2020.
+- **(Finalist) Excellence in Teaching Award.** Whiting School of Engineering, Johns Hopkins University, 2019.
