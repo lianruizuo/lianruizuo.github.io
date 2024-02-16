@@ -6,7 +6,6 @@ excerpt: ''
 date: 2023-10-01
 venue: 'Computerized Medical Imaging and Graphics'
 paperurl: 'https://www.sciencedirect.com/science/article/pii/S0895611123001039'
-citation: 'Zuo, Lianrui. (2023). &quot;HACA3: A unified approach for multi-site MR image harmonization.&quot; <i>Computerized Medical Imaging and Graphics 1</i>. 1(3).'
 ---
 - **Authors:** **Lianrui Zuo**, Yihao Liu, Yuan Xue, Blake E. Dewey, Samuel W. Remedios, Savannah P. Hays, Murat Bilgel, Ellen M. Mowry, Scott D. Newsome, Peter A. Calabresi, Susan M. Resnick, Jerry L. Prince, and Aaron Carass
 - **Published at** Computerized Medical Imaging and Graphics
