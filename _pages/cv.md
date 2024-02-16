@@ -9,16 +9,16 @@ redirect_from:
 
 {% include base_path %}
 
-Download my full [CV](https://github.com/lianruizuo/lianruizuo.github.io/blob/master/files/LianruiZuo_CV_20240208-2.pdf) (last update: 02/08/2024)
+[**Download my full CV**](https://github.com/lianruizuo/lianruizuo.github.io/blob/master/files/LianruiZuo_CV_20240208-2.pdf) (last update: 02/08/2024)
 
-# EDUCATION
+## EDUCATION
 - **Ph.D. in Electrical and Computer Engineering**, Johns Hopkins University, USA. Jan 2024.
    - Thesis: *Unsupervised structural MRI harmonization by learning disentangled representations.*
 - **M.S.E. in Electrical and Computer Engineering**, Johns Hopkins University, USA. May 2018.
    - Thesis: *Quality Assurance Using Outlier Detections For Cerebellar Lobule Segmentation.*
 - **B.S. in Instrument Science and Technology**, Jilin University, China. May 2016.
 
-# HONORS & AWARDS
+## HONORS & AWARDS
 *Bold fonts indicate sole award recipient or as first author.*
 - **Best Poster Award.** (First author) [*"Inconsistent MR acquisition in longitudinal volumetric analysis: impacts and solutions."*](https://github.com/lianruizuo/inconsistent_acquisition/blob/main/README.md) America's Committee for Treatment and Research in Multiple Sclerosis (ACTRIMS) Young Scientist Summit, 2023.
 - Best Paper Award. (Third author) [*"Self-supervised super-resolution for anisotropic MR images with and without slice gap."*](https://link.springer.com/chapter/10.1007/978-3-031-44689-4_12) The 8th Workshop in Simulation and Synthesis in Medical Imaging (SASHIMI) in conjunction with MICCAI 2023.
