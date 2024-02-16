@@ -20,8 +20,8 @@ redirect_from:
 
 ## HONORS & AWARDS
 *Bold fonts indicate sole award recipient or as first author.*
-- **Best Poster Award.** (First author) [*"Inconsistent MR acquisition in longitudinal volumetric analysis: impacts and solutions."*](https://github.com/lianruizuo/inconsistent_acquisition/blob/main/README.md) America's Committee for Treatment and Research in Multiple Sclerosis (ACTRIMS) Young Scientist Summit, 2023.
-- Best Paper Award. (Third author) [*"Self-supervised super-resolution for anisotropic MR images with and without slice gap."*](https://link.springer.com/chapter/10.1007/978-3-031-44689-4_12) The 8th Workshop in Simulation and Synthesis in Medical Imaging (SASHIMI) in conjunction with MICCAI 2023.
+- **Best Poster Award.** (First author) [**"Inconsistent MR acquisition in longitudinal volumetric analysis: impacts and solutions."**](https://github.com/lianruizuo/inconsistent_acquisition/blob/main/README.md) America's Committee for Treatment and Research in Multiple Sclerosis (ACTRIMS) Young Scientist Summit, 2023.
+- Best Paper Award. (Third author) [**"Self-supervised super-resolution for anisotropic MR images with and without slice gap."**](https://link.springer.com/chapter/10.1007/978-3-031-44689-4_12) The 8th Workshop in Simulation and Synthesis in Medical Imaging (SASHIMI) in conjunction with MICCAI 2023.
 - **Pre-doctoral Intramural Research Training Award.** National Institutes of Health, 2019--2023.
 - **Young Scientist Summit Travel Award.** America's Committee for Treatment and Research in Multiple Sclerosis (ACTRIMS), 2023.
 - **(Finalist) Siebel Scholarship 2024.** Siebel Scholar Foundation.
