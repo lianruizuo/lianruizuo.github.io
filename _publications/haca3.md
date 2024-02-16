@@ -2,7 +2,7 @@
 title: "HACA3: A unified approach for multi-site MR image harmonization"
 collection: publications
 permalink: /publication/haca3
-excerpt: ''
+excerpt: 'test'
 date: 2023-10-01
 venue: 'Computerized Medical Imaging and Graphics'
 paperurl: 'https://www.sciencedirect.com/science/article/pii/S0895611123001039'
