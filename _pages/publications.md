@@ -5,7 +5,7 @@ permalink: /publications/
 author_profile: true
 ---
 
-**Find the full list of my publications on [GoogleScholar](https://scholar.google.com/citations?user=GQGYangAAAAJ&hl=en).**
+**Find the full list of my publications on [Google Scholar](https://scholar.google.com/citations?user=GQGYangAAAAJ&hl=en).**
 
 ## **1. HACA3: A unified approach for multi-site MR image harmonization**
    - **Authors:** **Lianrui Zuo**, Yihao Liu, Yuan Xue, Blake E. Dewey, Samuel W. Remedios, Savannah P. Hays, Murat Bilgel, Ellen M. Mowry, Scott D. Newsome, Peter A. Calabresi, Susan M. Resnick, Jerry L. Prince, and Aaron Carass
