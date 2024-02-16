@@ -26,7 +26,12 @@ I earned my Ph.D. from Image Analysis and Communications Laboratory (IACL) at [J
 ### 2023
 - [12/2023] I gave a seminar talk titled [**"From voxels to patients: A data-centric journey towards consistent translational AI"**](https://twitter.com/LianruiZuo/status/1726652134471639231) at Vanderbilt University. Thanks for the invitation from Dr. Bennett Landman.
 - [11/2023] I won the **Best Poster Award** at Americas Committee for Treatment and Research in Multiple Sclerosis (ACTRIMS) Young Scientist Summit, 2023.
-- [09/2023] My new harmonization work [**"HACA3: A unified approach for multi-site MR image harmonization"**](https://www.sciencedirect.com/science/article/pii/S0895611123001039?via%3Dihub) is published in Computerized Medical Imaging and Graphics. Code is available at [link](https://github.com/lianruizuo/haca3).
+- [10/2023] A [paper](https://link.springer.com/chapter/10.1007/978-3-031-44689-4_12) that I co-authored won the **Best Paper Award** at the 8th Workshop in Simulation and Synthesis in Medical Imaging (SASHIMI) in conjunction with MICCAI 2023. 
+- [09/2023] My new harmonization work [**"HACA3: A unified approach for multi-site MR image harmonization"**](https://www.sciencedirect.com/science/article/pii/S0895611123001039?via%3Dihub) is published in Computerized Medical Imaging and Graphics. Code is available at [GitHub](https://github.com/lianruizuo/haca3).
+- [09/2023] I was a selected as a finalist for the **2024 Siebel Scholarship**.
+- [08/2023] I won the **Young Scientist Summit Training Award** at Americas Committee for Treatment and Research in Multiple Sclerosis (ACTRIMS), 2023.
+- [06/2023] I was interviewed by the **Video Journal of Neurology**, discussing the how to fix inconsistent MRI data using image harmonization and the future of MS image standardization. The interview is [available online](https://vjneurology.com/speaker/lianrui-zuo/).
+- [06/2023] I was interviewed by **NeurologyLive** on novel harmonization approaches for multiple scelrosis care The interview is [available online](https://www.neurologylive.com/view/enhancing-consistency-neuroimaging-ai-image-harmonization-lianrui-zuo).
 
 ## EDUCATION
 - **Ph.D. in Electrical & Computer Engineering**, [Johns Hopkins University](https://www.jhu.edu) (United States), *Jan 2024*
