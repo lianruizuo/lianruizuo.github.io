@@ -2,7 +2,7 @@
 title: "Revisiting registration-based synthesis: A focus on unsupervised MR image synthesis"
 collection: publications
 permalink: /publication/revisiting_dir_for_synthesis
-date: 2023-02-21
+date: 2024-02-21
 venue: 'SPIE Medical Imaging'
 paperurl: 'https://arxiv.org/abs/2402.12288'
 ---
