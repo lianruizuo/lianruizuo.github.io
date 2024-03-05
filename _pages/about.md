@@ -7,7 +7,7 @@ redirect_from:
   - /about.html
 ---
 
-I earned my Ph.D. from Image Analysis and Communications Laboratory (IACL) at [Johns Hopkins University](https://www.jhu.edu) in 2024. My advisor is [Dr. Jerry Prince](https://engineering.jhu.edu/faculty/jerry-prince/). I was also a predoctoral research fellow at Laboratory of Behavioral Neuroscience of the National Institute on Aging from 2019 to 2023, under the supervision of [Dr. Susan Resnick](https://irp.nih.gov/pi/susan-resnick).
+I am currently a postdoctoral scholar at [Medical-image Analysis and Statistical Interpretation lab (MASI)](https://my.vanderbilt.edu/masi/) of Vanderbilt University. My PI is [Dr. Bennett Landman](https://www.vanderbilt.edu/vise/visepeople/bennett-landman/). I earned my Ph.D. from [Image Analysis and Communications Laboratory (IACL)](https://iacl.ece.jhu.edu/index.php?title=Main_Page) of Johns Hopkins University in 2024. My advisor is [Dr. Jerry Prince](https://engineering.jhu.edu/faculty/jerry-prince/). I was also a predoctoral research fellow at Laboratory of Behavioral Neuroscience of the National Institute on Aging from 2019 to 2023, under the supervision of [Dr. Susan Resnick](https://irp.nih.gov/pi/susan-resnick).
   
 ## RESEARCH INTERESTS
 - Medical image analysis
@@ -17,6 +17,7 @@ I earned my Ph.D. from Image Analysis and Communications Laboratory (IACL) at [J
 
 ## NEWS
 ### 2024
+- [03/2024] I started my new position as a postdoctoral scholar at Vanderbilt University!
 - [02/2024] My co-authored paper [**"Revisiting registration-based synthesis: A focus on unsupervised MR image synthesis"**](https://arxiv.org/abs/2402.12288) was presented at the deep dive session of SPIE Medical Imaging 2024. 
 - [02/2024] I presented [**"Inconsistent MR acquisition in longitudinal volumetric analysis: Impacts and solutions"**](https://github.com/lianruizuo/inconsistent_acquisition/blob/main/README.md) at the 2024 Department of Medicine and Whiting School of Engineering Research Retreat, Johns Hopkins University.
 - [01/2024] I successfully defended my Ph.D. dissertation titled **"Unsupervised structural MRI harmonization by learning disentangled representations"**. Heartfelt thanks to my committee members: Dr. Jerry Prince, Dr. Trac Tran, and Dr. Mathias Unberath.
