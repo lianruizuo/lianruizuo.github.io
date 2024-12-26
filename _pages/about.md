@@ -17,7 +17,7 @@ I am currently a postdoctoral scholar at [Medical-image Analysis and Statistical
 
 ## NEWS
 ### 2024
-- [11/2024] I filed two provisional patents based on my recent work **"Extending the Field of View of Chest CT Images Using Latent Diffusion"** and **"Robust Body Composition Analyssi by Generating 3D CT Volumes from Limited 2D Slices"**.
+- [11/2024] I filed two provisional patents based on my recent work **"Extending the Field of View of Chest CT Images Using Latent Diffusion"** and **"Robust Body Composition Analysis by Generating 3D CT Volumes from Limited 2D Slices"**.
 - [11/2024] Nine papers (two as first author, one as last author) accepted at SPIE: Medical Imaging 2025. See you in San Diego!
 - [09/2024] I will teach **ES1400: Intro to Electrical and Computer Engineering** as a co-instructor. 
 - [08/2024] I gave an invited talk titled **"Decoding AI's creative mind: An introduction to generative models."** at VALIANT Summer School 2024.
