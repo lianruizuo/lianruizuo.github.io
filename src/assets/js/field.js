@@ -38,22 +38,22 @@
   const SCAN_EVERY = 6;      // months between scans
   const MEASURED_WIDTH = 2.8; // line width of measured contours (outside lines are 1)
   const SCANNERS = [
-    { name: "scanner A", gamma: 0.5, width: 3.4, color: "a" },
-    { name: "scanner B", gamma: 1.9, width: 2.1, color: "b" },
+    { name: "scanner A", gamma: 0.86, width: 3.1, color: "a" },
+    { name: "scanner B", gamma: 1.18, width: 2.5, color: "b" },
   ];
 
   // components at patient time tau (months); tau = 0 is the resting state
   function comps(tau) {
     return COMP.map(([cx, cy, sx, sy, r, w], i) => {
       if (!tau) return [cx, cy, sx, sy, r, w];
-      const a = 0.2 + 0.035 * i;
+      const a = 0.045 + 0.008 * i; // slow: one full cycle takes 2-3 minutes
       return [
-        cx + 0.03 * Math.sin(a * tau + i * 1.7),
-        cy + 0.07 * Math.sin(0.8 * a * tau + i * 2.3),
-        sx * (1 + 0.12 * Math.sin(0.6 * a * tau + i)),
+        cx + 0.02 * Math.sin(a * tau + i * 1.7),
+        cy + 0.045 * Math.sin(0.8 * a * tau + i * 2.3),
+        sx * (1 + 0.08 * Math.sin(0.6 * a * tau + i)),
         sy,
-        r + 0.25 * Math.sin(0.5 * a * tau + i * 0.9),
-        w * (1 + 0.35 * Math.sin(0.7 * a * tau + i * 1.3)),
+        r + 0.15 * Math.sin(0.5 * a * tau + i * 0.9),
+        w * (1 + 0.22 * Math.sin(0.7 * a * tau + i * 1.3)),
       ];
     });
   }
