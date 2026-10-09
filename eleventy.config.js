@@ -17,7 +17,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/files": "files" });
   eleventyConfig.addPassthroughCopy({ "src/teaching/**/*.{png,jpg,jpeg,gif,svg,webp,pdf}": "teaching" });
-  eleventyConfig.addPassthroughCopy({ "src/journal/**/*.{png,jpg,jpeg,gif,svg,webp}": "journal" });
+  eleventyConfig.addPassthroughCopy({ "src/outside/**/*.{png,jpg,jpeg,gif,svg,webp}": "journal" });
   eleventyConfig.addPassthroughCopy({ "node_modules/katex/dist/katex.min.css": "assets/katex/katex.min.css" });
   eleventyConfig.addPassthroughCopy({ "node_modules/katex/dist/fonts": "assets/katex/fonts" });
   eleventyConfig.addPassthroughCopy({ "src/.nojekyll": ".nojekyll" });
@@ -56,10 +56,10 @@ export default function (eleventyConfig) {
       (a.data.course || "").localeCompare(b.data.course || "") || (a.data.lecture ?? 0) - (b.data.lecture ?? 0) || a.date - b.date)
   );
   eleventyConfig.addCollection("journal", (api) =>
-    api.getFilteredByGlob("src/journal/*.md").sort((a, b) => b.date - a.date)
+    api.getFilteredByGlob("src/outside/*.md").sort((a, b) => b.date - a.date)
   );
   eleventyConfig.addCollection("writing", (api) =>
-    api.getFilteredByGlob(["src/teaching/**/*.md", "src/journal/*.md"]).sort((a, b) => b.date - a.date)
+    api.getFilteredByGlob(["src/teaching/**/*.md", "src/outside/*.md"]).sort((a, b) => b.date - a.date)
   );
 
   // ---------- filters ----------
@@ -93,8 +93,8 @@ export default function (eleventyConfig) {
     collection: { name: "writing", limit: 30 },
     metadata: {
       language: "en",
-      title: "Lianrui Zuo — notes and journal",
-      subtitle: "Lecture notes from ECE 6357 and a journal.",
+      title: "Lianrui Zuo",
+      subtitle: "Lecture notes and notes from outside research.",
       base: "https://lianruizuo.github.io/",
       author: { name: "Lianrui Zuo" },
     },

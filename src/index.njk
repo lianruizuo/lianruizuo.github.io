@@ -5,8 +5,18 @@ description: Lianrui Zuo develops methods that make medical images trustworthy, 
 scripts: ["/assets/js/field.js"]
 ---
 <figure class="field wide">
-  <canvas id="field" tabindex="0" role="img" aria-label="Contour lines of a smooth field. Inside a rectangular frame they are solid; outside the frame they are dotted. The frame can be moved with the pointer or the arrow keys."></canvas>
-  <figcaption>Inside the frame is what a scanner measured; outside it is what a model has to infer. Much of my work happens at that border. <span class="hint hint-mouse">Move the frame with your cursor.</span><span class="hint hint-touch">Drag to move the frame.</span></figcaption>
+  <canvas id="field" tabindex="0" role="img" aria-label="Contour lines standing for a patient. Inside a movable frame the lines are solid: the measurement. Outside the frame they turn from solid to dashed to dotted with distance."></canvas>
+  <div class="field-foot">
+    <div class="field-controls" role="group" aria-label="Figure options">
+      <button type="button" class="chip" data-mode="scanner" aria-pressed="false"><span class="sw sw-a" aria-hidden="true"></span><span class="sw sw-b" aria-hidden="true"></span>Scanners</button>
+      <button type="button" class="chip" data-mode="harmonize" aria-pressed="false" hidden>Harmonize</button>
+      <button type="button" class="chip" data-mode="time" aria-pressed="false">Time</button>
+    </div>
+    <figcaption>
+      A scan sees part of the patient. Inside the frame is what was measured; beyond it, what can be inferred fades with distance.<span data-note="scanner" hidden> Each scanner draws the same anatomy differently. Harmonization removes the scanner and keeps the anatomy.</span><span data-note="time" hidden> The patient keeps changing, but a scan only captures the moment it was taken.</span>
+      <span class="hint hint-mouse">Move the frame with your cursor.</span><span class="hint hint-touch">Drag to move the frame.</span>
+    </figcaption>
+  </div>
 </figure>
 
 <section class="intro row">
@@ -14,8 +24,8 @@ scripts: ["/assets/js/field.js"]
     <img class="portrait" src="/assets/img/portrait.jpg" alt="Portrait of Lianrui Zuo" width="360" height="360">
   </div>
   <div class="t">
-    <p class="lede">I’m a postdoctoral research fellow at Vanderbilt University, working where medical imaging meets machine learning. I develop methods that make medical images trustworthy, complete, and informative.</p>
-    <p>I work in the <a href="https://my.vanderbilt.edu/masi/">MASI Lab</a> with Bennett Landman. Before Vanderbilt, I did my Ph.D. at Johns Hopkins with Jerry Prince, and spent four years as a predoctoral fellow at the National Institute on Aging with Susan Resnick. This fall I’m teaching <a href="/teaching/">ECE 6357 Advanced Image Processing</a>, and writing the lecture notes as I go.</p>
+    <p class="lede">I’m a postdoctoral research fellow at Vanderbilt University. I develop methods that make medical measurements trustworthy, complete, and informative.</p>
+    <p>I work in the <a href="https://my.vanderbilt.edu/masi/">MASI Lab</a> with Bennett Landman. Before Vanderbilt, I did my Ph.D. at Johns Hopkins with Jerry Prince, and spent four years as a predoctoral fellow at the National Institute on Aging with Susan Resnick during my PhD. This fall I’m teaching <a href="/teaching/">ECE 6357 Advanced Image Processing</a>.</p>
     <ul class="contact">
       <li><a href="mailto:{{ site.email }}">Email</a></li>
       {%- for l in site.links %}<li><a href="{{ l.url }}" rel="me">{{ l.label }}</a></li>{% endfor %}
@@ -24,20 +34,8 @@ scripts: ["/assets/js/field.js"]
   </div>
 </section>
 
-<section>
-  <div class="section-head"><h2>Three questions I keep asking</h2><a class="more" href="/research/">More on my research</a></div>
-  <ul class="arcs">
-    {%- for arc in research.arcs %}
-    <li>
-      <h3><a href="/research/#{{ arc.id }}" style="text-decoration:none">{{ arc.title }}</a></h3>
-      <p>{{ arc.short }}</p>
-    </li>
-    {%- endfor %}
-  </ul>
-</section>
-
 <section class="span">
-  <div class="row section-head"><div class="m"></div><div class="t"><h2>Recently</h2><a class="more" href="/about/#news">All news</a></div></div>
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>Recent news</h2><a class="more" href="/about/#news">All news</a></div></div>
   <ul class="row-list">
     {%- for n in news | take(6) %}
     <li class="row"><div class="m">{{ n.date | newsDate }}</div><div class="t"><p>{{ n.text | md | safe }}</p></div></li>
@@ -46,18 +44,19 @@ scripts: ["/assets/js/field.js"]
 </section>
 
 <section class="span">
-  <div class="row section-head"><div class="m"></div><div class="t"><h2>Writing</h2><a class="more" href="/teaching/">Lecture notes</a><a class="more" href="/journal/">Journal</a></div></div>
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>Beyond research</h2></div></div>
   {%- set recent = collections.writing | take(4) %}
-  {%- if recent.length %}
   <ul class="entries row-list">
+    {%- if recent.length %}
     {%- for p in recent %}
     <li class="row">
-      <div class="m">{{ p.date | shortDate }}<br>{{ p.data.course or "Journal" }}</div>
+      <div class="m">{{ p.date | shortDate }}<br>{{ p.data.course or "Outside Work" }}</div>
       <div class="t"><h3><a href="{{ p.url }}">{{ p.data.title }}</a></h3>{% if p.data.summary %}<p>{{ p.data.summary }}</p>{% endif %}</div>
     </li>
     {%- endfor %}
+    {%- else %}
+    <li class="row"><div class="m">Teaching</div><div class="t"><h3><a href="/teaching/ece6357/">ECE 6357 Advanced Image Processing</a></h3><p>Fall 2026, Vanderbilt University</p></div></li>
+    <li class="row"><div class="m">Outside Work</div><div class="t"><h3><a href="/outside/">Life outside the lab</a></h3><p>Occasional notes from life outside research.</p></div></li>
+    {%- endif %}
   </ul>
-  {%- else %}
-  <div class="row"><div class="m"></div><p class="t empty">Lecture notes from ECE 6357 and a journal start here this fall.</p></div>
-  {%- endif %}
 </section>

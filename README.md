@@ -7,11 +7,11 @@ My personal site. It's built with [Eleventy](https://www.11ty.dev/) and publishe
 | What | File |
 |---|---|
 | Lecture notes (ECE 6357) | `src/teaching/ece6357/*.md` |
-| Journal entries | `src/journal/*.md` |
+| Outside Work entries | `src/outside/*.md` |
 | Publications | `src/_data/own-bib.bib`, the same file as the CV |
 | Research arcs, selected papers, funding | `src/_data/research.yaml` |
 | News | `src/_data/news.yaml` |
-| About page (appointments, honors, talks, service, teaching, mentoring) | `src/_data/cv.yaml` |
+| About page (appointments, honors, talks, service) and the course list | `src/_data/cv.yaml` |
 | Name, email, profile links, reader-trace switches | `src/_data/site.json` |
 | CV PDF | `src/files/LianruiZuo_CV.pdf` (the CV link appears once this file exists) |
 | Styles | `src/assets/css/site.css` |
@@ -52,15 +52,15 @@ $$
 
 Put images next to the Markdown file. The file name becomes the URL (`/teaching/ece6357/02-kmeans/`), and `lecture:` sets the order. A note links to the previous and next lectures automatically. `src/teaching/ece6357/01-otsu.md` is an example draft that shows every feature; edit it or delete it.
 
-For a new course, make a new folder like `src/teaching/ece6357/`, copy `ece6357.11tydata.json` into it with the new course code, and add a section to `src/teaching/index.njk`.
+Each course has its own page, built from the `teaching:` list in `src/_data/cv.yaml`. To add a course, add an entry there with a `slug` (its URL, e.g. `ece6357` → `/teaching/ece6357/`). To give it lecture notes, make a folder `src/teaching/<slug>/` and copy `ece6357.11tydata.json` into it, changing `course` to the entry's `code`.
 
-## Post a journal entry
+## Post to Outside Work
 
-Create `src/journal/2026-10-12-some-title.md` with `title`, `date`, an optional `place` and `summary`, then write. The date prefix is dropped from the URL. `src/journal/2026-10-09-template.md` is an example draft.
+Create `src/outside/2026-10-12-some-title.md` with `title`, `date`, an optional `place` and `summary`, then write. The date prefix is dropped from the URL. `src/outside/2026-10-09-template.md` is an example draft.
 
 ## Update publications
 
-Copy the newest `own-bib.bib` from the CV folder over `src/_data/own-bib.bib`. The page understands the same keywords as the CV (`underreview`, `preprint`, `accepted`, `oral`, `longoral`, `award` with `note={...}`, `mentee`, `cofirstauthor`). `@misc` abstracts are left out, as in the CV.
+Copy the newest `own-bib.bib` from the CV folder over `src/_data/own-bib.bib`. The page understands the same keywords as the CV (`underreview`, `preprint`, `accepted`, `oral`, `longoral`, `award` with `note={...}`); `mentee` and `cofirstauthor` are ignored. `@misc` abstracts are left out, as in the CV.
 
 A title links to the paper when the entry has a `url` or `doi` field. Otherwise it links to a Google Scholar search for the title. You can also add `code={https://github.com/...}` or `pdf={...}`. Manuscripts tagged `underreview` are listed without the journal name.
 

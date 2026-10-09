@@ -94,36 +94,40 @@ service:
     text: Reviewer for IEEE TMI, IEEE TPAMI, Medical Image Analysis, NeuroImage, and others; MICCAI, MIDL, ISBI
 
 teaching:
-  - term: Fall 2026
+  # Each course gets its own page at /teaching/<slug>/.
+  # `code` must match the `course:` field of that course's lecture notes.
+  - slug: ece6357
+    code: ECE 6357
     course: ECE 6357 Advanced Image Processing
+    term: Fall 2026
     where: Vanderbilt University
-    role: Instructor, with Yihao Liu
-    note: Graduate course on the mathematical and algorithmic foundations of (medical) image analysis, from statistical intensity models and segmentation to registration.
-    link: /teaching/#ece6357
-  - term: Fall 2024, 2025
-    course: ES 1400 Introduction to Engineering, ECE module
-    where: Vanderbilt University
-    role: Instructor, with Bennett Landman
-    note: Hands-on introduction to engineering for about 90 students a year, from Python on the Raspberry Pi to reinforcement learning, pulse code modulation, and encryption.
-  - term: Spring 2018, 2021
-    course: EN 520.433/623 Medical Image Analysis
-    where: Johns Hopkins University
-    role: Teaching assistant to Jerry Prince
-  - term: Fall 2017, 2018
-    course: EN 520.414/614 Image Processing and Analysis I
-    where: Johns Hopkins University
-    role: Teaching assistant to John Goutsias
+    role: Instructor
+    with: Co-taught with Yihao Liu.
+    current: true
+    about: |
+      A graduate course on the mathematical and algorithmic foundations of (medical) image analysis, from statistical intensity models and segmentation to image registration.
 
-mentoring:
-  - years: 2024–present
-    name: Aravind Krishnan
-    detail: Ph.D. student, Vanderbilt. CT kernel harmonization with generative models.
-  - years: 2025
-    name: Eléanor Liard
-    detail: Visiting intern from Paris-Panthéon-Assas University. Reconstruction kernels in thoracic CT; first-author SPIE 2026 long oral.
-  - years: 2025
-    name: Owen Dong
-    detail: Undergraduate, Vanderbilt. Representation learning for CT reconstruction kernels.
-  - years: 2021–2024
-    name: Savannah Hays
-    detail: REU student, now a Ph.D. student at Johns Hopkins. Contrast variation and harmonization in MRI.
+      The course works through primary literature and hands-on implementation: translating ideas into mathematical models, implementing them correctly, and understanding why and when they work, or break.
+  - slug: es1400
+    code: ES 1400
+    course: ES 1400 Introduction to Engineering, ECE Module
+    term: Fall 2024, Fall 2025
+    where: Vanderbilt University
+    role: Instructor
+    with: Co-taught with Bennett Landman (2024, 2025) and Zhiyuan Li (2024).
+    about: |
+      An introduction to engineering through hands-on projects, lectures, and lab sessions: Python on the Raspberry Pi, AI and reinforcement learning, pulse code modulation, servo control, encryption, and communication systems.
+  - slug: en520-433
+    code: EN 520.433/623
+    course: EN 520.433/623 Medical Image Analysis
+    term: Spring 2018, Spring 2021
+    where: Johns Hopkins University
+    role: Teaching assistant
+    with: Instructor, Jerry Prince.
+  - slug: en520-414
+    code: EN 520.414/614
+    course: EN 520.414/614 Image Processing and Analysis I
+    term: Fall 2017, Fall 2018
+    where: Johns Hopkins University
+    role: Teaching assistant
+    with: Instructor, John Goutsias.

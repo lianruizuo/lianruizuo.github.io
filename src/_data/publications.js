@@ -6,8 +6,7 @@
 //   accepted               -> "accepted" tag
 //   oral, longoral         -> presentation tag
 //   award (+ note={...})   -> award tag, text from `note`
-//   mentee                 -> first author is a student mentored by Lianrui (‡)
-//   cofirstauthor          -> "co-first author" tag
+//   mentee, cofirstauthor  -> ignored on the website
 // Optional per-entry fields the site will use if present: url, doi, code, pdf.
 // @misc entries (conference abstracts) are left out, as in the CV.
 
@@ -68,7 +67,6 @@ export default function () {
       if (kw.has("award")) tags.push({ k: "award", t: f.note || "Award" });
       if (kw.has("longoral")) tags.push({ k: "oral", t: "Long oral" });
       else if (kw.has("oral")) tags.push({ k: "oral", t: "Oral" });
-      if (kw.has("cofirstauthor")) tags.push({ k: "role", t: "Co-first author" });
       if (kw.has("accepted")) tags.push({ k: "status", t: "Accepted" });
       if (kw.has("underreview")) tags.push({ k: "status", t: "Under review" });
       if (kw.has("preprint")) tags.push({ k: "status", t: "Preprint" });

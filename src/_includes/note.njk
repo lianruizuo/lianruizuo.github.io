@@ -6,7 +6,7 @@ scripts: ["/assets/js/reader.js"]
 {%- set courseNotes = collections.notes | where("course", course) %}
 {%- set ns = courseNotes | neighbors(page.url) %}
 <header class="post-head row">
-  <div class="m">{{ course }}{% if lecture %}<br>Lecture {{ lecture }}{% endif %}</div>
+  <div class="m"><a href="/teaching/{{ course | lower | replace(' ', '') }}/" style="text-decoration:none">{{ course }}</a>{% if lecture %}<br>Lecture {{ lecture }}{% endif %}</div>
   <div class="t">
     <h1>{{ title }}</h1>
     <p class="post-meta"><span>{{ page.date | longDate }}</span>{% if draft %}<span class="draft-flag">Draft, not published</span>{% endif %}</p>
@@ -18,5 +18,5 @@ scripts: ["/assets/js/reader.js"]
 {% include "trace.njk" %}
 <nav class="pager" aria-label="Lecture notes">
   {%- if ns.prev %}<a class="prev" href="{{ ns.prev.url }}"><span class="lab">Previous lecture</span>{{ ns.prev.data.title }}</a>{% endif %}
-  {%- if ns.next %}<a class="next" href="{{ ns.next.url }}"><span class="lab">Next lecture</span>{{ ns.next.data.title }}</a>{% else %}<a class="next" href="/teaching/"><span class="lab">Back to</span>All lecture notes</a>{% endif %}
+  {%- if ns.next %}<a class="next" href="{{ ns.next.url }}"><span class="lab">Next lecture</span>{{ ns.next.data.title }}</a>{% else %}<a class="next" href="/teaching/{{ course | lower | replace(' ', '') }}/"><span class="lab">Back to</span>{{ course }}</a>{% endif %}
 </nav>

@@ -16,7 +16,7 @@
 <meta name="theme-color" content="#f4f5f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#14171c" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-<link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Lianrui Zuo — notes and journal">
+<link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Lianrui Zuo">
 <link rel="preload" href="/assets/fonts/literata-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/site.css">
 {%- if math %}
@@ -33,7 +33,7 @@
   <header class="masthead wide">
     <a class="wordmark" href="/">Lianrui Zuo</a>
     <nav class="nav" aria-label="Main">
-      {%- for item in [["Research","/research/"],["Publications","/publications/"],["Teaching","/teaching/"],["Journal","/journal/"],["About","/about/"]] %}
+      {%- for item in [["Research","/research/"],["Publications","/publications/"],["Teaching","/teaching/"],["Outside Work","/outside/"],["About","/about/"]] %}
       <a href="{{ item[1] }}"{% if page.url.startsWith(item[1]) %} aria-current="page"{% endif %}>{{ item[0] }}</a>
       {%- endfor %}
     </nav>
@@ -52,9 +52,7 @@
         <ul class="contact" style="margin:0 0 .6rem">
           <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
           {%- for l in site.links %}<li><a href="{{ l.url }}" rel="me">{{ l.label }}</a></li>{% endfor %}
-          <li><a href="/feed.xml">Feed</a></li>
         </ul>
-        <p>Set in Literata and Schibsted Grotesk. No cookies{% if site.goatcounter %}; page views are counted anonymously with GoatCounter{% endif %}. Updated {{ build.date | longDate }}.</p>
       </div>
     </div>
   </div>

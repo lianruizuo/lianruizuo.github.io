@@ -35,6 +35,8 @@
   --accent-soft: #dde2f2;
   --field-in: #1b2029;
   --field-out: #2f43a3;
+  --scan-a: #b5650d;
+  --scan-b: #0f7f78;
 
   --serif: "Literata", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --sans: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
@@ -57,6 +59,8 @@
     --accent-soft: #232a45;
     --field-in: #e3e5e8;
     --field-out: #a3b1f5;
+    --scan-a: #e8a35a;
+    --scan-b: #5cc6bc;
   }
 }
 
@@ -103,7 +107,7 @@ a:hover { color: var(--accent); text-decoration-color: currentColor; }
 .row > .t { grid-column: 3; min-width: 0; }
 
 /* margin labels: dates, years, course codes */
-.m { font-family: var(--sans); font-size: .8125rem; line-height: 1.5; color: var(--graphite); letter-spacing: .01em; font-variant-numeric: lining-nums tabular-nums; }
+.m { font-family: var(--sans); font-size: .8125rem; line-height: 1.5; color: var(--graphite); letter-spacing: .01em; font-variant-numeric: lining-nums; }
 
 /* ---------------- masthead ---------------- */
 .masthead { padding-block: 1.75rem 0; display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
@@ -144,7 +148,6 @@ eqn { display: block; }
 .field .hint-touch { display: none; }
 @media (hover: none) { .field .hint-mouse { display: none; } .field .hint-touch { display: inline; } }
 .field figcaption .hint { font-style: normal; font-family: var(--sans); font-size: .8rem; margin-left: .35rem; white-space: nowrap; }
-.grid > .field figcaption { margin-left: calc(var(--margin) + var(--gap)); }
 
 /* ---------------- home intro ---------------- */
 .intro { margin-top: 3.25rem; align-items: start; }
@@ -308,12 +311,11 @@ eqn { display: block; }
   .grid > .row, .grid > .span, .grid > .wide { grid-column: text; }
   .row { display: block; }
   .row > .m { display: block; margin-bottom: .2rem; }
-  .grid > .field figcaption { margin-left: 0; }
   .intro .m { margin-bottom: 1.25rem; }
   .portrait { max-width: 7rem; }
   .masthead { padding-top: 1.1rem; gap: .5rem 1.5rem; }
   .masthead { flex-direction: column; align-items: flex-start; }
-  .nav { gap: .35rem 1rem; font-size: .875rem; }
+  .nav { gap: .5rem; font-size: .82rem; width: 100%; justify-content: space-between; flex-wrap: nowrap; white-space: nowrap; }
   .year-group > .m { margin-bottom: .6rem; }
   .pubs-tools { position: static; }
   .search { margin-left: 0; max-width: none; }
@@ -331,3 +333,23 @@ eqn { display: block; }
 }
 .page-head + .arc, main > .page-head + section { margin-top: 1.25rem; }
 .row.top { align-items: start; } .row.top .lede { margin-top: -.35rem; }
+.course-list h3 { font-size: 1.15rem; font-weight: 500; }
+.course-list h3 a { text-decoration: none; }
+.course-list h3 a:hover { text-decoration: underline; }
+.course-list p { margin: .15rem 0 0; color: var(--graphite); font-size: .95rem; }
+.course-about p { max-width: var(--text); }
+.page-head .post-meta { margin-top: 1rem; }
+
+/* figure controls */
+.field-foot { margin-left: calc(var(--margin) + var(--gap)); max-width: var(--text); margin-top: .9rem; }
+.field-foot figcaption, .grid > .field .field-foot figcaption { margin: .65rem 0 0; }
+.field-controls { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip { font: inherit; font-family: var(--sans); font-size: .8125rem; color: var(--graphite); background: transparent; border: 1px solid var(--hairline); border-radius: 999px; padding: .3rem .8rem; cursor: pointer; display: inline-flex; align-items: center; gap: .3rem; transition: color .15s, border-color .15s, background-color .15s; }
+.chip:hover { color: var(--ink); border-color: var(--graphite); }
+.chip[aria-pressed="true"] { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+.chip[hidden] { display: none; }
+.chip .sw { width: .5rem; height: .5rem; border-radius: 50%; display: inline-block; }
+.chip .sw-a { background: var(--scan-a); }
+.chip .sw-b { background: var(--scan-b); margin-right: .2rem; margin-left: -.15rem; }
+@media (max-width: 860px) { .field-foot { margin-left: 0; } }
+@media (max-width: 370px) { .nav { font-size: .76rem; gap: .35rem; } }

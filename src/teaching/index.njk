@@ -2,46 +2,15 @@
 layout: page.njk
 title: Teaching
 permalink: /teaching/
-intro: "Lecture notes for the course I'm teaching now are posted here as the semester goes. They are written to be read on their own, by students in the room and by anyone else who finds them useful."
 ---
-{%- set course = cv.teaching[0] %}
-{%- set notes = collections.notes | where("course", "ECE 6357") %}
-<section class="course span" id="ece6357">
-  <div class="row"><div class="m">{{ course.term }}<br>{{ course.where }}</div><div class="t">
-    <h2>{{ course.course }}</h2>
-    <p class="desc">{{ course.note }} Students learn to translate ideas into mathematical models, implement them correctly, and understand why and when they work, or break. Co-taught with Yihao Liu.</p>
-  </div></div>
-  {%- if notes.length %}
-  <ul class="row-list notes-list">
-    {%- for n in notes %}
-    <li class="row"><div class="m">{% if n.data.lecture %}Lecture {{ n.data.lecture }}{% endif %}</div><div class="t">
-      <h3><a href="{{ n.url }}">{{ n.data.title }}</a>{% if n.data.draft %}<span class="draft-flag">Draft</span>{% endif %}</h3>
-      {%- if n.data.summary %}<p>{{ n.data.summary }}</p>{% endif %}
-    </div></li>
-    {%- endfor %}
-  </ul>
-  {%- else %}
-  <div class="row" style="margin-top:1.5rem"><div class="m"></div><p class="t empty">The first lecture notes will appear here soon.</p></div>
-  {%- endif %}
-  <div class="row follow"><div class="m"></div><div class="t">
-    <p class="muted small">To follow along, subscribe to the <a href="/feed.xml">feed</a>{% if site.formspree %}, or leave your email at the end of any note{% endif %}.</p>
-  </div></div>
-</section>
-
-<section class="span">
-  <div class="row section-head"><div class="m"></div><div class="t"><h2>Earlier teaching</h2></div></div>
-  <ul class="row-list">
-    {%- for t in cv.teaching %}{% if not loop.first %}
-    <li class="row"><div class="m">{{ t.term }}</div><div class="t"><p><i>{{ t.course }}</i>, {{ t.where }}<br><span class="muted">{{ t.role }}.{% if t.note %} {{ t.note }}{% endif %}</span></p></div></li>
-    {%- endif %}{% endfor %}
-  </ul>
-</section>
-
-<section class="span">
-  <div class="row section-head"><div class="m"></div><div class="t"><h2>Students I’ve mentored</h2></div></div>
-  <ul class="row-list">
-    {%- for s in cv.mentoring %}
-    <li class="row"><div class="m">{{ s.years }}</div><div class="t"><p>{{ s.name }}<br><span class="muted">{{ s.detail }}</span></p></div></li>
-    {%- endfor %}
-  </ul>
-</section>
+<ul class="row-list span course-list">
+  {%- for c in cv.teaching %}
+  <li class="row">
+    <div class="m">{{ c.term }}</div>
+    <div class="t">
+      <h3><a href="/teaching/{{ c.slug }}/">{{ c.course }}</a></h3>
+      <p>{{ c.role }}, {{ c.where }}</p>
+    </div>
+  </li>
+  {%- endfor %}
+</ul>
