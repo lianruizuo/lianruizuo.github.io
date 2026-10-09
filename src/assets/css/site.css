@@ -245,9 +245,10 @@ eqn { display: block; }
 .prose th, .prose td { padding: .35rem .9rem .35rem 0; border-bottom: 1px solid var(--hairline); text-align: left; }
 .prose th { font-family: var(--sans); font-weight: 500; font-size: .82rem; color: var(--graphite); }
 .fig { margin: 2rem 0; counter-increment: fig; }
+.fig img { max-height: 34rem; width: auto; max-width: 100%; }
 .fig img { border-radius: 2px; }
 .fig figcaption { font-size: .9rem; color: var(--graphite); margin-top: .6rem; line-height: 1.5; }
-.fig figcaption::before { content: "Figure " counter(fig) ". "; font-weight: 600; color: var(--ink); }
+.note .fig figcaption::before { content: "Figure " counter(fig) ". "; font-weight: 600; color: var(--ink); }
 .footnotes { font-size: .9rem; color: var(--graphite); }
 .footnotes-sep { border: 0; height: 1px; background: var(--hairline); margin: 3rem 0 1rem; }
 

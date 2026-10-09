@@ -16,8 +16,8 @@ export default function (eleventyConfig) {
   // ---------- static files ----------
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/files": "files" });
-  eleventyConfig.addPassthroughCopy({ "src/teaching/**/*.{png,jpg,jpeg,gif,svg,webp,pdf}": "teaching" });
-  eleventyConfig.addPassthroughCopy({ "src/outside/**/*.{png,jpg,jpeg,gif,svg,webp}": "journal" });
+  eleventyConfig.addPassthroughCopy("src/teaching/**/*.{png,jpg,jpeg,gif,svg,webp,pdf}");
+  eleventyConfig.addPassthroughCopy("src/outside/**/*.{png,jpg,jpeg,gif,svg,webp}");
   eleventyConfig.addPassthroughCopy({ "node_modules/katex/dist/katex.min.css": "assets/katex/katex.min.css" });
   eleventyConfig.addPassthroughCopy({ "node_modules/katex/dist/fonts": "assets/katex/fonts" });
   eleventyConfig.addPassthroughCopy({ "src/.nojekyll": ".nojekyll" });
