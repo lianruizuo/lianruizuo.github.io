@@ -1,0 +1,53 @@
+---
+layout: base.njk
+title: About
+---
+<header class="page-head row">
+  <div class="m"></div>
+  <div class="t"><h1>About</h1></div>
+</header>
+
+<section class="row top" style="margin-top:0">
+  <div class="m"><img class="portrait" src="/assets/img/portrait.jpg" alt="Portrait of Lianrui Zuo" width="360" height="360"></div>
+  <div class="t">
+    <p class="lede">Lianrui Zuo ({{ site.pronouns }}) is a postdoctoral research fellow at Vanderbilt University, where he works on medical image analysis, generative models, and data harmonization.</p>
+    <p>He is a member of the Medical-image Analysis and Statistical Interpretation (MASI) Lab led by Bennett Landman, and principal investigator of an NIH/NCI K99/R00 award on multimodal AI for lung cancer risk assessment. He received his Ph.D. and M.S.E. in Electrical and Computer Engineering from Johns Hopkins University, advised by Jerry Prince, and his B.S. in Instrument Science and Technology from Jilin University. From 2019 to 2023 he was a predoctoral research fellow in the Laboratory of Behavioral Neuroscience at the National Institute on Aging, with Susan Resnick.</p>
+    <p>He chairs the SASHIMI workshop at MICCAI, serves as an area chair for MICCAI and MIDL, and has guest edited special issues of <i>NeuroImage</i> and the <i>Journal of Medical Imaging</i>.</p>
+    <ul class="contact">
+      <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+      {%- if cvfile.exists %}<li><a href="{{ site.cv }}">CV (PDF)</a></li>{% endif %}
+      {%- for l in site.links %}<li><a href="{{ l.url }}" rel="me">{{ l.label }}</a></li>{% endfor %}
+    </ul>
+  </div>
+</section>
+
+{%- macro rows(id, heading, items, mkey, fmt) %}
+<section class="span" id="{{ id }}">
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>{{ heading }}</h2></div></div>
+  <ul class="row-list">{{ caller() }}</ul>
+</section>
+{%- endmacro %}
+
+{% call rows("news", "News") %}
+  {%- for n in news %}<li class="row"><div class="m">{{ n.date | newsDate }}</div><div class="t"><p>{{ n.text | md | safe }}</p></div></li>{% endfor %}
+{% endcall %}
+
+{% call rows("appointments", "Appointments") %}
+  {%- for a in cv.appointments %}<li class="row"><div class="m">{{ a.years }}</div><div class="t"><p>{{ a.title }}<br><span class="muted">{{ a.detail }}</span></p></div></li>{% endfor %}
+{% endcall %}
+
+{% call rows("education", "Education") %}
+  {%- for a in cv.education %}<li class="row"><div class="m">{{ a.years }}</div><div class="t"><p>{{ a.title }}<br><span class="muted">{{ a.detail | md | safe }}</span></p></div></li>{% endfor %}
+{% endcall %}
+
+{% call rows("honors", "Honors") %}
+  {%- for h in cv.honors %}<li class="row"><div class="m">{{ h.year }}</div><div class="t"><p>{{ h.text }}</p></div></li>{% endfor %}
+{% endcall %}
+
+{% call rows("talks", "Invited talks") %}
+  {%- for t in cv.talks %}<li class="row"><div class="m">{{ t.year }}</div><div class="t"><p><i>{{ t.title }}</i><br><span class="muted">{{ t.where }}</span></p></div></li>{% endfor %}
+{% endcall %}
+
+{% call rows("service", "Service") %}
+  {%- for s in cv.service %}<li class="row"><div class="m">{{ s.year }}</div><div class="t"><p>{{ s.text | md | safe }}</p></div></li>{% endfor %}
+{% endcall %}

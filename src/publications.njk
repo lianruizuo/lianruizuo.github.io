@@ -1,0 +1,39 @@
+---
+layout: page.njk
+title: Publications
+scripts: ["/assets/js/pubs.js"]
+---
+{%- set c = publications.counts %}
+<p class="counts">{{ c.all }} peer-reviewed papers and chapters: {{ c.journal }} journal articles, {{ c.conference }} full-length conference papers, and {{ c.chapter }} book chapters. Titles link to the paper, or to a search for it. The same list is {% if cvfile.exists %}in my <a href="{{ site.cv }}">CV</a> and {% endif %}on <a href="{{ site.links[0].url }}">Google Scholar</a>.</p>
+
+<div class="pubs-tools span" data-pubs-tools hidden>
+  <div class="row"><div class="m" data-count>{{ c.all }} papers</div><div class="t">
+    <div class="filters" role="group" aria-label="Filter publications">
+      <button type="button" data-filter-kind="all" aria-pressed="true">All<span class="n">{{ c.all }}</span></button>
+      <button type="button" data-filter-kind="journal" aria-pressed="false">Journal<span class="n">{{ c.journal }}</span></button>
+      <button type="button" data-filter-kind="conference" aria-pressed="false">Conference<span class="n">{{ c.conference }}</span></button>
+      <button type="button" data-filter-kind="chapter" aria-pressed="false">Chapters<span class="n">{{ c.chapter }}</span></button>
+      <span class="sep" aria-hidden="true"></span>
+      <button type="button" data-filter-flag="first" aria-pressed="false">First author<span class="n">{{ c.first }}</span></button>
+      <button type="button" data-filter-flag="mentee" aria-pressed="false">Students I mentored<span class="n">{{ c.mentee }}</span></button>
+      <input class="search" type="search" placeholder="Search titles, authors, venues" aria-label="Search publications" data-filter-text>
+    </div>
+  </div></div>
+</div>
+
+<div class="span" data-pubs>
+  {%- for g in publications.byYear %}
+  <div class="year-group row">
+    <div class="m">{{ g.year }}</div>
+    <div class="t"><ul class="pub-list">{% for p in g.items %}{% include "pub.njk" %}{% endfor %}</ul></div>
+  </div>
+  {%- endfor %}
+</div>
+
+{%- if publications.review.length %}
+<section class="span" id="in-review">
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>In review and preprints</h2></div></div>
+  <div class="row"><div class="m"></div><div class="t"><ul class="pub-list">{% for p in publications.review %}{% include "pub.njk" %}{% endfor %}</ul></div></div>
+</section>
+{%- endif %}
+<p class="legend" style="margin-top:2.5rem"><b>Bold</b> marks my name; <sup>‡</sup> marks a first author who is a student I mentored. Conference abstracts are listed in the CV.</p>

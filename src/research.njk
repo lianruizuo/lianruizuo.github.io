@@ -1,0 +1,28 @@
+---
+layout: page.njk
+title: Research
+intro: "Medical images are measurements, and measurements come with an instrument attached. My work is organized around three questions about what a measurement can and cannot tell us. The papers below are a selection; the full list is under [Publications](/publications/)."
+---
+{%- for arc in research.arcs %}
+<section class="arc span" id="{{ arc.id }}">
+  <div class="row"><div class="m"></div><div class="t">
+    <h2>{{ arc.title }}</h2>
+    {{ arc.body | mdBlock | safe }}
+  </div></div>
+  <div class="row arc-papers"><div class="m">Selected papers</div><div class="t">
+    <ul class="pub-list">
+      {%- for p in publications.all | byKeys(arc.papers) %}{% include "pub.njk" %}{% endfor %}
+    </ul>
+  </div></div>
+</section>
+{%- endfor %}
+
+<section class="span" id="funding">
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>Funding</h2></div></div>
+  <ul class="row-list">
+    {%- for f in research.funding %}
+    <li class="row"><div class="m">{{ f.years }}</div><div class="t"><p><i>{{ f.title }}</i><br><span class="muted">{{ f.sponsor }}. {{ f.role }}.</span></p></div></li>
+    {%- endfor %}
+  </ul>
+</section>
+<p class="legend" style="margin-top:2.5rem"><b>Bold</b> marks my name; <sup>‡</sup> marks a first author I mentored.</p>

@@ -1,0 +1,14 @@
+{#- One publication. Expects `p`. -#}
+<li class="pub" data-kind="{{ p.kind }}" data-first="{{ '1' if p.first else '0' }}" data-mentee="{{ '1' if p.mentee else '0' }}" data-text="{{ (p.title + " " + p.venue + " " + p.year) | lower }}{% for a in p.authors %} {{ a.name | lower }}{% endfor %}">
+  <a class="title" href="{{ p.link }}"{% if p.linkIsSearch %} title="Find this paper on Google Scholar"{% endif %}>{{ p.title | md | safe }}</a>
+  <div class="authors">
+    {%- for a in p.authorsShown -%}
+      {%- if a.gap %}…{% elif a.me %}<span class="me">{{ a.name }}</span>{% else %}{{ a.name }}{% endif %}{% if loop.first and p.mentee %}<sup title="Student mentored by Lianrui">‡</sup>{% endif %}{% if not loop.last %}, {% endif %}
+    {%- endfor %}{% if p.etal %}, et al.{% endif %}
+  </div>
+  <div class="venue">{% if p.venueDisplay %}{% if p.kind == "chapter" %}In {% endif %}<i{% if p.venueDisplay != p.venueFull %} title="{{ p.venueFull }}"{% endif %}>{{ p.venueDisplay }}</i>, {% endif %}{{ p.year }}
+    {%- for t in p.tags %}<span class="tag {{ t.k }}">{{ t.t }}</span>{% endfor %}
+    {%- if p.code %}<span class="tag"><a href="{{ p.code }}">Code</a></span>{% endif %}
+    {%- if p.pdf %}<span class="tag"><a href="{{ p.pdf }}">PDF</a></span>{% endif %}
+  </div>
+</li>

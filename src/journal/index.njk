@@ -1,0 +1,19 @@
+---
+layout: page.njk
+title: Journal
+permalink: /journal/
+intro: "Notes from outside the papers: conferences and travel, teaching, things I’m reading, and life in Nashville."
+---
+{%- set entries = collections.journal %}
+{%- if entries.length %}
+<ul class="entries row-list span">
+  {%- for p in entries %}
+  <li class="row">
+    <div class="m">{{ p.date | longDate }}</div>
+    <div class="t"><h3><a href="{{ p.url }}">{{ p.data.title }}</a>{% if p.data.draft %}<span class="draft-flag">Draft</span>{% endif %}</h3>{% if p.data.summary %}<p>{{ p.data.summary }}</p>{% endif %}</div>
+  </li>
+  {%- endfor %}
+</ul>
+{%- else %}
+<p class="empty">The first entry is on its way.</p>
+{%- endif %}

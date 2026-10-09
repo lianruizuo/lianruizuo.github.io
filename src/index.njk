@@ -1,0 +1,63 @@
+---
+layout: base.njk
+title: Lianrui Zuo
+description: Lianrui Zuo develops methods that make medical images trustworthy, complete, and informative. Postdoctoral research fellow at Vanderbilt University.
+scripts: ["/assets/js/field.js"]
+---
+<figure class="field wide">
+  <canvas id="field" tabindex="0" role="img" aria-label="Contour lines of a smooth field. Inside a rectangular frame they are solid; outside the frame they are dotted. The frame can be moved with the pointer or the arrow keys."></canvas>
+  <figcaption>Inside the frame is what a scanner measured; outside it is what a model has to infer. Much of my work happens at that border. <span class="hint hint-mouse">Move the frame with your cursor.</span><span class="hint hint-touch">Drag to move the frame.</span></figcaption>
+</figure>
+
+<section class="intro row">
+  <div class="m">
+    <img class="portrait" src="/assets/img/portrait.jpg" alt="Portrait of Lianrui Zuo" width="360" height="360">
+  </div>
+  <div class="t">
+    <p class="lede">I’m a postdoctoral research fellow at Vanderbilt University, working where medical imaging meets machine learning. I develop methods that make medical images trustworthy, complete, and informative.</p>
+    <p>I work in the <a href="https://my.vanderbilt.edu/masi/">MASI Lab</a> with Bennett Landman. Before Vanderbilt, I did my Ph.D. at Johns Hopkins with Jerry Prince, and spent four years as a predoctoral fellow at the National Institute on Aging with Susan Resnick. This fall I’m teaching <a href="/teaching/">ECE 6357 Advanced Image Processing</a>, and writing the lecture notes as I go.</p>
+    <ul class="contact">
+      <li><a href="mailto:{{ site.email }}">Email</a></li>
+      {%- for l in site.links %}<li><a href="{{ l.url }}" rel="me">{{ l.label }}</a></li>{% endfor %}
+      {%- if cvfile.exists %}<li><a href="{{ site.cv }}">CV (PDF)</a></li>{% endif %}
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2>Three questions I keep asking</h2><a class="more" href="/research/">More on my research</a></div>
+  <ul class="arcs">
+    {%- for arc in research.arcs %}
+    <li>
+      <h3><a href="/research/#{{ arc.id }}" style="text-decoration:none">{{ arc.title }}</a></h3>
+      <p>{{ arc.short }}</p>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
+
+<section class="span">
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>Recently</h2><a class="more" href="/about/#news">All news</a></div></div>
+  <ul class="row-list">
+    {%- for n in news | take(6) %}
+    <li class="row"><div class="m">{{ n.date | newsDate }}</div><div class="t"><p>{{ n.text | md | safe }}</p></div></li>
+    {%- endfor %}
+  </ul>
+</section>
+
+<section class="span">
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>Writing</h2><a class="more" href="/teaching/">Lecture notes</a><a class="more" href="/journal/">Journal</a></div></div>
+  {%- set recent = collections.writing | take(4) %}
+  {%- if recent.length %}
+  <ul class="entries row-list">
+    {%- for p in recent %}
+    <li class="row">
+      <div class="m">{{ p.date | shortDate }}<br>{{ p.data.course or "Journal" }}</div>
+      <div class="t"><h3><a href="{{ p.url }}">{{ p.data.title }}</a></h3>{% if p.data.summary %}<p>{{ p.data.summary }}</p>{% endif %}</div>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- else %}
+  <div class="row"><div class="m"></div><p class="t empty">Lecture notes from ECE 6357 and a journal start here this fall.</p></div>
+  {%- endif %}
+</section>

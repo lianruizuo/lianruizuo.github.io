@@ -1,0 +1,129 @@
+# Content for the About page, transcribed from the CV (09/2026).
+
+appointments:
+  - years: 2024–present
+    title: Postdoctoral Research Fellow, Vanderbilt University
+    detail: Medical-image Analysis and Statistical Interpretation (MASI) Lab, with Bennett Landman
+  - years: 2019–2024
+    title: Predoctoral Research Fellow and Special Volunteer, National Institute on Aging
+    detail: Laboratory of Behavioral Neuroscience, with Susan Resnick
+  - years: 2018–2024
+    title: Graduate Research Assistant, Johns Hopkins University
+    detail: Image Analysis and Communications Laboratory (IACL), with Jerry Prince
+
+education:
+  - years: 2018–2024
+    title: Ph.D. in Electrical and Computer Engineering, Johns Hopkins University
+    detail: "*Unsupervised structural MRI harmonization by learning disentangled representations.* Advisor: Jerry Prince"
+  - years: 2016–2018
+    title: M.S.E. in Electrical and Computer Engineering, Johns Hopkins University
+    detail: "*Quality assurance using outlier detection for cerebellar lobule segmentation.* Advisor: Jerry Prince"
+  - years: 2012–2016
+    title: B.S. in Instrument Science and Technology, Jilin University
+    detail: Changchun, China
+
+honors:
+  - year: 2026
+    text: Outstanding Area Chair Award, MICCAI (3 of 245)
+  - year: 2025
+    text: Postdoc of the Year (Postdoctoral Service Award), Vanderbilt University
+  - year: 2025
+    text: Outstanding Reviewer Award, MICCAI (top 0.7%)
+  - year: 2023
+    text: Best Poster Award, ACTRIMS Young Scientist Summit
+  - year: 2023
+    text: Finalist, Siebel Scholarship
+  - year: 2023
+    text: Young Scientist Summit Training Award, ACTRIMS
+  - year: 2022
+    text: Best Paper Award, DALI workshop at MICCAI
+  - year: 2021
+    text: Best Poster Award, Information Processing in Medical Imaging (IPMI)
+  - year: 2020
+    text: Scientific Director Award, NIA Intramural Research Program Scientific Retreat
+  - year: 2019–2023
+    text: Predoctoral Intramural Research Training Award, National Institutes of Health
+  - year: 2019
+    text: Finalist, Excellence in Teaching Award, Whiting School of Engineering, Johns Hopkins
+
+talks:
+  - year: 2025
+    title: "When scanners speak different languages: challenges and solutions for harmonizing medical images"
+    where: Keynote, ISBI workshop on multi-site medical imaging data adaptation and harmonization, Houston
+  - year: 2025
+    title: "The shape of data in noise: diffusion models as a programmable prior"
+    where: VALIANT Summer School, Vanderbilt University
+  - year: 2024
+    title: "Decoding AI's creative mind: an introduction to generative models"
+    where: VALIANT Summer School, Vanderbilt University
+  - year: 2023
+    title: "From voxels to patients: a data-centric journey towards consistent translational AI"
+    where: Vanderbilt Institute for Surgery and Engineering
+  - year: 2023
+    title: Unsupervised MR image harmonization with disentangled representation learning
+    where: Harvard Medical School (remote)
+  - year: 2022
+    title: Unsupervised MR harmonization with disentanglement
+    where: University of Science and Technology of China (remote)
+  - year: 2022
+    title: Domain shift, domain adaptation, and magnetic resonance image harmonization
+    where: Guest lecture, Machine Learning, Johns Hopkins University
+  - year: 2022
+    title: An overview of disentangled representation learning for MR harmonization
+    where: Neural Systems Analysis Laboratory, Johns Hopkins University
+  - year: 2021
+    title: Unsupervised MR image harmonization using disentangled representation learning
+    where: Computational Neuroimage Science Laboratory, Stanford University (remote)
+
+service:
+  - year: 2026
+    text: Area Chair, MICCAI 2026 and MIDL 2026
+  - year: 2026
+    text: Guest Editor, *Journal of Medical Imaging*, special issue on deformable image registration
+  - year: 2026
+    text: Organizer, Learn2Reg challenge at MICCAI; THRIVE workshop (Tennessee Health Research and Innovation using Verified AI Ecosystems)
+  - year: 2024–2026
+    text: Chair, SASHIMI (Simulation and Synthesis in Medical Imaging) workshop at MICCAI
+  - year: 2025
+    text: Organizer, Beyond FA challenge, ISBI
+  - year: 2024
+    text: Guest Editor, *NeuroImage*, special issue on harmonization techniques for MRI
+  - year: 2023
+    text: Editorial Chair, DALI workshop at MICCAI
+  - year: Ongoing
+    text: Reviewer for IEEE TMI, IEEE TPAMI, Medical Image Analysis, NeuroImage, and others; MICCAI, MIDL, ISBI
+
+teaching:
+  - term: Fall 2026
+    course: ECE 6357 Advanced Image Processing
+    where: Vanderbilt University
+    role: Instructor, with Yihao Liu
+    note: Graduate course on the mathematical and algorithmic foundations of (medical) image analysis, from statistical intensity models and segmentation to registration.
+    link: /teaching/#ece6357
+  - term: Fall 2024, 2025
+    course: ES 1400 Introduction to Engineering, ECE module
+    where: Vanderbilt University
+    role: Instructor, with Bennett Landman
+    note: Hands-on introduction to engineering for about 90 students a year, from Python on the Raspberry Pi to reinforcement learning, pulse code modulation, and encryption.
+  - term: Spring 2018, 2021
+    course: EN 520.433/623 Medical Image Analysis
+    where: Johns Hopkins University
+    role: Teaching assistant to Jerry Prince
+  - term: Fall 2017, 2018
+    course: EN 520.414/614 Image Processing and Analysis I
+    where: Johns Hopkins University
+    role: Teaching assistant to John Goutsias
+
+mentoring:
+  - years: 2024–present
+    name: Aravind Krishnan
+    detail: Ph.D. student, Vanderbilt. CT kernel harmonization with generative models.
+  - years: 2025
+    name: Eléanor Liard
+    detail: Visiting intern from Paris-Panthéon-Assas University. Reconstruction kernels in thoracic CT; first-author SPIE 2026 long oral.
+  - years: 2025
+    name: Owen Dong
+    detail: Undergraduate, Vanderbilt. Representation learning for CT reconstruction kernels.
+  - years: 2021–2024
+    name: Savannah Hays
+    detail: REU student, now a Ph.D. student at Johns Hopkins. Contrast variation and harmonization in MRI.

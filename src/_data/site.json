@@ -1,0 +1,21 @@
+{
+  "title": "Lianrui Zuo",
+  "url": "https://lianruizuo.github.io",
+  "description": "Lianrui Zuo — medical imaging and machine learning at Vanderbilt University. Research, publications, lecture notes from ECE 6357, and a journal.",
+  "role": "Postdoctoral Research Fellow",
+  "affiliation": "Vanderbilt University",
+  "location": "Nashville, Tennessee",
+  "pronouns": "he/him",
+  "email": "lianrui.zuo@vanderbilt.edu",
+  "cv": "/files/LianruiZuo_CV.pdf",
+  "links": [
+    { "label": "Google Scholar", "url": "https://scholar.google.com/citations?user=GQGYangAAAAJ&hl=en" },
+    { "label": "GitHub", "url": "https://github.com/lianruizuo" },
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/lianrui-zuo-546092143/" },
+    { "label": "ORCID", "url": "https://orcid.org/0000-0002-5923-9097" }
+  ],
+
+  "_reader_traces": "Both are optional. Leave empty to switch the feature off. See README.md.",
+  "goatcounter": "",
+  "formspree": ""
+}

@@ -1,41 +1,85 @@
+# lianruizuo.github.io
 
-# Academic Pages
+My personal site. It's built with [Eleventy](https://www.11ty.dev/) and published to GitHub Pages by a GitHub Action whenever I push to `main`. There's no theme: every layout and style is in this repository.
 
-![pages-build-deployment](https://github.com/academicpages/academicpages.github.io/actions/workflows/pages/pages-build-deployment/badge.svg)
+## Where things live
 
-Academic Pages is a Github Pages template for academic websites.
+| What | File |
+|---|---|
+| Lecture notes (ECE 6357) | `src/teaching/ece6357/*.md` |
+| Journal entries | `src/journal/*.md` |
+| Publications | `src/_data/own-bib.bib`, the same file as the CV |
+| Research arcs, selected papers, funding | `src/_data/research.yaml` |
+| News | `src/_data/news.yaml` |
+| About page (appointments, honors, talks, service, teaching, mentoring) | `src/_data/cv.yaml` |
+| Name, email, profile links, reader-trace switches | `src/_data/site.json` |
+| CV PDF | `src/files/LianruiZuo_CV.pdf` (the CV link appears once this file exists) |
+| Styles | `src/assets/css/site.css` |
+| Home-page figure | `src/assets/js/field.js` |
 
+## Preview on my computer
 
-# Getting Started
+```sh
+npm install        # once
+npm start          # then open http://localhost:8080
+```
 
-1. Register a GitHub account if you don't have one and confirm your e-mail (required!)
-1. Click the "Use this template" button in the top right.
-1. On the "New repository" page, enter your repository name as "[your GitHub username].github.io", which will also be your website's URL.
-1. Set site-wide configuration and add your content.
-1. Upload any files (like PDFs, .zip files, etc.) to the `files/` directory. They will appear at https://[your GitHub username].github.io/files/example.pdf.  
-1. Check status by going to the repository settings, in the "GitHub pages" section
-1. (Optional) Use the Jupyter notebooks or python scripts in the `markdown_generator` folder to generate markdown files for publications and talks from a TSV file.
+Drafts (`draft: true`) are visible in the preview and never published.
 
-See more info at https://academicpages.github.io/
+## Post a lecture note
 
-## Running Locally
+Create `src/teaching/ece6357/02-kmeans.md`:
 
-When you are initially working your website, it is very useful to be able to preview the changes locally before pushing them to GitHub. To work locally you will need to:
+```markdown
+---
+title: From thresholds to k-means
+lecture: 2
+date: 2026-09-03
+summary: One sentence for the list on the Teaching page.
+draft: true          # remove when it's ready
+---
 
-1. Clone the repository and made updates as detailed above.
-1. Make sure you have ruby-dev, bundler, and nodejs installed: `sudo apt install ruby-dev ruby-bundler nodejs`
-1. Run `bundle install` to install ruby dependencies. If you get errors, delete Gemfile.lock and try again.
-1. Run `jekyll serve -l` to generate the HTML and serve it from `localhost:4000` the local server will automatically rebuild and refresh the pages on change.
+Text in Markdown. Inline math $\mu_k$ and display math:
 
+$$
+J = \sum_{k} \sum_{x \in C_k} \lVert x - \mu_k \rVert^2
+$$
 
-# Maintenance 
+{% marginnote %}A note that sits in the right margin.{% endmarginnote %}
 
-Bug reports and feature requests to the template  should be [submitted via GitHub](https://github.com/academicpages/academicpages.github.io/issues/new/choose). For questions concerning how to style the template, please feel free to start a [new discussion on GitHub](https://github.com/academicpages/academicpages.github.io/discussions).
+{% figure "/teaching/ece6357/kmeans.png", "A caption. Figures are numbered automatically." %}
+```
 
-This repository was forked (then detached) by [Stuart Geiger](https://github.com/staeiou) from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/), which is © 2016 Michael Rose and released under the MIT License (see LICENSE.md). It is currently being maintained by [Robert Zupko](https://github.com/rjzupkoii) and additional maintainers would be welcomed.
+Put images next to the Markdown file. The file name becomes the URL (`/teaching/ece6357/02-kmeans/`), and `lecture:` sets the order. A note links to the previous and next lectures automatically. `src/teaching/ece6357/01-otsu.md` is an example draft that shows every feature; edit it or delete it.
 
-## Bugfixes and enhancements
+For a new course, make a new folder like `src/teaching/ece6357/`, copy `ece6357.11tydata.json` into it with the new course code, and add a section to `src/teaching/index.njk`.
 
-If you have bugfixes and enhancements that you would like to submit as a pull request, you will need to [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) this repository as opposed to using it as a template. This will also allow you to [synchronize your copy](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) of template to your fork as well.
+## Post a journal entry
 
-Unfortunately, one logistical issue with a template theme like Academic Pages that makes it a little tricky to get bug fixes and updates to the core theme. If you use this template and customize it, you will probably get merge conflicts if you attempt to synchronize. If you want to save your various .yml configuration files and markdown files, you can delete the repository and fork it again. Or you can manually patch.
+Create `src/journal/2026-10-12-some-title.md` with `title`, `date`, an optional `place` and `summary`, then write. The date prefix is dropped from the URL. `src/journal/2026-10-09-template.md` is an example draft.
+
+## Update publications
+
+Copy the newest `own-bib.bib` from the CV folder over `src/_data/own-bib.bib`. The page understands the same keywords as the CV (`underreview`, `preprint`, `accepted`, `oral`, `longoral`, `award` with `note={...}`, `mentee`, `cofirstauthor`). `@misc` abstracts are left out, as in the CV.
+
+A title links to the paper when the entry has a `url` or `doi` field. Otherwise it links to a Google Scholar search for the title. You can also add `code={https://github.com/...}` or `pdf={...}`. Manuscripts tagged `underreview` are listed without the journal name.
+
+## Reader traces
+
+Both are off until switched on in `src/_data/site.json`. Nothing either one collects is shown publicly.
+
+**1. Reads and "this was useful" marks: GoatCounter.** Free for personal sites, no cookies, no consent banner needed.
+1. Sign up at <https://www.goatcounter.com/> and pick a code, e.g. `lianruizuo`. The dashboard is then at `https://lianruizuo.goatcounter.com`.
+2. Set `"goatcounter": "lianruizuo"` in `site.json`.
+3. The dashboard shows views per page, where readers came from (referrers), and rough location and device. Each click on "This was useful" or "I enjoyed this" appears as an event named `useful/<page>`, e.g. `useful/teaching/ece6357/02-kmeans/`.
+
+**2. "Tell me who you are": Formspree.** This is a private form that emails you. The free tier covers 50 messages a month.
+1. Sign up at <https://formspree.io/>, create a form, and copy its ID (the part after `/f/`).
+2. Set `"formspree": "<that id>"` in `site.json`.
+3. Messages arrive by email with the reader's name, affiliation, optional email, a note, and the page they were on. Formspree also keeps them in its dashboard, so you can export the list as CSV. Readers who leave an email asked to hear about new notes; that's your mailing list.
+
+## Deploy
+
+1. Replace the contents of the `lianruizuo.github.io` repository with this folder. Keep the old site on a branch, e.g. `git switch -c old-academicpages`, if you'd like a copy.
+2. In the repository on GitHub, go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
+3. Push to `main`. The site rebuilds in about a minute.

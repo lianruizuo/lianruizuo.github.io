@@ -1,0 +1,20 @@
+---
+layout: base.njk
+math: true
+scripts: ["/assets/js/reader.js"]
+---
+<header class="post-head row">
+  <div class="m"><a href="/journal/" style="text-decoration:none">Journal</a></div>
+  <div class="t">
+    <h1>{{ title }}</h1>
+    <p class="post-meta"><span>{{ page.date | longDate }}</span>{% if place %}<span>{{ place }}</span>{% endif %}{% if draft %}<span class="draft-flag">Draft, not published</span>{% endif %}</p>
+  </div>
+</header>
+<article class="prose" style="display:contents">
+{{ content | safe }}
+</article>
+{% set traceInvite = "Say hello. Only I will see it." %}{% set usefulLabel = "I enjoyed this" %}{% set usefulDone = "Glad you did" %}
+{% include "trace.njk" %}
+<nav class="pager" aria-label="Journal">
+  <a class="next" href="/journal/"><span class="lab">Back to</span>All journal entries</a>
+</nav>

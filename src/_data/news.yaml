@@ -1,0 +1,32 @@
+# Newest first. `date` is YYYY-MM (or just YYYY). `text` is Markdown.
+# The home page shows the first six; About shows everything.
+- date: 2026-09
+  text: My NIH/NCI K99/R00 Pathway to Independence Award was funded, on multimodal AI for early diagnosis and risk assessment in lung cancer care.
+- date: 2026
+  text: Received the Outstanding Area Chair Award at MICCAI 2026 (3 of 245 area chairs).
+- date: 2026-08
+  text: Started teaching ECE 6357 Advanced Image Processing at Vanderbilt with Yihao Liu. Lecture notes will appear under [Teaching](/teaching/).
+- date: 2026
+  text: Guest editing a special issue on deformable image registration in the *Journal of Medical Imaging*, and co-organizing the Learn2Reg challenge at MICCAI.
+- date: 2025-08
+  text: Our NIH/NLM R01 on retrospective MR harmonization for robust federated learning was funded; I am a co-investigator.
+- date: 2025
+  text: Named Vanderbilt's Postdoc of the Year (Postdoctoral Service Award), and an Outstanding Reviewer at MICCAI 2025 (top 0.7%).
+- date: 2025
+  text: Keynote at the ISBI 2025 workshop on multi-site medical imaging data adaptation and harmonization, *"When scanners speak different languages."*
+- date: 2025-02
+  text: Awarded an NSF NAIRR Pilot allocation as PI (25,000 H100 GPU hours) for a foundation model for consistent lung CT analysis.
+- date: 2024
+  text: Chairing the SASHIMI workshop (Simulation and Synthesis in Medical Imaging) at MICCAI, 2024 through 2026.
+- date: 2024-03
+  text: Joined the MASI Lab at Vanderbilt University as a postdoctoral research fellow, working with Bennett Landman.
+- date: 2024-01
+  text: Defended my Ph.D. at Johns Hopkins, *Unsupervised structural MRI harmonization by learning disentangled representations.* Thank you to Jerry Prince, Trac Tran, and Mathias Unberath.
+- date: 2023-09
+  text: "HACA3, a unified approach for multi-site MR harmonization, was published in *Computerized Medical Imaging and Graphics*. [Code on GitHub](https://github.com/lianruizuo/haca3)."
+- date: 2023-06
+  text: Interviewed by [NeurologyLive](https://www.neurologylive.com/view/enhancing-consistency-neuroimaging-ai-image-harmonization-lianrui-zuo) and the [Video Journal of Neurology](https://vjneurology.com/speaker/lianrui-zuo/) about harmonization in multiple sclerosis imaging.
+- date: 2022
+  text: "*Disentangling a single MR modality* received the Best Paper Award at DALI, a MICCAI workshop."
+- date: 2021
+  text: "*Information-based disentangled representation learning for unsupervised MR harmonization* received the Best Poster Award at IPMI."
