@@ -35,7 +35,7 @@
   const NLEVELS = 15;
   const CELL = 5;            // CSS px per grid cell
   const MONTHS_PER_SEC = 1;  // patient time in Time mode
-  const SCAN_EVERY = 6;      // months between scans
+  const SCAN_EVERY = 12;     // months between scans
   const MEASURED_WIDTH = 2.8; // line width of measured contours (outside lines are 1)
   const SCANNERS = [
     { name: "scanner A", gamma: 0.86, width: 3.1, color: "a" },
