@@ -5,7 +5,7 @@ description: Lianrui Zuo develops methods that make biomedical measurements trus
 scripts: ["/assets/js/field.js"]
 ---
 <figure class="field wide">
-  <canvas id="field" tabindex="0" role="img" aria-label="Contour lines standing for a patient. Inside a movable frame the lines are solid: the measurement. Outside the frame they turn from solid to dashed to dotted with distance."></canvas>
+  <canvas id="field" tabindex="0" role="img" aria-label="A contour landscape standing for a patient. Inside a movable frame the lines are solid: the measurement. Outside the frame they turn from solid to dashed to dotted with distance."></canvas>
   <div class="field-foot">
     <div class="field-controls" role="group" aria-label="Figure options">
       <button type="button" class="chip" data-mode="scanner" aria-pressed="false"><span class="sw sw-a" aria-hidden="true"></span><span class="sw sw-b" aria-hidden="true"></span>Scanners</button>
@@ -13,7 +13,7 @@ scripts: ["/assets/js/field.js"]
       <button type="button" class="chip" data-mode="time" aria-pressed="false">Time</button>
     </div>
     <figcaption>
-      A biomedical measurement sees part of the patient. Inside the frame is what was measured; beyond it, what can be inferred fades with distance.<span data-note="scanner" hidden> Two scanners draw the same anatomy differently. Harmonization removes the scanner and keeps the anatomy.</span><span data-note="time" hidden> The patient keeps changing, but a measurement only captures the moment it was taken.</span>
+      The landscape is a patient. A biomedical measurement sees only part of it: inside the frame is what was measured; beyond it, what can be inferred fades with distance.<span data-note="scanner" hidden> Two scanners draw the same anatomy differently. Harmonization removes the scanner and keeps the anatomy.</span><span data-note="time" hidden> The patient keeps changing, but a measurement only captures the moment it was taken.</span>
       <span class="hint hint-mouse">Move the frame with your cursor.</span><span class="hint hint-touch">Drag to move the frame.</span>
     </figcaption>
   </div>
