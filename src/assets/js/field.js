@@ -44,16 +44,18 @@
 
   // components at patient time tau (months); tau = 0 is the resting state
   function comps(tau) {
+    // each wave starts at zero, so the patient at tau = 0 is exactly the resting state
+    const wave = (x, ph) => Math.sin(x + ph) - Math.sin(ph);
     return COMP.map(([cx, cy, sx, sy, r, w], i) => {
       if (!tau) return [cx, cy, sx, sy, r, w];
       const a = 0.045 + 0.008 * i; // slow: one full cycle takes 2-3 minutes
       return [
-        cx + 0.02 * Math.sin(a * tau + i * 1.7),
-        cy + 0.045 * Math.sin(0.8 * a * tau + i * 2.3),
-        sx * (1 + 0.08 * Math.sin(0.6 * a * tau + i)),
+        cx + 0.02 * wave(a * tau, i * 1.7),
+        cy + 0.045 * wave(0.8 * a * tau, i * 2.3),
+        sx * (1 + 0.08 * wave(0.6 * a * tau, i)),
         sy,
-        r + 0.15 * Math.sin(0.5 * a * tau + i * 0.9),
-        w * (1 + 0.22 * Math.sin(0.7 * a * tau + i * 1.3)),
+        r + 0.15 * wave(0.5 * a * tau, i * 0.9),
+        w * (1 + 0.22 * wave(0.7 * a * tau, i * 1.3)),
       ];
     });
   }
@@ -257,7 +259,8 @@
       ctx.fillStyle = css(colors.b); ctx.textAlign = "right"; ctx.fillText("scanner B", x1 - 6, ly);
     } else {
       ctx.fillStyle = css(colors.ink); ctx.textAlign = "left";
-      ctx.fillText(scanAmt > 0.5 ? "measured, harmonized" : "measured", x0 + 6, ly);
+      if (scanAmt > 0.5) ctx.fillText("harmonized", x0 + 6, ly);
+      else if (!timeOn) ctx.fillText("measured", x0 + 6, ly); // in Time mode the label above says when it was measured
     }
     if (timeOn) {
       const ago = Math.floor(tau - tauScan);
