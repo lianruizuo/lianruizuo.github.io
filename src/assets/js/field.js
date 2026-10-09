@@ -237,10 +237,16 @@
     }
     ctx.restore();
 
-    // the frame: a closed box; it flashes when a new scan is taken
+    // the frame: viewfinder corners; they grow briefly when a new scan is taken
     ctx.globalAlpha = Math.min(1, open * 1.4);
-    ctx.strokeStyle = css(colors.ink); ctx.lineWidth = 1.5 + 1.5 * flash; ctx.lineJoin = "miter";
-    ctx.strokeRect(x0, y0, fw, fh);
+    ctx.strokeStyle = css(colors.ink); ctx.lineWidth = 2 + 1.5 * flash; ctx.lineJoin = "miter"; ctx.lineCap = "butt";
+    const ck = 16 + 8 * flash;
+    ctx.beginPath();
+    ctx.moveTo(x0, y0 + ck); ctx.lineTo(x0, y0); ctx.lineTo(x0 + ck, y0);
+    ctx.moveTo(x1 - ck, y0); ctx.lineTo(x1, y0); ctx.lineTo(x1, y0 + ck);
+    ctx.moveTo(x1, y1 - ck); ctx.lineTo(x1, y1); ctx.lineTo(x1 - ck, y1);
+    ctx.moveTo(x0 + ck, y1); ctx.lineTo(x0, y1); ctx.lineTo(x0, y1 - ck);
+    ctx.stroke();
 
     // labels
     ctx.font = '500 11px "Schibsted Grotesk", system-ui, sans-serif';
