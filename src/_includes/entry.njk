@@ -7,7 +7,7 @@ scripts: ["/assets/js/reader.js"]
   <div class="m"><a href="/outside/" style="text-decoration:none">Outside Work</a></div>
   <div class="t">
     <h1>{{ title }}</h1>
-    <p class="post-meta"><span>{{ page.date | longDate }}</span>{% if place %}<span>{{ place }}</span>{% endif %}{% if draft %}<span class="draft-flag">Draft, not published</span>{% endif %}</p>
+    <p class="post-meta"><span>Written {{ page.date | longDate }}</span>{% if place %}<span>{{ place }}</span>{% endif %}{% if draft %}<span class="draft-flag">Draft, not published</span>{% endif %}</p>
   </div>
 </header>
 <article class="prose" style="display:contents">
