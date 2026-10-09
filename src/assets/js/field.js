@@ -74,8 +74,6 @@
   let scanAmt = 0;       // 0 = plain measurement, 1 = scanner look (animated)
   let tau = 0, tauScan = 0, flash = 0;
   let last = 0, raf = 0, visible = true;
-  let timeRate = MONTHS_PER_SEC; // months per second; faster during the demo
-  let follow = 0.86;             // how quickly the frame catches up with its target (closer to 1 = slower)
 
   // ---------------------------------------------------------------- color helpers
   const rgb = (hex) => {
@@ -284,7 +282,7 @@
       open = ease(Math.min(1, el / 1100));
       fade = ease(Math.min(1, Math.max(0, (el - 600) / 900)));
     }
-    const k = reduce ? 1 : 1 - Math.pow(follow, dt * 60 || 1);
+    const k = reduce ? 1 : 1 - Math.pow(0.86, dt * 60 || 1);
     frame.x += (target.x - frame.x) * k;
     frame.y += (target.y - frame.y) * k;
 
@@ -294,26 +292,39 @@
     flash = Math.max(0, flash - dt * 2.5);
 
     if (timeOn) {
-      tau += dt * timeRate;
+      tau += dt * MONTHS_PER_SEC;
       gNow = sample(tau);
       rebuildOutside();
       if (tau - tauScan >= SCAN_EVERY) { tauScan = tau; gSnap = gNow; flash = 1; }
     }
-
-    if (tourOn) tourTick(dt);
 
     draw();
 
     const moving = Math.abs(target.x - frame.x) > 0.3 || Math.abs(target.y - frame.y) > 0.3;
     const wantHarm = harmonizeOn && scannerOn ? 1 : 0;
     const easing = open < 1 || fade < 1 || scanAmt !== (scannerOn ? 1 : 0) || harm !== wantHarm || flash > 0;
-    if (!tourOn && tourPending && open >= 1 && fade >= 1) startTourSoon();
-    if (visible && (moving || easing || timeOn || tourOn)) kick();
+    if (visible && (moving || easing || timeOn)) kick();
     else last = 0;
   }
   function kick() { if (!raf) raf = requestAnimationFrame(tick); }
 
-  // ---------------------------------------------------------------- modes
+  // ---------------------------------------------------------------- input
+  function moveTo(clientX, clientY) {
+    const r = canvas.getBoundingClientRect();
+    target.x = clientX - r.left; target.y = clientY - r.top; target.set = true;
+    clampTarget(); kick();
+  }
+  canvas.addEventListener("pointermove", (e) => { if (e.pointerType === "mouse" || e.buttons) moveTo(e.clientX, e.clientY); });
+  canvas.addEventListener("pointerdown", (e) => moveTo(e.clientX, e.clientY));
+  canvas.addEventListener("keydown", (e) => {
+    const step = e.shiftKey ? 60 : 20;
+    const d = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] }[e.key];
+    if (!d) return;
+    e.preventDefault();
+    target.x += d[0]; target.y += d[1]; target.set = true; clampTarget(); kick();
+  });
+
+  // buttons under the figure
   const fig = canvas.closest("figure");
   const btn = (m) => fig && fig.querySelector(`[data-mode="${m}"]`);
   const note = (m) => fig && fig.querySelector(`[data-note="${m}"]`);
@@ -323,84 +334,15 @@
     set("harmonize", harmonizeOn && scannerOn);
     set("time", timeOn);
     const h = btn("harmonize"); if (h) h.hidden = !scannerOn;
-    const t = btn("tour"); if (t) { t.setAttribute("aria-pressed", String(tourOn)); t.textContent = tourOn ? "Stop demo" : "Play demo"; }
   }
-  function setScanner(on) { scannerOn = on; if (!on) harmonizeOn = false; sync(); kick(); }
-  function setHarmonize(on) { harmonizeOn = on && scannerOn; sync(); kick(); }
-  function setTime(on) {
-    if (on === timeOn) return;
-    timeOn = on;
-    // turning time on or off takes a fresh measurement of the patient as they are now
-    tauScan = tau; gSnap = gNow; if (on) flash = 1;
+  btn("scanner")?.addEventListener("click", () => { scannerOn = !scannerOn; if (!scannerOn) harmonizeOn = false; sync(); kick(); });
+  btn("harmonize")?.addEventListener("click", () => { harmonizeOn = !harmonizeOn; sync(); kick(); });
+  btn("time")?.addEventListener("click", () => {
+    timeOn = !timeOn;
+    if (!timeOn) { tau = 0; tauScan = 0; gNow = sample(0); gSnap = gNow; rebuildOutside(); }
+    else { tauScan = tau; gSnap = gNow; flash = 1; }
     sync(); kick();
-  }
-  function glide(fx, fy) {
-    target.x = W * fx; target.y = H * fy; target.set = true; clampTarget(); kick();
-  }
-
-  // ---------------------------------------------------------------- demo
-  // On a visitor's first view in a browser session, the figure demonstrates itself
-  // once (about 15 s): the frame moves, two scanners appear and are harmonized, then
-  // time runs through one full scan cycle. Any interaction stops it immediately.
-  // To switch the automatic demo off, set AUTOPLAY to false.
-  const AUTOPLAY = true;
-  const DEMO = [
-    [0.0, () => glide(0.62, 0.42)],
-    [1.8, () => glide(0.47, 0.56)],
-    [3.6, () => setScanner(true)],
-    [6.0, () => setHarmonize(true)],
-    [8.4, () => setScanner(false)],
-    [9.2, () => { timeRate = 3; setTime(true); }],  // 3 months per second: one 12-month scan cycle in 4 s
-    [15.2, () => stopTour(false)],
-  ];
-  let tourOn = false, tourT = 0, tourI = 0, tourPending = false, tourTimer = 0;
-  const seen = { get() { try { return sessionStorage.getItem("fieldDemoSeen"); } catch { return "1"; } },
-                 set() { try { sessionStorage.setItem("fieldDemoSeen", "1"); } catch {} } };
-  if (AUTOPLAY && !reduce && !seen.get()) tourPending = true;
-
-  function startTourSoon() {
-    tourPending = false;
-    tourTimer = setTimeout(() => { if (visible && !document.hidden) startTour(); }, 500);
-  }
-  function startTour() {
-    seen.set();
-    setScanner(false); setTime(false);
-    tourOn = true; tourT = 0; tourI = 0; follow = 0.965;
-    sync(); kick();
-  }
-  function tourTick(dt) {
-    tourT += dt;
-    while (tourOn && tourI < DEMO.length && tourT >= DEMO[tourI][0]) DEMO[tourI++][1]();
-  }
-  function stopTour(interrupted) {
-    clearTimeout(tourTimer); tourPending = false;
-    if (!tourOn) return;
-    tourOn = false; follow = 0.86; timeRate = MONTHS_PER_SEC;
-    setScanner(false); setTime(false);
-    if (!interrupted) glide(0.37, 0.5);
-    sync(); kick();
-  }
-  const interrupt = () => { if (tourOn || tourPending) stopTour(true); };
-
-  // ---------------------------------------------------------------- input
-  function moveTo(clientX, clientY) {
-    const r = canvas.getBoundingClientRect();
-    target.x = clientX - r.left; target.y = clientY - r.top; target.set = true;
-    clampTarget(); kick();
-  }
-  canvas.addEventListener("pointermove", (e) => { if (e.pointerType === "mouse" || e.buttons) { interrupt(); moveTo(e.clientX, e.clientY); } });
-  canvas.addEventListener("pointerdown", (e) => { interrupt(); moveTo(e.clientX, e.clientY); });
-  canvas.addEventListener("keydown", (e) => {
-    const step = e.shiftKey ? 60 : 20;
-    const d = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] }[e.key];
-    if (!d) return;
-    e.preventDefault(); interrupt();
-    target.x += d[0]; target.y += d[1]; target.set = true; clampTarget(); kick();
   });
-  btn("scanner")?.addEventListener("click", () => { interrupt(); setScanner(!scannerOn); });
-  btn("harmonize")?.addEventListener("click", () => { interrupt(); setHarmonize(!harmonizeOn); });
-  btn("time")?.addEventListener("click", () => { interrupt(); setTime(!timeOn); });
-  btn("tour")?.addEventListener("click", () => { if (tourOn) stopTour(true); else { clearTimeout(tourTimer); tourPending = false; startTour(); } });
   sync();
 
   readColors();

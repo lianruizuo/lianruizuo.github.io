@@ -143,7 +143,7 @@ eqn { display: block; }
 
 /* ---------------- hero field ---------------- */
 .field { margin: clamp(1.75rem, 5vh, 3.25rem) 0 0; position: relative; }
-.field canvas { -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); width: 100%; height: clamp(260px, 52vh, 520px); display: block; touch-action: pan-y; cursor: crosshair; }
+.field canvas { -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); width: 100%; height: clamp(230px, 40vh, 400px); display: block; touch-action: pan-y; cursor: crosshair; }
 .field figcaption { margin-top: .9rem; font-size: .9rem; line-height: 1.5; color: var(--graphite); font-style: italic; max-width: var(--text); }
 .field .hint-touch { display: none; }
 @media (hover: none) { .field .hint-mouse { display: none; } .field .hint-touch { display: inline; } }
@@ -354,6 +354,3 @@ eqn { display: block; }
 .chip .sw-b { background: var(--scan-b); margin-right: .2rem; margin-left: -.15rem; }
 @media (max-width: 860px) { .field-foot { margin-left: 0; } }
 @media (max-width: 370px) { .nav { font-size: .76rem; gap: .35rem; } }
-.chip-quiet { border-color: transparent; text-decoration: underline; text-underline-offset: .2em; text-decoration-color: var(--hairline); margin-left: auto; }
-.chip-quiet:hover { border-color: transparent; }
-.chip-quiet[aria-pressed="true"] { background: transparent; color: var(--ink); border-color: transparent; }
