@@ -6,10 +6,10 @@
 // inferred from the measurement fades the further it is from what was measured.
 //
 // Two optional modes, switched by the buttons under the figure:
-//   Scanners  the measurement is rendered by one of two scanners, each with its
-//             own color and contrast (the same anatomy, drawn at different
-//             iso-levels). Harmonize maps both onto one reference look while
-//             keeping the anatomy.
+//   Scanners  the left half of the frame is measured by scanner A, the right
+//             half by scanner B, each with its own color and contrast (the same
+//             anatomy, drawn at different iso-levels). Harmonize maps both
+//             halves onto one reference look while keeping the anatomy.
 //   Time      the patient changes slowly. The measurement is a snapshot from the
 //             last scan, so it drifts out of step with the patient until the
 //             next scan.
@@ -70,7 +70,6 @@
   let scannerOn = false, harmonizeOn = false, timeOn = false;
   let harm = 0;          // 0 = raw scanner look, 1 = harmonized (animated)
   let scanAmt = 0;       // 0 = plain measurement, 1 = scanner look (animated)
-  let scanClock = 0;     // drives the A/B alternation
   let tau = 0, tauScan = 0, flash = 0;
   let last = 0, raf = 0, visible = true;
 
@@ -209,28 +208,32 @@
     // inside: the measurement
     ctx.save();
     ctx.beginPath(); ctx.rect(x0, y0, fw, fh); ctx.clip();
-    const i0 = Math.floor(x0 / CELL) - 1, i1 = Math.ceil(x1 / CELL) + 1, j0 = Math.floor(y0 / CELL) - 1, j1 = Math.ceil(y1 / CELL) + 1;
-    const looks = [];
-    if (scanAmt > 0.001) {
-      const m = alternation();
-      SCANNERS.forEach((s, idx) => {
-        const wgt = idx === 0 ? 1 - m : m;
-        if (wgt < 0.01) return;
-        const gamma = 1 + (s.gamma - 1) * scanAmt * (1 - harm);
-        const col = mix(colors.ink, colors[s.color], scanAmt * (1 - harm));
-        const width = MEASURED_WIDTH + (s.width - MEASURED_WIDTH) * scanAmt * (1 - harm);
-        looks.push({ gamma, col, width, alpha: wgt });
-      });
-    } else {
-      looks.push({ gamma: 1, col: colors.ink, width: MEASURED_WIDTH, alpha: 1 });
-    }
-    for (const l of looks) {
-      const seg = march(gSnap, levels(l.gamma), i0, i1, j0, j1, []);
+    const j0 = Math.floor(y0 / CELL) - 1, j1 = Math.ceil(y1 / CELL) + 1;
+    // Scanners mode: left half from scanner A, right half from scanner B.
+    // Harmonize brings both halves to one reference look; the anatomy stays put.
+    const mid = (x0 + x1) / 2;
+    const halves = scanAmt > 0.001
+      ? [[x0, mid, SCANNERS[0]], [mid, x1, SCANNERS[1]]]
+      : [[x0, x1, null]];
+    const k = scanAmt * (1 - harm); // how much of the scanner look remains
+    for (const [hx0, hx1, s] of halves) {
+      const gamma = s ? 1 + (s.gamma - 1) * k : 1;
+      const col = s ? mix(colors.ink, colors[s.color], k) : colors.ink;
+      const width = s ? MEASURED_WIDTH + (s.width - MEASURED_WIDTH) * k : MEASURED_WIDTH;
+      ctx.save();
+      ctx.beginPath(); ctx.rect(hx0, y0, hx1 - hx0, fh); ctx.clip();
+      const seg = march(gSnap, levels(gamma), Math.floor(hx0 / CELL) - 1, Math.ceil(hx1 / CELL) + 1, j0, j1, []);
       const p = new Path2D();
-      for (let k = 0; k < seg.length; k += 4) { p.moveTo(seg[k], seg[k + 1]); p.lineTo(seg[k + 2], seg[k + 3]); }
-      ctx.globalAlpha = open * l.alpha;
-      ctx.strokeStyle = css(l.col); ctx.lineWidth = l.width; ctx.lineJoin = "round";
+      for (let q = 0; q < seg.length; q += 4) { p.moveTo(seg[q], seg[q + 1]); p.lineTo(seg[q + 2], seg[q + 3]); }
+      ctx.globalAlpha = open;
+      ctx.strokeStyle = css(col); ctx.lineWidth = width; ctx.lineJoin = "round";
       ctx.stroke(p);
+      ctx.restore();
+    }
+    if (k > 0.01) { // the seam between the two scanners
+      ctx.globalAlpha = k;
+      ctx.strokeStyle = css(colors.ink); ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(mid, y0); ctx.lineTo(mid, y1); ctx.stroke();
     }
     ctx.restore();
 
@@ -239,36 +242,24 @@
     ctx.strokeStyle = css(colors.ink); ctx.lineWidth = 1.5 + 1.5 * flash; ctx.lineJoin = "miter";
     ctx.strokeRect(x0, y0, fw, fh);
 
-    // labels under the frame
+    // labels
     ctx.font = '500 11px "Schibsted Grotesk", system-ui, sans-serif';
     ctx.textBaseline = "top";
     const ly = y1 + 7 > H - 14 ? y1 - 18 : y1 + 7;
-    ctx.fillStyle = css(colors.ink);
-    let left = "measured";
+    if (k > 0.5) {
+      ctx.fillStyle = css(colors.a); ctx.textAlign = "left"; ctx.fillText("scanner A", x0 + 6, ly);
+      ctx.fillStyle = css(colors.b); ctx.textAlign = "right"; ctx.fillText("scanner B", x1 - 6, ly);
+    } else {
+      ctx.fillStyle = css(colors.ink); ctx.textAlign = "left";
+      ctx.fillText(scanAmt > 0.5 ? "measured, harmonized" : "measured", x0 + 6, ly);
+    }
     if (timeOn) {
       const ago = Math.floor(tau - tauScan);
-      left = ago < 1 ? "measured just now" : `measured ${ago} month${ago === 1 ? "" : "s"} ago`;
+      ctx.fillStyle = css(colors.ink); ctx.textAlign = "left"; ctx.textBaseline = "bottom";
+      ctx.fillText(ago < 1 ? "scanned just now" : `scanned ${ago} month${ago === 1 ? "" : "s"} ago`, x0 + 6, y0 - 6 < 12 ? y0 + 16 : y0 - 6);
     }
-    ctx.textAlign = "left";
-    ctx.fillText(left, x0 + 6, ly);
-    if (scanAmt > 0.5) {
-      const m = alternation();
-      const s = SCANNERS[m < 0.5 ? 0 : 1];
-      ctx.fillStyle = css(mix(colors.ink, colors[s.color], 1 - harm * 0.6));
-      ctx.textAlign = "right";
-      ctx.fillText(s.name + (harm > 0.5 ? ", harmonized" : ""), x1 - 6, ly);
-      ctx.textAlign = "left";
-    }
+    ctx.textAlign = "left"; ctx.textBaseline = "top";
     ctx.globalAlpha = 1;
-  }
-
-  // 0 = scanner A, 1 = scanner B; holds each for 3 s and cross-fades over 1 s
-  function alternation() {
-    const p = scanClock % 8;
-    if (p < 3) return 0;
-    if (p < 4) return smooth(p - 3);
-    if (p < 7) return 1;
-    return 1 - smooth(p - 7);
   }
 
   // ---------------------------------------------------------------- loop
@@ -289,7 +280,6 @@
     const rate = reduce ? 1 : dt / 0.9;
     scanAmt = scannerOn ? Math.min(1, scanAmt + rate) : Math.max(0, scanAmt - rate);
     harm = harmonizeOn && scannerOn ? Math.min(1, harm + rate * 0.8) : Math.max(0, harm - rate);
-    if (scanAmt > 0) scanClock += dt;
     flash = Math.max(0, flash - dt * 2.5);
 
     if (timeOn) {
@@ -304,7 +294,7 @@
     const moving = Math.abs(target.x - frame.x) > 0.3 || Math.abs(target.y - frame.y) > 0.3;
     const wantHarm = harmonizeOn && scannerOn ? 1 : 0;
     const easing = open < 1 || fade < 1 || scanAmt !== (scannerOn ? 1 : 0) || harm !== wantHarm || flash > 0;
-    if (visible && (moving || easing || timeOn || scannerOn)) kick();
+    if (visible && (moving || easing || timeOn)) kick();
     else last = 0;
   }
   function kick() { if (!raf) raf = requestAnimationFrame(tick); }
@@ -336,7 +326,7 @@
     set("time", timeOn);
     const h = btn("harmonize"); if (h) h.hidden = !scannerOn;
   }
-  btn("scanner")?.addEventListener("click", () => { scannerOn = !scannerOn; if (!scannerOn) harmonizeOn = false; else scanClock = 0; sync(); kick(); });
+  btn("scanner")?.addEventListener("click", () => { scannerOn = !scannerOn; if (!scannerOn) harmonizeOn = false; sync(); kick(); });
   btn("harmonize")?.addEventListener("click", () => { harmonizeOn = !harmonizeOn; sync(); kick(); });
   btn("time")?.addEventListener("click", () => {
     timeOn = !timeOn;
