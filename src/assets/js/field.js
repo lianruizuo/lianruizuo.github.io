@@ -262,7 +262,7 @@
     if (timeOn) {
       const ago = Math.floor(tau - tauScan);
       ctx.fillStyle = css(colors.ink); ctx.textAlign = "left"; ctx.textBaseline = "bottom";
-      ctx.fillText(ago < 1 ? "scanned just now" : `scanned ${ago} month${ago === 1 ? "" : "s"} ago`, x0 + 6, y0 - 6 < 12 ? y0 + 16 : y0 - 6);
+      ctx.fillText(ago < 1 ? "measured just now" : `measured ${ago} month${ago === 1 ? "" : "s"} ago`, x0 + 6, y0 - 6 < 12 ? y0 + 16 : y0 - 6);
     }
     ctx.textAlign = "left"; ctx.textBaseline = "top";
     ctx.globalAlpha = 1;
