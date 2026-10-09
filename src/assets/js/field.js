@@ -1,7 +1,7 @@
 // The figure on the home page.
 //
 // The contour lines are a patient: iso-lines of a smooth field.
-// Inside the frame is the measurement: solid lines. Outside it, the lines turn
+// Inside the frame is the measurement: thick solid lines. Outside it, the lines turn
 // from solid to dashed to dotted with distance from the frame: what can be
 // inferred from the measurement fades the further it is from what was measured.
 //
@@ -36,10 +36,10 @@
   const CELL = 5;            // CSS px per grid cell
   const MONTHS_PER_SEC = 1;  // patient time in Time mode
   const SCAN_EVERY = 6;      // months between scans
-  const MEASURED_WIDTH = 1.9; // line width of measured contours (outside lines are 1)
+  const MEASURED_WIDTH = 2.8; // line width of measured contours (outside lines are 1)
   const SCANNERS = [
-    { name: "scanner A", gamma: 0.5, width: 2.5, color: "a" },
-    { name: "scanner B", gamma: 1.9, width: 1.5, color: "b" },
+    { name: "scanner A", gamma: 0.5, width: 3.4, color: "a" },
+    { name: "scanner B", gamma: 1.9, width: 2.1, color: "b" },
   ];
 
   // components at patient time tau (months); tau = 0 is the resting state
@@ -200,8 +200,8 @@
     ctx.lineCap = "round";
     for (let b = 0; b < BINS; b++) {
       const t = (b + 0.5) / BINS;
-      ctx.strokeStyle = css(mix(colors.ink, colors.far, Math.min(1, 0.3 + t)));
-      ctx.globalAlpha = fade * (0.62 - 0.12 * t);
+      ctx.strokeStyle = css(colors.ink);
+      ctx.globalAlpha = fade * (0.6 - 0.25 * t);
       ctx.lineWidth = 1 + 0.2 * t;
       ctx.stroke(paths[b]);
     }
@@ -234,16 +234,10 @@
     }
     ctx.restore();
 
-    // the frame: viewfinder corners; they flash when a new scan is taken
+    // the frame: a closed box; it flashes when a new scan is taken
     ctx.globalAlpha = Math.min(1, open * 1.4);
-    ctx.strokeStyle = css(colors.ink); ctx.lineWidth = 1.5 + 1.5 * flash;
-    const k = 12 + 6 * flash;
-    ctx.beginPath();
-    ctx.moveTo(x0, y0 + k); ctx.lineTo(x0, y0); ctx.lineTo(x0 + k, y0);
-    ctx.moveTo(x1 - k, y0); ctx.lineTo(x1, y0); ctx.lineTo(x1, y0 + k);
-    ctx.moveTo(x1, y1 - k); ctx.lineTo(x1, y1); ctx.lineTo(x1 - k, y1);
-    ctx.moveTo(x0 + k, y1); ctx.lineTo(x0, y1); ctx.lineTo(x0, y1 - k);
-    ctx.stroke();
+    ctx.strokeStyle = css(colors.ink); ctx.lineWidth = 1.5 + 1.5 * flash; ctx.lineJoin = "miter";
+    ctx.strokeRect(x0, y0, fw, fh);
 
     // labels under the frame
     ctx.font = '500 11px "Schibsted Grotesk", system-ui, sans-serif';
