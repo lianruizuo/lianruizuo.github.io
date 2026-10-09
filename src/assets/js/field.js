@@ -36,9 +36,10 @@
   const CELL = 5;            // CSS px per grid cell
   const MONTHS_PER_SEC = 1;  // patient time in Time mode
   const SCAN_EVERY = 6;      // months between scans
+  const MEASURED_WIDTH = 1.9; // line width of measured contours (outside lines are 1)
   const SCANNERS = [
-    { name: "scanner A", gamma: 0.5, width: 1.45, color: "a" },
-    { name: "scanner B", gamma: 1.9, width: 0.85, color: "b" },
+    { name: "scanner A", gamma: 0.5, width: 2.5, color: "a" },
+    { name: "scanner B", gamma: 1.9, width: 1.5, color: "b" },
   ];
 
   // components at patient time tau (months); tau = 0 is the resting state
@@ -217,18 +218,18 @@
         if (wgt < 0.01) return;
         const gamma = 1 + (s.gamma - 1) * scanAmt * (1 - harm);
         const col = mix(colors.ink, colors[s.color], scanAmt * (1 - harm));
-        const width = 1 + (s.width - 1) * scanAmt * (1 - harm);
+        const width = MEASURED_WIDTH + (s.width - MEASURED_WIDTH) * scanAmt * (1 - harm);
         looks.push({ gamma, col, width, alpha: wgt });
       });
     } else {
-      looks.push({ gamma: 1, col: colors.ink, width: 1, alpha: 1 });
+      looks.push({ gamma: 1, col: colors.ink, width: MEASURED_WIDTH, alpha: 1 });
     }
     for (const l of looks) {
       const seg = march(gSnap, levels(l.gamma), i0, i1, j0, j1, []);
       const p = new Path2D();
       for (let k = 0; k < seg.length; k += 4) { p.moveTo(seg[k], seg[k + 1]); p.lineTo(seg[k + 2], seg[k + 3]); }
       ctx.globalAlpha = open * l.alpha;
-      ctx.strokeStyle = css(l.col); ctx.lineWidth = l.width;
+      ctx.strokeStyle = css(l.col); ctx.lineWidth = l.width; ctx.lineJoin = "round";
       ctx.stroke(p);
     }
     ctx.restore();
