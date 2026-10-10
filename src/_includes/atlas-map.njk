@@ -1,62 +1,39 @@
-{#- The atlas map. Expects `map` (atlasLayout); optional `current` (a node id) and `routes` (true to offer course routes). -#}
-<figure class="amap{% if current %} amap-focus{% endif %}" data-amap>
-  {%- if routes and map.routes.length %}
-  <div class="amap-tools" role="group" aria-label="Show a course route">
-    <span class="amap-tools-label">Route</span>
-    <button type="button" class="chip" data-route="" aria-pressed="true">None</button>
-    {%- for r in map.routes %}<button type="button" class="chip" data-route="{{ r.code | slug }}" aria-pressed="false">{{ r.code }}</button>{% endfor %}
+{#- The atlas map. Expects `map` (atlasLayout). Methods float above a time axis; picking a course lines its methods up in teaching order. -#}
+<figure class="amap" data-amap>
+  {%- if map.routes.length %}
+  <div class="amap-tools" role="group" aria-label="Show a course">
+    <button type="button" class="chip" data-route="" aria-pressed="true">All methods</button>
+    {%- for r in map.routes %}<button type="button" class="chip" data-route="{{ r.slug }}" aria-pressed="false">{{ r.code }}</button>{% endfor %}
   </div>
   {%- endif %}
   <div class="amap-scroll">
-  <svg viewBox="0 0 {{ map.W }} {{ map.H }}" role="img" aria-labelledby="amap-t-{{ current or 'all' }}">
-    <title id="amap-t-{{ current or 'all' }}">The atlas. Each method sits in the band of what it sees, at the year of its primary source. Solid dots are written; open dots are planned. Lines are boundaries of one method crossed by another.</title>
-    <defs>
-      {%- for l in ["criterion", "reach", "search", "code"] %}
-      <marker id="am-arrow-{{ l }}{{ '-' + current if current }}" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0.5,1 L9,5 L0.5,9" class="am-head layer-stroke-{{ l }}"/></marker>
-      {%- endfor %}
-    </defs>
-    {%- for b in map.bands %}
-    <g class="am-band">
-      <rect x="0" y="{{ b.y }}" width="{{ map.W }}" height="{{ b.h }}" class="am-band-bg{% if loop.index0 % 2 %} alt{% endif %}"/>
-      <text x="14" y="{{ b.y + b.h / 2 + 5 }}" class="am-band-name"><title>{{ b.sees }}</title>{{ b.name }}</text>
-    </g>
-    {%- endfor %}
+  <svg viewBox="0 0 {{ map.W }} {{ map.H }}" role="img" aria-labelledby="amap-title">
+    <title id="amap-title">Methods placed by the year of their primary source. Solid dots are written and link to their page; open dots are planned.</title>
     {%- for t in map.ticks %}
-    <line x1="{{ t.x }}" x2="{{ t.x }}" y1="8" y2="{{ map.axisY }}" class="am-tick"/>
-    <text x="{{ t.x }}" y="{{ map.axisY + 18 }}" class="am-year">{{ t.year }}</text>
+    {%- if t.major %}<line x1="{{ t.x }}" x2="{{ t.x }}" y1="{{ map.top - 18 }}" y2="{{ map.axisY }}" class="am-grid"/>{% endif %}
+    <line x1="{{ t.x }}" x2="{{ t.x }}" y1="{{ map.axisY }}" y2="{{ map.axisY + (6 if t.major else 3) }}" class="am-tick"/>
+    {%- if t.major %}<text x="{{ t.x }}" y="{{ map.axisY + 22 }}" class="am-year">{{ t.year }}</text>{% endif %}
     {%- endfor %}
-    {%- for e in map.edges %}
-    <g class="am-edge layer-{{ e.layer }}{% if current and e.from != current and e.to != current %} faint{% endif %}">
-      <title>A boundary of {{ e.a.title }}, crossed by {{ e.b.title }}: {{ e.when | join("; ") }}.</title>
-      <path d="{{ e.d }}" class="layer-stroke-{{ e.layer }}" marker-end="url(#am-arrow-{{ e.layer }}{{ '-' + current if current }})"/>
-    </g>
-    {%- endfor %}
+    <line x1="0" x2="{{ map.W }}" y1="{{ map.axisY }}" y2="{{ map.axisY }}" class="am-axis"/>
     {%- for r in map.routes %}
-    <g class="am-route" data-route-path="{{ r.code | slug }}" hidden>
-      <path d="{{ r.d }}" class="am-route-line"/>
-    </g>
+    <path d="{{ r.d }}" class="am-route-line" data-route-path="{{ r.slug }}"/>
     {%- endfor %}
     {%- for n in map.nodes %}
     {%- if n.written %}<a href="{{ n.url }}" class="am-link">{% endif %}
-    <g class="am-node{{ ' written' if n.written else ' planned' }}{{ ' current' if current == n.id }}">
+    <g class="am-node{{ ' written' if n.written else ' planned' }}" data-id="{{ n.id }}" data-y="{{ n.y }}" data-x="{{ n.x }}" style="transform:translate({{ n.x }}px,{{ n.y }}px)"
+      {%- for r in map.routes %}{% if r.pos[n.id] %} data-{{ r.slug }}="{{ r.pos[n.id] | join(',') }}"{% endif %}{% endfor %}>
       <title>{{ n.title }} ({{ n.source }}, {{ n.year }}){{ '' if n.written else ', planned' }}</title>
-      {%- if current == n.id %}<circle cx="{{ n.x }}" cy="{{ n.y }}" r="13" class="am-halo"/>{% endif %}
-      <circle cx="{{ n.x }}" cy="{{ n.y }}" r="{{ 6.5 if n.written else 5.5 }}" class="am-dot"/>
-      <text x="{{ n.lx }}" y="{{ n.y + 4.5 }}" text-anchor="{{ n.anchor }}">{{ n.title }}</text>
+      <circle r="{{ 6.5 if n.written else 5.5 }}" class="am-dot"/>
+      <g class="am-num"><circle r="9"/><text y="3.6"></text></g>
+      <text x="{{ n.lx }}" y="4.5" text-anchor="{{ n.anchor }}" class="am-label">{{ n.title }}</text>
     </g>
     {%- if n.written %}</a>{% endif %}
-    {%- endfor %}
-    {%- for r in map.routes %}
-    <g class="am-route" data-route-path="{{ r.code | slug }}" hidden>
-      {%- for n in r.stops %}<g class="am-stop"><circle cx="{{ n.x }}" cy="{{ n.y }}" r="8"/><text x="{{ n.x }}" y="{{ n.y + 3.4 }}">{{ loop.index }}</text></g>{% endfor %}
-    </g>
     {%- endfor %}
   </svg>
   </div>
   <figcaption class="amap-legend">
     <span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" class="lg-written"/></svg>Written</span>
     <span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" class="lg-planned"/></svg>Planned</span>
-    <span><svg width="26" height="10" aria-hidden="true"><line x1="1" y1="5" x2="25" y2="5" class="layer-stroke-criterion"/></svg>Crossed with a better criterion</span>
-    <span><svg width="26" height="10" aria-hidden="true"><line x1="1" y1="5" x2="25" y2="5" class="layer-stroke-reach"/></svg>Crossed by seeing or saying more</span>
+    <span class="amap-hint" data-hint>Placed by the year of each method’s primary source.</span>
   </figcaption>
 </figure>

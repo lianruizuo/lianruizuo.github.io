@@ -101,7 +101,6 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("atlasLayout", (atlas, pages) => atlasLayout(atlas, pages));
   eleventyConfig.addFilter("crossingsOf", (layout, id) => crossingsOf(layout, id));
   eleventyConfig.addFilter("layerOf", (atlas, id) => (atlas.layers || []).find((l) => l.id === id) || {});
-  eleventyConfig.addFilter("bandOf", (atlas, id) => (atlas.bands || []).find((b) => b.id === id) || {});
   eleventyConfig.addFilter("upperFirst", (s) => (s ? String(s)[0].toUpperCase() + String(s).slice(1) : ""));
   eleventyConfig.addFilter("inCourse", (pages, code) => (pages || []).flatMap((p) =>
     (p.data.courses || []).filter((c) => c.code === code).map((c) => ({ page: p, where: c.where }))));

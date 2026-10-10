@@ -1,31 +1,15 @@
 # The atlas.
 #
-# Every method has a place decided by two facts, not by hand:
-#   band  what information the method sees (bands below, narrowest first)
-#   year  the year of its primary source
-# Lines between methods are not declared here. They come from the Break section of a
-# written node: each one is a boundary of that method and the method that crosses it.
+# Nothing is placed by hand: a method sits at the year of its primary source,
+# and its height is chosen automatically so labels never collide.
+# A course is an ordered list of methods (its route). Picking it on the map
+# lines those methods up in teaching order.
+# Crossings (a boundary of one method that another method crosses) are listed
+# in each written node's front matter and shown on that node's page.
 #
 # To plan a node, add one entry under `nodes`. To write it, create
 # src/teaching/atlas/<id>/index.md with `node: <id>`; it turns solid on the map.
 # To remove a node, delete its entry (and its folder).
-
-bands:
-  - id: values
-    name: Values
-    sees: Gray levels, with their positions thrown away.
-  - id: space
-    name: Space
-    sees: Values and where they are, through neighborhoods or smooth fields.
-  - id: shape
-    name: Shape
-    sees: A curve or region as a whole object.
-  - id: pairs
-    name: Two images
-    sees: Two images at once, and how one maps onto the other.
-  - id: many
-    name: Many images
-    sees: A collection of examples, summarized into a prior.
 
 # The four places an error can live. Code and search are bugs; criterion and reach are boundaries.
 layers:
@@ -51,22 +35,22 @@ layers:
     fix: Let it see more, or say more.
 
 nodes:
-  - { id: kmeans,     title: k-means,                  band: values, year: 1967, source: MacQueen }
-  - { id: mixtures,   title: Mixtures and EM,          band: values, year: 1977, source: "Dempster, Laird and Rubin" }
-  - { id: otsu,       title: Otsu thresholding,        band: values, year: 1979, source: Otsu }
-  - { id: fcm,        title: Fuzzy c-means,            band: values, year: 1981, source: Bezdek }
-  - { id: reddi,      title: Multilevel thresholds,    band: values, year: 1984, source: "Reddi, Rudin and Keshavan" }
-  - { id: canny,      title: Canny edges,              band: space,  year: 1986, source: Canny }
-  - { id: biasfield,  title: Bias field correction,    band: space,  year: 1999, source: "Van Leemput et al." }
-  - { id: graphcut,   title: Graph cuts,               band: space,  year: 2004, source: "Boykov and Kolmogorov" }
-  - { id: snakes,     title: Snakes,                   band: shape,  year: 1988, source: "Kass, Witkin and Terzopoulos" }
-  - { id: levelsets,  title: Level sets,               band: shape,  year: 1995, source: "Malladi, Sethian and Vemuri" }
-  - { id: gvf,        title: Gradient vector flow,     band: shape,  year: 1998, source: "Xu and Prince" }
-  - { id: chanvese,   title: Contours without edges,   band: shape,  year: 2001, source: "Chan and Vese" }
-  - { id: landmarks,  title: Landmark registration,    band: pairs,  year: 1988, source: Goshtasby }
-  - { id: demons,     title: Demons,                   band: pairs,  year: 1998, source: Thirion }
-  - { id: ffd,        title: Free-form deformations,   band: pairs,  year: 1999, source: "Rueckert et al." }
-  - { id: asm,        title: Active shape models,      band: many,   year: 1995, source: "Cootes et al." }
+  - { id: kmeans,     title: k-means,                  year: 1967, source: MacQueen }
+  - { id: mixtures,   title: Mixtures and EM,          year: 1977, source: "Dempster, Laird and Rubin" }
+  - { id: otsu,       title: Otsu thresholding,        year: 1979, source: Otsu }
+  - { id: fcm,        title: Fuzzy c-means,            year: 1981, source: Bezdek }
+  - { id: reddi,      title: Multilevel thresholds,    year: 1984, source: "Reddi, Rudin and Keshavan" }
+  - { id: canny,      title: Canny edges,              year: 1986, source: Canny }
+  - { id: biasfield,  title: Bias field correction,    year: 1999, source: "Van Leemput et al." }
+  - { id: graphcut,   title: Graph cuts,               year: 2004, source: "Boykov and Kolmogorov" }
+  - { id: snakes,     title: Snakes,                   year: 1988, source: "Kass, Witkin and Terzopoulos" }
+  - { id: levelsets,  title: Level sets,               year: 1995, source: "Malladi, Sethian and Vemuri" }
+  - { id: gvf,        title: Gradient vector flow,     year: 1998, source: "Xu and Prince" }
+  - { id: chanvese,   title: Contours without edges,   year: 2001, source: "Chan and Vese" }
+  - { id: landmarks,  title: Landmark registration,    year: 1988, source: Goshtasby }
+  - { id: demons,     title: Demons,                   year: 1998, source: Thirion }
+  - { id: ffd,        title: Free-form deformations,   year: 1999, source: "Rueckert et al." }
+  - { id: asm,        title: Active shape models,      year: 1995, source: "Cootes et al." }
 
 # A course is a route through the atlas, in teaching order.
 courses:

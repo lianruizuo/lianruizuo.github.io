@@ -13,9 +13,9 @@ source:
   year: 1979
   doi: 10.1109/TSMC.1979.4310076
 crossings:
-  - { to: mixtures, layer: criterion, when: "one class is much smaller or more spread out than the other" }
-  - { to: reddi, layer: reach, when: "there are more than two classes" }
-  - { to: biasfield, layer: reach, when: "brightness drifts across the image" }
+  - { to: mixtures, layer: criterion, when: "one class is much smaller or more spread out than the other", how: "same information, better criterion" }
+  - { to: reddi, layer: reach, when: "there are more than two classes", how: "says more: several thresholds" }
+  - { to: biasfield, layer: reach, when: "brightness drifts across the image", how: "sees more: where each pixel is" }
 record:
   - { term: Fall 2026, kind: Silent bug, title: "Plain `np.argmax` lets an empty class win", by: Instructors }
   - { term: Fall 2026, kind: Silent bug, title: "`astype(np.uint8)` wraps 12-bit values instead of rescaling them", by: Instructors }

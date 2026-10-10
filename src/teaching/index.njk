@@ -2,79 +2,28 @@
 layout: base.njk
 title: Teaching
 permalink: /teaching/
-description: An atlas of methods in image processing and computational modeling, built around one question. When an answer is wrong, where does the error live?
-scripts: ["/assets/js/atlas.js", "/assets/js/labs/otsu.js"]
+description: Answers are cheap now. Knowing which ones to trust is not.
+scripts: ["/assets/js/atlas.js"]
 ---
 {%- set map = atlas | atlasLayout(collections.atlas) %}
-<header class="page-head row">
-  <div class="m"></div>
-  <div class="t">
-    <h1>Teaching</h1>
-    <p class="lede atlas-lede">Code for a classic method now appears in seconds. What still takes training is knowing whether that code is right, and whether the method can answer the question you put to it. I teach toward the second skill, one method at a time, and collect the methods here.</p>
-  </div>
+<header class="teach-head span">
+  <h1 class="sr-only">Teaching</h1>
+  <p class="teach-line">Answers are cheap now. Knowing which ones to trust is not.</p>
 </header>
 
-<section class="span" id="diagnose">
-  <div class="row section-head"><div class="m"></div><div class="t"><h2>Where does the error live?</h2></div></div>
-  <div class="row"><div class="m"></div><p class="t muted">Four wrong answers, all from Otsu’s method. Each error lives somewhere different.</p></div>
-</section>
-<div class="wide diagnose-wrap"><div class="lab diagnose" data-lab="otsu-diagnose"></div></div>
-
-<section class="span">
-  <div class="row"><div class="m">Four places</div><div class="t">
-    <div class="layers">
-      <div class="layers-group"><span class="layers-kind">Bugs</span>
-        {%- for l in atlas.layers %}{% if l.kind == "bug" %}
-        <div class="layer-card"><span class="layer-chip layer-{{ l.id }}">{{ l.name }}</span><p>{{ l.test }}</p><p class="fix">{{ l.fix }}</p></div>
-        {%- endif %}{% endfor %}
-      </div>
-      <div class="layers-group"><span class="layers-kind">Boundaries</span>
-        {%- for l in atlas.layers %}{% if l.kind == "boundary" %}
-        <div class="layer-card"><span class="layer-chip layer-{{ l.id }}">{{ l.name }}</span><p>{{ l.test }}</p><p class="fix">{{ l.fix }}</p></div>
-        {%- endif %}{% endfor %}
-      </div>
-    </div>
-    <p class="muted small layers-note">Telling them apart needs a world where the truth is known, so every method in the atlas comes with one. Bug or boundary is the first question; these four are its answers.</p>
-  </div></div>
-</section>
-
-<section class="span" id="atlas">
-  <div class="row section-head"><div class="m"></div><div class="t"><h2>The atlas</h2></div></div>
-  <div class="row"><div class="m"></div><p class="t">Each method sits in the band of what it can see, at the year of its primary source. A line means a boundary of one method is where another begins. Most lines climb: methods that fail for lack of information are repaired by methods that see more.</p></div>
-</section>
-<div class="wide">{% set routes = true %}{% include "atlas-map.njk" %}</div>
-
-<section class="span">
-  <ul class="row-list band-index">
-    {%- for b in map.bands | reverse %}
-    <li class="row"><div class="m">{{ b.name }}</div><div class="t">
-      <p><span class="sees">{{ b.sees }}</span>{% for n in b.nodes %}{% if n.written %}<a href="{{ n.url }}" class="w">{{ n.title }}</a>{% else %}<span class="p">{{ n.title }}</span>{% endif %}{% if not loop.last %}<span class="sep" aria-hidden="true"> · </span>{% endif %}{% endfor %}</p>
-    </div></li>
-    {%- endfor %}
-  </ul>
-</section>
-
-<section class="span">
-  <div class="row section-head"><div class="m"></div><div class="t"><h2>Inside a node</h2></div></div>
-  <div class="row"><div class="m"></div><div class="t">
-    <p>A node starts from the primary source and ends at the method’s boundaries. It reads the paper for what it claims and what it quietly assumes, derives the model, and builds a faithful implementation next to a few plausible wrong ones. Tests show which tests catch which bug. A bench then traces any wrong answer to code, search, criterion or reach, and every boundary found there becomes a line on the map.</p>
-    <p><a href="/teaching/atlas/otsu/">Otsu thresholding</a> is the first.</p>
-  </div></div>
-</section>
+<div class="wide amap-wrap">{% include "atlas-map.njk" %}</div>
 
 <section class="span" id="courses">
   <div class="row section-head"><div class="m"></div><div class="t"><h2>Courses</h2></div></div>
   <ul class="row-list course-list">
     {%- for c in cv.teaching %}
-    {%- set r = (map.routes | where("code", c.code))[0] %}
     <li class="row">
       <div class="m">{{ c.term }}</div>
       <div class="t">
         <h3><a href="/teaching/{{ c.slug }}/">{{ c.course }}</a></h3>
-        <p>{{ c.role }}, {{ c.where }}{% if r %}. A route through {{ r.stops.length }} methods of the atlas.{% endif %}</p>
+        <p>{{ c.role }}, {{ c.where }}</p>
       </div>
     </li>
     {%- endfor %}
   </ul>
-  <div class="row"><div class="m"></div><p class="t muted small" style="margin-top:1.5rem">Students add bugs, tests, failure cases and crossings to the nodes, and each addition stays in the node’s record. <a href="/teaching/atlas/contribute/">How to add one</a>.</p></div>
 </section>

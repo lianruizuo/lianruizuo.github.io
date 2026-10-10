@@ -62,24 +62,23 @@ Create `src/outside/2026-10-12-some-title.md` with `title`, `date`, an optional 
 
 The Teaching page is an atlas: one page per method (a *node*). Nothing on the map is placed by hand.
 
-- **Band** (row) = what the method sees: `values`, `space`, `shape`, `pairs` (two images), `many` (many images).
-- **x position** = the year of its primary source.
-- **Lines** = *crossings*: a boundary of one method that another method crosses. They come only from written nodes.
-- **Routes** = a course is an ordered list of nodes, shown as numbered stops when you pick the course above the map.
+- **Across** = the year of the method's primary source. The height is chosen automatically so labels never collide.
+- **Courses** = a course is an ordered list of nodes (its route). Picking the course above the map lines its methods up in teaching order, numbered and joined by a dashed path.
+- **Crossings** = a boundary of one method that another method crosses. They are listed on the node's page, not drawn on the map.
 
 Every wrong answer is traced to one of four layers: **Code** and **Search** (bugs: fix the program) or **Criterion** and **Reach** (boundaries: change the method). The layer names, tests and fixes live in `atlas.yaml` under `layers`.
 
 | What | File |
 |---|---|
-| Bands, layers, every node (`id`, `title`, `band`, `year`, `source`), and course routes | `src/_data/atlas.yaml` |
+| Layers, every node (`id`, `title`, `year`, `source`), and course routes | `src/_data/atlas.yaml` |
 | A written node | `src/teaching/atlas/<id>/index.md` (folder name = the node's `id`) |
-| Map layout (bands, lanes, lines, routes) | `lib/atlas.js` |
+| Map layout (positions, course routes) | `lib/atlas.js` |
 | The map | `src/_includes/atlas-map.njk` |
 | The node page layout (section rail, crossings, record) | `src/_includes/node.njk` |
 | A node's interactive labs | `src/assets/js/labs/<id>.js` |
 | How students contribute | `src/teaching/atlas/contribute.md` |
 
-**Adding a planned node.** Add one line under `nodes:` in `atlas.yaml`. It appears as an open dot in its band, at its year.
+**Adding a planned node.** Add one line under `nodes:` in `atlas.yaml`. It appears as an open dot at its year.
 
 **Writing a node.** Copy `src/teaching/atlas/otsu/index.md` to `src/teaching/atlas/<id>/index.md` and set `node: <id>`. Sections are the `## ` headings (Question, Intuition, Math, Build, Verify, Break, Learn); the rail is built from whatever headings you use. Crossings and Record are added automatically. The dot turns solid once the page exists. Set `draft: true` to keep it local while you write.
 
@@ -87,11 +86,11 @@ Every wrong answer is traced to one of four layers: **Code** and **Search** (bug
 
 ```
 crossings:
-  - { to: mixtures, layer: criterion, when: "one class is much smaller or more spread out than the other" }
-  - { to: reddi, layer: reach, when: "there are more than two classes" }
+  - { to: mixtures, layer: criterion, when: "one class is much smaller or more spread out than the other", how: "same information, better criterion" }
+  - { to: reddi, layer: reach, when: "there are more than two classes", how: "says more: several thresholds" }
 ```
 
-`layer` is `criterion` (crossed with a better criterion) or `reach` (crossed by seeing or saying more). Each crossing should match a diagnosis in Break.
+`layer` is `criterion` or `reach`; `how` is optional. Each crossing should match a diagnosis in Break.
 
 **Diagnoses.** In Break, write
 
@@ -103,7 +102,7 @@ The explanation, in plain paragraphs.
 
 The layer is `code`, `search`, `criterion`, `reach`, or `tie` (not an error).
 
-**Adding a course.** Add an entry under `courses:` in `atlas.yaml` with `code`, `title`, `term` and `route` (node ids in teaching order). The course page and the map pick it up.
+**Adding a course.** Add an entry under `courses:` in `atlas.yaml` with `code`, `title`, `term` and `route` (node ids in teaching order). A button for it appears above the map, and its course page lists the route.
 
 **Recording contributions.** Add a line to the node's `record:` list, for example `- { term: Spring 2027, kind: Failure case, title: "...", by: "Student name" }`.
 

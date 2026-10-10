@@ -377,21 +377,10 @@ eqn { display: block; }
 .layer-stroke-code { stroke: var(--l-code); } .layer-stroke-search { stroke: var(--l-search); } .layer-stroke-criterion { stroke: var(--l-criterion); } .layer-stroke-reach { stroke: var(--l-reach); }
 
 /* ---- teaching front page ---- */
-.atlas-lede { max-width: 37rem; color: var(--ink); }
-.diagnose-wrap { margin-top: .25rem; }
-.layers { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2.25rem; }
-.layers-group { display: grid; gap: 1rem; align-content: start; }
-.layers-kind { font-family: var(--sans); font-size: .78rem; color: var(--graphite); border-bottom: 1px solid var(--ink); padding-bottom: .35rem; }
-.layer-card p { margin: .3rem 0 0; font-size: .95rem; line-height: 1.45; }
-.layer-card .fix { color: var(--graphite); font-size: .9rem; font-style: italic; }
-.layers-note { margin-top: 1.5rem; }
-.band-index { row-gap: .6rem; margin-top: 1.25rem; }
-.band-index .m { font-family: var(--serif); font-style: italic; font-size: .95rem; color: var(--ink); }
-.band-index p { margin: 0; line-height: 1.6; }
-.band-index .sees { display: block; font-size: .88rem; color: var(--graphite); font-style: italic; margin-bottom: .1rem; }
-.band-index .w { font-weight: 560; }
-.band-index .p, .planned-name { color: var(--graphite); }
-.band-index .sep { color: var(--hairline); }
+.teach-head { padding-block: 2.6rem 1.4rem; }
+.teach-line { font-family: var(--serif); font-style: italic; font-size: 1.12rem; line-height: 1.45; color: var(--graphite); margin: 0; max-width: 34rem; text-wrap: balance; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.planned-name { color: var(--graphite); }
 .soon { font-family: var(--sans); font-size: .7rem; font-weight: 400; color: var(--graphite); border: 1px dashed var(--hairline); border-radius: 999px; padding: .05rem .45rem; margin-left: .35rem; white-space: nowrap; vertical-align: .1em; }
 .route-list h3 { font-size: 1.1rem; font-weight: 500; margin: 0; }
 .route-list h3 a { text-decoration: none; } .route-list h3 a:hover { text-decoration: underline; }
@@ -399,38 +388,36 @@ eqn { display: block; }
 .route-list .m { font-variant-numeric: lining-nums; }
 
 /* ---- the map ---- */
-.amap { margin: .5rem 0 0; }
-.amap-tools { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-bottom: .6rem; }
-.amap-tools-label { font-family: var(--sans); font-size: .78rem; color: var(--graphite); margin-right: .3rem; }
+.amap-wrap { margin-top: .5rem; }
+.amap { margin: 0 auto; max-width: 1480px; }
+.amap-tools { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-bottom: .4rem; }
 .amap-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.amap-scroll > svg { display: block; width: 100%; min-width: 720px; height: auto; }
+.amap-scroll > svg { display: block; width: 100%; min-width: 980px; height: auto; overflow: visible; }
 .amap a { text-decoration: none; }
-.am-band-bg { fill: transparent; }
-.am-band-bg.alt { fill: var(--paper-2); opacity: .55; }
-.am-band-name { font-family: var(--serif); font-style: italic; font-size: 16px; fill: var(--ink); }
-.am-band-sees { font-family: var(--sans); font-size: 10.5px; fill: var(--graphite); }
-.am-tick { stroke: var(--hairline); stroke-width: 1; stroke-dasharray: 2 4; }
-.am-year { font-family: var(--sans); font-size: 11px; fill: var(--graphite); text-anchor: middle; }
-.am-node .am-dot { stroke-width: 1.6; }
+.am-axis { stroke: var(--graphite); stroke-width: 1; opacity: .5; }
+.am-grid { stroke: var(--hairline); stroke-width: 1; stroke-dasharray: 1 5; }
+.am-tick { stroke: var(--graphite); stroke-width: 1; opacity: .5; }
+.am-year { font-family: var(--sans); font-size: 12px; fill: var(--graphite); text-anchor: middle; font-variant-numeric: lining-nums; }
+.am-node { transition: transform .9s cubic-bezier(.65, 0, .25, 1), opacity .5s ease; }
+.am-node .am-dot { stroke-width: 1.6; transition: opacity .3s; }
 .am-node.written .am-dot { fill: var(--ink); stroke: var(--ink); }
 .am-node.planned .am-dot { fill: var(--paper); stroke: var(--graphite); stroke-dasharray: 2 2.2; }
-.am-node text { font-family: var(--sans); font-size: 13px; fill: var(--graphite); }
-.am-node.written text { fill: var(--ink); font-weight: 600; }
-.am-halo { fill: none; stroke: var(--accent); stroke-width: 1.6; }
-.am-link:hover text, .am-link:focus-visible text { fill: var(--accent); text-decoration: underline; }
+.am-label { font-family: var(--sans); font-size: 13.5px; fill: var(--graphite); paint-order: stroke; stroke: var(--paper); stroke-width: 5px; stroke-linejoin: round; }
+.am-node.written .am-label { fill: var(--ink); font-weight: 600; }
+.am-link:hover .am-label, .am-link:focus-visible .am-label { fill: var(--accent); text-decoration: underline; }
 .am-link:focus { outline: none; }
-.am-edge path { fill: none; stroke-width: 1.8; }
-.am-edge.faint { opacity: .2; }
-.am-head { fill: none; stroke-width: 1.4; }
-.am-route[hidden] { display: none; }
-.am-route-line { fill: none; stroke: var(--accent); stroke-width: 1.4; stroke-dasharray: 2 4; stroke-linecap: round; opacity: .38; }
-.am-stop circle { fill: var(--accent); }
-.am-stop text { font-family: var(--sans); font-size: 9.5px; font-weight: 650; fill: var(--paper); text-anchor: middle; }
-.amap.routing .am-edge { opacity: .2; }
-.amap-legend { display: flex; flex-wrap: wrap; gap: .4rem 1.3rem; font-family: var(--sans); font-size: .78rem; color: var(--graphite); margin-top: .6rem; }
+.am-num { opacity: 0; transition: opacity .4s ease; }
+.am-num circle { fill: var(--accent); }
+.am-num text { font-family: var(--sans); font-size: 10px; font-weight: 650; fill: var(--paper); text-anchor: middle; font-variant-numeric: lining-nums; }
+.amap.routing .am-node:not(.on) { opacity: .16; }
+.amap.routing .am-node.on .am-num { opacity: 1; transition-delay: .6s; }
+.am-route-line { fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 2 5; stroke-linecap: round; opacity: 0; transition: opacity .2s; }
+.am-route-line.shown { opacity: .55; transition: opacity .7s ease .7s; }
+.amap-legend { display: flex; flex-wrap: wrap; gap: .4rem 1.3rem; font-family: var(--sans); font-size: .78rem; color: var(--graphite); margin-top: .4rem; }
 .amap-legend span { display: inline-flex; align-items: center; gap: .4rem; }
 .amap-legend svg { overflow: visible; }
-.amap-legend line { stroke-width: 1.8; }
+.amap-hint { margin-left: auto; }
+@media (prefers-reduced-motion: reduce) { .am-node, .am-num, .am-route-line { transition: none !important; } }
 .lg-written { fill: var(--ink); stroke: var(--ink); stroke-width: 1.4; }
 .lg-planned { fill: none; stroke: var(--graphite); stroke-width: 1.4; stroke-dasharray: 2 2.2; }
 
@@ -438,7 +425,7 @@ eqn { display: block; }
 .node-head { padding-block: clamp(3rem, 8vh, 5rem) 1.5rem; align-items: start; }
 .node-head .m { padding-top: .9rem; }
 .crumb { text-decoration: none; }
-.band-tag { font-style: italic; }
+.node-year { font-variant-numeric: lining-nums; }
 .node-question { font-size: clamp(1.25rem, 1.05rem + .7vw, 1.55rem); line-height: 1.35; font-style: italic; font-weight: 380; margin: 1rem 0 0; max-width: 34rem; text-wrap: balance; }
 .node-source { font-size: .9rem; color: var(--graphite); margin: 1.1rem 0 0; max-width: 38rem; }
 .node-source .label { font-family: var(--sans); font-size: .72rem; color: var(--graphite); margin-right: .4rem; }
