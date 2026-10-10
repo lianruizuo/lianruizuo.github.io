@@ -58,6 +58,55 @@ Each course has its own page, built from the `teaching:` list in `src/_data/cv.y
 
 Create `src/outside/2026-10-12-some-title.md` with `title`, `date`, an optional `place` and `summary`, then write. The date prefix is dropped from the URL. `src/outside/2026-10-09-template.md` is an example draft.
 
+## The teaching atlas
+
+The Teaching page is an atlas: one page per method (a *node*). Nothing on the map is placed by hand.
+
+- **Band** (row) = what the method sees: `values`, `space`, `shape`, `pairs` (two images), `many` (many images).
+- **x position** = the year of its primary source.
+- **Lines** = *crossings*: a boundary of one method that another method crosses. They come only from written nodes.
+- **Routes** = a course is an ordered list of nodes, shown as numbered stops when you pick the course above the map.
+
+Every wrong answer is traced to one of four layers: **Code** and **Search** (bugs: fix the program) or **Criterion** and **Reach** (boundaries: change the method). The layer names, tests and fixes live in `atlas.yaml` under `layers`.
+
+| What | File |
+|---|---|
+| Bands, layers, every node (`id`, `title`, `band`, `year`, `source`), and course routes | `src/_data/atlas.yaml` |
+| A written node | `src/teaching/atlas/<id>/index.md` (folder name = the node's `id`) |
+| Map layout (bands, lanes, lines, routes) | `lib/atlas.js` |
+| The map | `src/_includes/atlas-map.njk` |
+| The node page layout (section rail, crossings, record) | `src/_includes/node.njk` |
+| A node's interactive labs | `src/assets/js/labs/<id>.js` |
+| How students contribute | `src/teaching/atlas/contribute.md` |
+
+**Adding a planned node.** Add one line under `nodes:` in `atlas.yaml`. It appears as an open dot in its band, at its year.
+
+**Writing a node.** Copy `src/teaching/atlas/otsu/index.md` to `src/teaching/atlas/<id>/index.md` and set `node: <id>`. Sections are the `## ` headings (Question, Intuition, Math, Build, Verify, Break, Learn); the rail is built from whatever headings you use. Crossings and Record are added automatically. The dot turns solid once the page exists. Set `draft: true` to keep it local while you write.
+
+**Crossings.** In the node's front matter:
+
+```
+crossings:
+  - { to: mixtures, layer: criterion, when: "one class is much smaller or more spread out than the other" }
+  - { to: reddi, layer: reach, when: "there are more than two classes" }
+```
+
+`layer` is `criterion` (crossed with a better criterion) or `reach` (crossed by seeing or saying more). Each crossing should match a diagnosis in Break.
+
+**Diagnoses.** In Break, write
+
+```
+{% diagnosis "The symptom, in a sentence.", "criterion" %}
+The explanation, in plain paragraphs.
+{% enddiagnosis %}
+```
+
+The layer is `code`, `search`, `criterion`, `reach`, or `tie` (not an error).
+
+**Adding a course.** Add an entry under `courses:` in `atlas.yaml` with `code`, `title`, `term` and `route` (node ids in teaching order). The course page and the map pick it up.
+
+**Recording contributions.** Add a line to the node's `record:` list, for example `- { term: Spring 2027, kind: Failure case, title: "...", by: "Student name" }`.
+
 ## Update publications
 
 Copy the newest `own-bib.bib` from the CV folder over `src/_data/own-bib.bib`. The page understands the same keywords as the CV (`underreview`, `preprint`, `accepted`, `oral`, `longoral`, `award` with `note={...}`); `mentee` and `cofirstauthor` are ignored. `@misc` abstracts are left out, as in the CV.

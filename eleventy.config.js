@@ -6,6 +6,7 @@ import katex from "katex";
 import { load as yamlLoad } from "js-yaml";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
+import { atlasLayout, crossingsOf } from "./lib/atlas.js";
 
 const isBuild = process.env.ELEVENTY_RUN_MODE === "build" && !process.env.DRAFTS;
 
@@ -45,21 +46,33 @@ export default function (eleventyConfig) {
     const id = `mn-${++noteId}`;
     return `<label for="${id}" class="mn-toggle" aria-label="Show margin note">&#8853;</label><input type="checkbox" id="${id}" class="mn-check"/><span class="marginnote">${md.renderInline(content.trim())}</span>`;
   });
+  // A diagnosis: a symptom the reader judges before opening it.
+  //   {% diagnosis "Symptom, in a sentence or two.", "criterion" %}Explanation in Markdown.{% enddiagnosis %}
+  //   layer: code | search | criterion | reach | tie
+  eleventyConfig.addPairedShortcode("diagnosis", (content, symptom, layer = "criterion") => {
+    const names = { code: "Code", search: "Search", criterion: "Criterion", reach: "Reach", tie: "Nowhere" };
+    const kinds = { code: "a bug", search: "a bug", criterion: "a boundary", reach: "a boundary", tie: "a tie, not an error" };
+    return `<details class="dx dx-${layer}"><summary><span class="dx-mark" aria-hidden="true"></span><span class="dx-symptom">${md.renderInline(symptom)}</span><span class="dx-open">Where does it live?</span></summary><div class="dx-answer"><p class="dx-verdict"><span class="layer-chip layer-${layer}">${names[layer] || layer}</span> ${kinds[layer] || ""}.</p>${md.render(content.trim())}</div></details>`;
+  });
   // Numbered figure: {% figure "/teaching/ece6357/otsu.png", "Caption text" %}
   eleventyConfig.addShortcode("figure", (src, caption = "", alt = "") => {
     return `<figure class="fig"><img src="${src}" alt="${alt || caption.replace(/<[^>]+>/g, "")}" loading="lazy"/>${caption ? `<figcaption>${md.renderInline(caption)}</figcaption>` : ""}</figure>`;
   });
 
   // ---------- collections ----------
+  // Atlas nodes: one folder per node, src/teaching/atlas/<id>/index.md
+  eleventyConfig.addCollection("atlas", (api) =>
+    api.getFilteredByGlob("src/teaching/atlas/*/index.md").sort((a, b) => (a.data.title || "").localeCompare(b.data.title || ""))
+  );
   eleventyConfig.addCollection("notes", (api) =>
-    api.getFilteredByGlob("src/teaching/**/*.md").sort((a, b) =>
+    api.getFilteredByGlob("src/teaching/**/*.md").filter((p) => !p.inputPath.includes("/atlas/")).sort((a, b) =>
       (a.data.course || "").localeCompare(b.data.course || "") || (a.data.lecture ?? 0) - (b.data.lecture ?? 0) || a.date - b.date)
   );
   eleventyConfig.addCollection("journal", (api) =>
     api.getFilteredByGlob("src/outside/*.md").sort((a, b) => b.date - a.date)
   );
   eleventyConfig.addCollection("writing", (api) =>
-    api.getFilteredByGlob(["src/teaching/**/*.md", "src/outside/*.md"]).sort((a, b) => b.date - a.date)
+    api.getFilteredByGlob(["src/teaching/**/*.md", "src/outside/*.md"]).filter((p) => !p.data.eleventyExcludeFromCollections && !p.inputPath.endsWith("contribute.md")).sort((a, b) => b.date - a.date)
   );
 
   // ---------- filters ----------
@@ -84,6 +97,14 @@ export default function (eleventyConfig) {
     const i = (arr || []).findIndex((x) => x.url === url);
     return { prev: i > 0 ? arr[i - 1] : null, next: i >= 0 && i < arr.length - 1 ? arr[i + 1] : null };
   });
+  // The atlas: layout computed from what each method sees and the year of its source (lib/atlas.js)
+  eleventyConfig.addFilter("atlasLayout", (atlas, pages) => atlasLayout(atlas, pages));
+  eleventyConfig.addFilter("crossingsOf", (layout, id) => crossingsOf(layout, id));
+  eleventyConfig.addFilter("layerOf", (atlas, id) => (atlas.layers || []).find((l) => l.id === id) || {});
+  eleventyConfig.addFilter("bandOf", (atlas, id) => (atlas.bands || []).find((b) => b.id === id) || {});
+  eleventyConfig.addFilter("upperFirst", (s) => (s ? String(s)[0].toUpperCase() + String(s).slice(1) : ""));
+  eleventyConfig.addFilter("inCourse", (pages, code) => (pages || []).flatMap((p) =>
+    (p.data.courses || []).filter((c) => c.code === code).map((c) => ({ page: p, where: c.where }))));
   eleventyConfig.addFilter("json", (x) => JSON.stringify(x));
 
   // ---------- feed (teaching notes + journal) ----------

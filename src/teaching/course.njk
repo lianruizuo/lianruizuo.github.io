@@ -20,6 +20,23 @@ eleventyComputed:
   {%- if c.about %}{{ c.about | mdBlock | safe }}{% endif %}
   {%- if c.with %}<p class="muted">{{ c.with }}</p>{% endif %}
 </div>
+{%- set map = atlas | atlasLayout(collections.atlas) %}
+{%- set r = (map.routes | where("code", c.code))[0] %}
+{%- if r %}
+<section class="span">
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>Route through the atlas</h2></div></div>
+  <ol class="row-list route-list">
+    {%- for n in r.stops %}
+    <li class="row"><div class="m">{{ loop.index }}</div><div class="t">
+      {%- if n.written %}<h3><a href="{{ n.url }}">{{ n.title }}</a></h3>{% if n.question %}<p>{{ n.question }}</p>{% endif %}
+      {%- else %}<h3 class="planned-name">{{ n.title }} <span class="soon">planned</span></h3>{% endif %}
+      <p class="small muted">{{ n.source }}, {{ n.year }}</p>
+    </div></li>
+    {%- endfor %}
+  </ol>
+  <div class="row" style="margin-top:1.25rem"><div class="m"></div><p class="t muted small">See this route on the <a href="/teaching/#atlas">atlas map</a>.</p></div>
+</section>
+{%- endif %}
 {%- if notes.length %}
 <section class="span">
   <div class="row section-head"><div class="m"></div><div class="t"><h2>Lecture notes</h2></div></div>
@@ -32,6 +49,4 @@ eleventyComputed:
     {%- endfor %}
   </ul>
 </section>
-{%- elif c.current %}
-<p class="empty" style="margin-top:2rem">Lecture notes will be posted here during the semester.</p>
 {%- endif %}

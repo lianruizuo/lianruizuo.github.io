@@ -1,0 +1,56 @@
+---
+layout: base.njk
+math: true
+mainClass: node-page
+---
+{%- set map = atlas | atlasLayout(collections.atlas) %}
+{%- set me = map.at[node] %}
+{%- set band = atlas | bandOf(me.band if me else "") %}
+{%- set cx = map | crossingsOf(node) %}
+
+<header class="node-head row">
+  <div class="m"><a href="/teaching/" class="crumb">Atlas</a>{% if band.name %}<br><span class="band-tag">Sees {{ band.name | lower }}</span>{% endif %}</div>
+  <div class="t">
+    <h1>{{ title }}</h1>
+    <p class="node-question">{{ question }}</p>
+    {%- if source %}
+    <p class="node-source"><span class="label">Primary source</span> {{ source.authors }}, “{{ source.title }},” <i>{{ source.venue }}</i>, {{ source.details }}, {{ source.year }}.{% if source.doi %} <a href="https://doi.org/{{ source.doi }}">doi:{{ source.doi }}</a>{% endif %}</p>
+    {%- endif %}
+  </div>
+</header>
+
+<div class="node-body span">
+  <nav class="arc-rail" aria-label="On this page"><ol></ol></nav>
+  <article class="prose node-prose">
+{{ content | safe }}
+
+    <h2 id="crossings">Crossings</h2>
+    <p>Every boundary in Break is a place where another method starts. {% if cx.out.length %}These are the ones the atlas already knows about.{% endif %}</p>
+    {%- if cx.out.length %}
+    <ul class="crossings">
+      {%- for e in cx.out %}
+      <li>
+        <span class="layer-chip layer-{{ e.layer }}">{{ (atlas | layerOf(e.layer)).name }}</span>
+        <span class="cx-when">When {{ e.when | join("; or when ") }}</span>
+        <span class="cx-to">{% if e.b.written %}<a href="{{ e.b.url }}">{{ e.b.title }}</a>{% else %}{{ e.b.title }} <span class="soon">planned</span>{% endif %}<span class="cx-how">{{ "same information, better criterion" if e.layer == "criterion" else ("sees more" if e.b.band != me.band else "says more") }}</span></span>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+    {%- if cx.into.length %}
+    <p class="muted small">This method crosses a boundary of {% for e in cx.into %}<a href="{{ e.a.url }}">{{ e.a.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.</p>
+    {%- endif %}
+    {% set current = node %}{% include "atlas-map.njk" %}
+
+    {%- if record and record.length %}
+    <h2 id="record">Record</h2>
+    <p class="muted small">Bugs, tests, failure cases and crossings added to this node, semester by semester. <a href="/teaching/atlas/contribute/">How to add one</a>.</p>
+    <ul class="record">
+      {%- for r in record %}
+      <li><span class="rec-term">{{ r.term }}</span><span class="rec-kind">{{ r.kind }}</span><span class="rec-title">{{ r.title | md | safe }}</span><span class="rec-by">{{ r.by }}</span></li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </article>
+</div>
+{% include "trace.njk" %}

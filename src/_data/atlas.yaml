@@ -1,0 +1,76 @@
+# The atlas.
+#
+# Every method has a place decided by two facts, not by hand:
+#   band  what information the method sees (bands below, narrowest first)
+#   year  the year of its primary source
+# Lines between methods are not declared here. They come from the Break section of a
+# written node: each one is a boundary of that method and the method that crosses it.
+#
+# To plan a node, add one entry under `nodes`. To write it, create
+# src/teaching/atlas/<id>/index.md with `node: <id>`; it turns solid on the map.
+# To remove a node, delete its entry (and its folder).
+
+bands:
+  - id: values
+    name: Values
+    sees: Gray levels, with their positions thrown away.
+  - id: space
+    name: Space
+    sees: Values and where they are, through neighborhoods or smooth fields.
+  - id: shape
+    name: Shape
+    sees: A curve or region as a whole object.
+  - id: pairs
+    name: Two images
+    sees: Two images at once, and how one maps onto the other.
+  - id: many
+    name: Many images
+    sees: A collection of examples, summarized into a prior.
+
+# The four places an error can live. Code and search are bugs; criterion and reach are boundaries.
+layers:
+  - id: code
+    name: Code
+    kind: bug
+    test: The implementation does not compute what the math says.
+    fix: Fix the code.
+  - id: search
+    name: Search
+    kind: bug
+    test: The optimizer misses the optimum of its own criterion.
+    fix: Fix the optimizer, or how it starts.
+  - id: criterion
+    name: Criterion
+    kind: boundary
+    test: The criterion is optimized, but its best answer is not the right one here.
+    fix: Change what is optimized.
+  - id: reach
+    name: Reach
+    kind: boundary
+    test: Even the best answer the method can express is wrong.
+    fix: Let it see more, or say more.
+
+nodes:
+  - { id: kmeans,     title: k-means,                  band: values, year: 1967, source: MacQueen }
+  - { id: mixtures,   title: Mixtures and EM,          band: values, year: 1977, source: "Dempster, Laird and Rubin" }
+  - { id: otsu,       title: Otsu thresholding,        band: values, year: 1979, source: Otsu }
+  - { id: fcm,        title: Fuzzy c-means,            band: values, year: 1981, source: Bezdek }
+  - { id: reddi,      title: Multilevel thresholds,    band: values, year: 1984, source: "Reddi, Rudin and Keshavan" }
+  - { id: canny,      title: Canny edges,              band: space,  year: 1986, source: Canny }
+  - { id: biasfield,  title: Bias field correction,    band: space,  year: 1999, source: "Van Leemput et al." }
+  - { id: graphcut,   title: Graph cuts,               band: space,  year: 2004, source: "Boykov and Kolmogorov" }
+  - { id: snakes,     title: Snakes,                   band: shape,  year: 1988, source: "Kass, Witkin and Terzopoulos" }
+  - { id: levelsets,  title: Level sets,               band: shape,  year: 1995, source: "Malladi, Sethian and Vemuri" }
+  - { id: gvf,        title: Gradient vector flow,     band: shape,  year: 1998, source: "Xu and Prince" }
+  - { id: chanvese,   title: Contours without edges,   band: shape,  year: 2001, source: "Chan and Vese" }
+  - { id: landmarks,  title: Landmark registration,    band: pairs,  year: 1988, source: Goshtasby }
+  - { id: demons,     title: Demons,                   band: pairs,  year: 1998, source: Thirion }
+  - { id: ffd,        title: Free-form deformations,   band: pairs,  year: 1999, source: "Rueckert et al." }
+  - { id: asm,        title: Active shape models,      band: many,   year: 1995, source: "Cootes et al." }
+
+# A course is a route through the atlas, in teaching order.
+courses:
+  - code: ECE 6357
+    title: Advanced Image Processing
+    term: Fall 2026
+    route: [otsu, reddi, kmeans, fcm, mixtures, biasfield, canny, snakes, gvf, asm, levelsets, chanvese, graphcut, landmarks, demons, ffd]

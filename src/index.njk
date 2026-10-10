@@ -50,7 +50,7 @@ scripts: ["/assets/js/field.js"]
     {%- if recent.length %}
     {%- for p in recent %}
     <li class="row">
-      <div class="m">{{ p.date | shortDate }}<br>{{ p.data.course or "Outside Work" }}</div>
+      <div class="m">{{ p.date | shortDate }}<br>{{ p.data.kicker or p.data.course or "Outside Work" }}</div>
       <div class="t"><h3><a href="{{ p.url }}">{{ p.data.title }}</a></h3>{% if p.data.summary %}<p>{{ p.data.summary }}</p>{% endif %}</div>
     </li>
     {%- endfor %}

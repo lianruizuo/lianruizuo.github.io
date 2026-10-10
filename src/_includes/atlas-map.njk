@@ -1,0 +1,62 @@
+{#- The atlas map. Expects `map` (atlasLayout); optional `current` (a node id) and `routes` (true to offer course routes). -#}
+<figure class="amap{% if current %} amap-focus{% endif %}" data-amap>
+  {%- if routes and map.routes.length %}
+  <div class="amap-tools" role="group" aria-label="Show a course route">
+    <span class="amap-tools-label">Route</span>
+    <button type="button" class="chip" data-route="" aria-pressed="true">None</button>
+    {%- for r in map.routes %}<button type="button" class="chip" data-route="{{ r.code | slug }}" aria-pressed="false">{{ r.code }}</button>{% endfor %}
+  </div>
+  {%- endif %}
+  <div class="amap-scroll">
+  <svg viewBox="0 0 {{ map.W }} {{ map.H }}" role="img" aria-labelledby="amap-t-{{ current or 'all' }}">
+    <title id="amap-t-{{ current or 'all' }}">The atlas. Each method sits in the band of what it sees, at the year of its primary source. Solid dots are written; open dots are planned. Lines are boundaries of one method crossed by another.</title>
+    <defs>
+      {%- for l in ["criterion", "reach", "search", "code"] %}
+      <marker id="am-arrow-{{ l }}{{ '-' + current if current }}" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0.5,1 L9,5 L0.5,9" class="am-head layer-stroke-{{ l }}"/></marker>
+      {%- endfor %}
+    </defs>
+    {%- for b in map.bands %}
+    <g class="am-band">
+      <rect x="0" y="{{ b.y }}" width="{{ map.W }}" height="{{ b.h }}" class="am-band-bg{% if loop.index0 % 2 %} alt{% endif %}"/>
+      <text x="14" y="{{ b.y + b.h / 2 + 5 }}" class="am-band-name"><title>{{ b.sees }}</title>{{ b.name }}</text>
+    </g>
+    {%- endfor %}
+    {%- for t in map.ticks %}
+    <line x1="{{ t.x }}" x2="{{ t.x }}" y1="8" y2="{{ map.axisY }}" class="am-tick"/>
+    <text x="{{ t.x }}" y="{{ map.axisY + 18 }}" class="am-year">{{ t.year }}</text>
+    {%- endfor %}
+    {%- for e in map.edges %}
+    <g class="am-edge layer-{{ e.layer }}{% if current and e.from != current and e.to != current %} faint{% endif %}">
+      <title>A boundary of {{ e.a.title }}, crossed by {{ e.b.title }}: {{ e.when | join("; ") }}.</title>
+      <path d="{{ e.d }}" class="layer-stroke-{{ e.layer }}" marker-end="url(#am-arrow-{{ e.layer }}{{ '-' + current if current }})"/>
+    </g>
+    {%- endfor %}
+    {%- for r in map.routes %}
+    <g class="am-route" data-route-path="{{ r.code | slug }}" hidden>
+      <path d="{{ r.d }}" class="am-route-line"/>
+    </g>
+    {%- endfor %}
+    {%- for n in map.nodes %}
+    {%- if n.written %}<a href="{{ n.url }}" class="am-link">{% endif %}
+    <g class="am-node{{ ' written' if n.written else ' planned' }}{{ ' current' if current == n.id }}">
+      <title>{{ n.title }} ({{ n.source }}, {{ n.year }}){{ '' if n.written else ', planned' }}</title>
+      {%- if current == n.id %}<circle cx="{{ n.x }}" cy="{{ n.y }}" r="13" class="am-halo"/>{% endif %}
+      <circle cx="{{ n.x }}" cy="{{ n.y }}" r="{{ 6.5 if n.written else 5.5 }}" class="am-dot"/>
+      <text x="{{ n.lx }}" y="{{ n.y + 4.5 }}" text-anchor="{{ n.anchor }}">{{ n.title }}</text>
+    </g>
+    {%- if n.written %}</a>{% endif %}
+    {%- endfor %}
+    {%- for r in map.routes %}
+    <g class="am-route" data-route-path="{{ r.code | slug }}" hidden>
+      {%- for n in r.stops %}<g class="am-stop"><circle cx="{{ n.x }}" cy="{{ n.y }}" r="8"/><text x="{{ n.x }}" y="{{ n.y + 3.4 }}">{{ loop.index }}</text></g>{% endfor %}
+    </g>
+    {%- endfor %}
+  </svg>
+  </div>
+  <figcaption class="amap-legend">
+    <span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" class="lg-written"/></svg>Written</span>
+    <span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" class="lg-planned"/></svg>Planned</span>
+    <span><svg width="26" height="10" aria-hidden="true"><line x1="1" y1="5" x2="25" y2="5" class="layer-stroke-criterion"/></svg>Crossed with a better criterion</span>
+    <span><svg width="26" height="10" aria-hidden="true"><line x1="1" y1="5" x2="25" y2="5" class="layer-stroke-reach"/></svg>Crossed by seeing or saying more</span>
+  </figcaption>
+</figure>
