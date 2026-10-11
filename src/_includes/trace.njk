@@ -1,0 +1,30 @@
+{#- Reader traces. Renders only the parts that are switched on in _data/site.json. -#}
+{%- if site.goatcounter or site.formspree %}
+<aside class="trace" data-trace aria-label="Reader note">
+  {%- if site.goatcounter %}
+  <div class="trace-actions">
+    <button class="btn" type="button" data-useful data-done-label="{{ usefulDone or 'Marked as useful' }}">{{ usefulLabel or "This was useful" }}</button>
+    <span class="trace-status" data-useful-status aria-live="polite"></span>
+  </div>
+  {%- endif %}
+  {%- if site.formspree %}
+  <details{% if not site.goatcounter %} open{% endif %}>
+    <summary>{{ traceInvite or "Tell me who you are. Only I will see it." }}</summary>
+    <form data-note action="https://formspree.io/f/{{ site.formspree }}" method="POST">
+      <input type="hidden" name="page" value="{{ page.url }}">
+      <input type="hidden" name="_subject" value="A reader of {{ title }}">
+      <label class="hp" aria-hidden="true">Leave empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+      <label>Your name <input type="text" name="name" autocomplete="name" required></label>
+      <label>Where you read from, such as a lab, a course, or a company <input type="text" name="affiliation" autocomplete="organization"></label>
+      <label>Email, if you'd like to hear when new notes are posted <input type="email" name="email" autocomplete="email"></label>
+      <label>Anything you'd like to say <textarea name="message" rows="2"></textarea></label>
+      <p class="fine">This goes to my inbox and nowhere else. Nothing is published.</p>
+      <div class="trace-actions">
+        <button class="btn" type="submit">Send</button>
+        <span class="trace-status" data-note-status aria-live="polite"></span>
+      </div>
+    </form>
+  </details>
+  {%- endif %}
+</aside>
+{%- endif %}

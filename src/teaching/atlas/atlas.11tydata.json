@@ -1,0 +1,4 @@
+{
+  "layout": "node.njk",
+  "permalink": "/teaching/atlas/{{ page.fileSlug }}/"
+}

@@ -1,0 +1,9 @@
+# The epigraph at the top of the Teaching page.
+# Put each line of the quotation under `lines`, in quotes, one per row, for example
+#   lines:
+#     - "First line"
+#     - "Second line"
+# Nothing is shown while `lines` is empty.
+epigraph:
+  lines: []
+  source: T. S. Eliot, Choruses from “The Rock” (1934)

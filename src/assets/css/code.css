@@ -1,0 +1,11 @@
+/* Prism tokens, in the site's palette */
+.token.comment, .token.prolog, .token.doctype, .token.cdata { color: var(--graphite); font-style: italic; }
+.token.keyword, .token.boolean, .token.important { color: var(--accent); }
+.token.string, .token.char, .token.attr-value { color: #3d6b4f; }
+.token.number, .token.constant { color: #8a4b2a; }
+.token.function, .token.class-name { color: var(--ink); font-weight: 600; }
+.token.operator, .token.punctuation { color: var(--graphite); }
+@media (prefers-color-scheme: dark) {
+  .token.string, .token.char, .token.attr-value { color: #9cc9a9; }
+  .token.number, .token.constant { color: #e0a989; }
+}

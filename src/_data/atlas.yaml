@@ -1,0 +1,85 @@
+# The atlas.
+#
+# Nothing is placed by hand: a method sits at the year of its primary source,
+# and its height is chosen automatically so labels never collide.
+# A course is an ordered list of methods (its route). Picking it on the map
+# lines those methods up in teaching order.
+# Crossings (a boundary of one method that another method crosses) are listed
+# in each written node's front matter and shown on that node's page.
+#
+# To plan a node, add one entry under `nodes`. To write it, create
+# src/teaching/atlas/<id>/index.md with `node: <id>`; it turns solid on the map.
+# To remove a node, delete its entry (and its folder).
+
+# The four places an error can live. Code and search are bugs; criterion and reach are boundaries.
+layers:
+  - id: code
+    name: Code
+    kind: bug
+    test: The implementation does not compute what the math says.
+    fix: Fix the code.
+  - id: search
+    name: Search
+    kind: bug
+    test: The optimizer misses the optimum of its own criterion.
+    fix: Fix the optimizer, or how it starts.
+  - id: criterion
+    name: Criterion
+    kind: boundary
+    test: The criterion is optimized, but its best answer is not the right one here.
+    fix: Change what is optimized.
+  - id: reach
+    name: Reach
+    kind: boundary
+    test: Even the best answer the method can express is wrong.
+    fix: Let it see more, or say more.
+
+nodes:
+  # methods (id, title, year and authors of the primary source)
+  - { id: kmeans,      title: k-means,                  year: 1967, source: MacQueen }
+  - { id: mixtures,    title: Mixtures and EM,          year: 1977, source: "Dempster, Laird and Rubin" }
+  - { id: otsu,        title: Otsu thresholding,        year: 1979, source: Otsu }
+  - { id: fcm,         title: Fuzzy c-means,            year: 1981, source: Bezdek }
+  - { id: opticalflow, title: Optical flow,             year: 1981, source: "Horn and Schunck; Lucas and Kanade" }
+  - { id: reddi,       title: Multilevel thresholds,    year: 1984, source: "Reddi, Rudin and Keshavan" }
+  - { id: canny,       title: Canny edges,              year: 1986, source: Canny }
+  - { id: snakes,      title: Snakes,                   year: 1988, source: "Kass, Witkin and Terzopoulos" }
+  - { id: levelsets,   title: Level sets,               year: 1988, source: "Osher and Sethian" }
+  - { id: regframe,    title: Registration framework,   year: 1992, source: Brown }
+  - { id: mi,          title: Mutual information,       year: 1995, source: "Viola and Wells; Collignon et al." }
+  - { id: gvf,         title: Gradient vector flow,     year: 1998, source: "Xu and Prince" }
+  - { id: demons,      title: Demons,                   year: 1998, source: Thirion }
+  - { id: biasfield,   title: Bias field correction,    year: 1999, source: "Van Leemput et al." }
+  - { id: interp,      title: Interpolation,            year: 2000, source: "Thévenaz, Blu and Unser" }
+  - { id: graphcut,    title: Graph cuts,               year: 2001, source: "Boykov and Jolly" }
+  # seminars: discussions rather than single methods, placed at the paper that anchors them
+  - { id: regeval,     title: Evaluating registration,  year: 1997, source: "West et al.", kind: seminar }
+  - { id: modernseg,   title: Modern segmentation,      year: 2015, source: "Ronneberger et al. (U-Net)", kind: seminar }
+  - { id: modernreg,   title: Modern registration,      year: 2019, source: "Balakrishnan et al. (VoxelMorph)", kind: seminar }
+  - { id: segeval,     title: Evaluating segmentation,  year: 2024, source: "Maier-Hein et al. (Metrics Reloaded)", kind: seminar }
+
+# A course is its route through the atlas, in teaching order. `ch` is the chapter in the course.
+courses:
+  - code: ECE 6357
+    title: Advanced Image Processing
+    term: Fall 2026
+    route:
+      - { id: otsu,        ch: "2.1" }
+      - { id: reddi,       ch: "2.2" }
+      - { id: kmeans,      ch: "2.3" }
+      - { id: fcm,         ch: "2.4" }
+      - { id: mixtures,    ch: "2.5" }
+      - { id: biasfield,   ch: "2.6" }
+      - { id: canny,       ch: "3.1" }
+      - { id: snakes,      ch: "3.2" }
+      - { id: gvf,         ch: "3.3" }
+      - { id: levelsets,   ch: "3.4" }
+      - { id: modernseg,   ch: "3.5" }
+      - { id: segeval,     ch: "3.6" }
+      - { id: interp,      ch: "4.1" }
+      - { id: regframe,    ch: "4.2a–c" }
+      - { id: mi,          ch: "4.2d" }
+      - { id: opticalflow, ch: "4.3" }
+      - { id: demons,      ch: "4.4" }
+      - { id: modernreg,   ch: "4.5" }
+      - { id: regeval,     ch: "4.6" }

@@ -1,0 +1,62 @@
+---
+layout: base.njk
+title: Lianrui Zuo
+description: Lianrui Zuo develops methods that make biomedical measurements trustworthy, complete, and informative. Postdoctoral research fellow at Vanderbilt University.
+scripts: ["/assets/js/field.js"]
+---
+<figure class="field wide">
+  <canvas id="field" tabindex="0" role="img" aria-label="A contour landscape standing for a patient. Inside a movable frame the lines are solid: the measurement. Outside the frame they turn from solid to dashed to dotted with distance."></canvas>
+  <div class="field-foot">
+    <div class="field-controls" role="group" aria-label="Figure options">
+      <button type="button" class="chip" data-mode="scanner" aria-pressed="false"><span class="sw sw-a" aria-hidden="true"></span><span class="sw sw-b" aria-hidden="true"></span>Scanners</button>
+      <button type="button" class="chip" data-mode="harmonize" aria-pressed="false" hidden>Harmonize</button>
+      <button type="button" class="chip" data-mode="time" aria-pressed="false">Time</button>
+    </div>
+    <figcaption>
+      The landscape is a patient. A biomedical measurement sees only part of it: inside the frame is what was measured; beyond it, what can be inferred fades with distance.<span data-note="scanner" hidden> Two scanners draw the same anatomy differently. Harmonization removes the scanner and keeps the anatomy.</span><span data-note="time" hidden> The patient keeps changing, but a measurement only captures the moment it was taken.</span>
+      <span class="hint hint-mouse">Move the frame with your cursor.</span><span class="hint hint-touch">Drag to move the frame.</span>
+    </figcaption>
+  </div>
+</figure>
+
+<section class="intro row">
+  <div class="m">
+    <img class="portrait" src="/assets/img/portrait.jpg" alt="Portrait of Lianrui Zuo" width="360" height="360">
+  </div>
+  <div class="t">
+    <p class="lede">I’m a postdoctoral research fellow at Vanderbilt University. I develop methods that make biomedical measurements trustworthy, complete, and informative.</p>
+    <p>I work in the <a href="https://my.vanderbilt.edu/masi/">MASI Lab</a> with Bennett Landman. Before Vanderbilt, I did my Ph.D. at Johns Hopkins with Jerry Prince, and spent four years as a predoctoral fellow at the National Institute on Aging with Susan Resnick during my PhD. This fall I’m teaching <a href="/teaching/">ECE 6357 Advanced Image Processing</a>.</p>
+    <ul class="contact">
+      <li><a href="mailto:{{ site.email }}">Email</a></li>
+      {%- for l in site.links %}<li><a href="{{ l.url }}" rel="me">{{ l.label }}</a></li>{% endfor %}
+      {%- if cvfile.exists %}<li><a href="{{ site.cv }}">CV (PDF)</a></li>{% endif %}
+    </ul>
+  </div>
+</section>
+
+<section class="span">
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>Recent news</h2><a class="more" href="/about/#news">All news</a></div></div>
+  <ul class="row-list">
+    {%- for n in news | take(6) %}
+    <li class="row"><div class="m">{{ n.date | newsDate }}</div><div class="t"><p>{{ n.text | md | safe }}</p></div></li>
+    {%- endfor %}
+  </ul>
+</section>
+
+<section class="span">
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>Beyond research</h2></div></div>
+  {%- set recent = collections.writing | take(4) %}
+  <ul class="entries row-list">
+    {%- if recent.length %}
+    {%- for p in recent %}
+    <li class="row">
+      <div class="m">{{ p.date | shortDate }}<br>{{ p.data.kicker or p.data.course or "Outside Work" }}</div>
+      <div class="t"><h3><a href="{{ p.url }}">{{ p.data.title }}</a></h3>{% if p.data.summary %}<p>{{ p.data.summary }}</p>{% endif %}</div>
+    </li>
+    {%- endfor %}
+    {%- else %}
+    <li class="row"><div class="m">Teaching</div><div class="t"><h3><a href="/teaching/ece6357/">ECE 6357 Advanced Image Processing</a></h3><p>Fall 2026, Vanderbilt University</p></div></li>
+    <li class="row"><div class="m">Outside Work</div><div class="t"><h3><a href="/outside/">Life outside the lab</a></h3><p>Occasional notes from life outside research.</p></div></li>
+    {%- endif %}
+  </ul>
+</section>

@@ -1,0 +1,52 @@
+---
+layout: base.njk
+pagination:
+  data: cv.teaching
+  size: 1
+  alias: c
+permalink: "/teaching/{{ c.slug }}/"
+eleventyComputed:
+  title: "{{ c.course }}"
+---
+{%- set notes = collections.notes | where("course", c.code) %}
+<header class="page-head row">
+  <div class="m"><a href="/teaching/" style="text-decoration:none">Teaching</a></div>
+  <div class="t">
+    <h1>{{ c.course }}</h1>
+    <p class="post-meta"><span>{{ c.term }}</span><span>{{ c.where }}</span><span>{{ c.role }}</span></p>
+  </div>
+</header>
+<div class="course-about">
+  {%- if c.about %}{{ c.about | mdBlock | safe }}{% endif %}
+  {%- if c.with %}<p class="muted">{{ c.with }}</p>{% endif %}
+</div>
+{%- set map = atlas | atlasLayout(collections.atlas) %}
+{%- set r = (map.routes | where("code", c.code))[0] %}
+{%- if r %}
+<section class="span">
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>Route through the atlas</h2></div></div>
+  <ol class="row-list route-list">
+    {%- for n in r.stops %}
+    <li class="row"><div class="m">{{ ("Ch " + n.ch) if n.ch else loop.index }}</div><div class="t">
+      {%- if n.written %}<h3><a href="{{ n.url }}">{{ n.title }}</a></h3>{% if n.question %}<p>{{ n.question }}</p>{% endif %}
+      {%- else %}<h3 class="planned-name">{{ n.title }} <span class="soon">{{ "seminar" if n.kind == "seminar" else "planned" }}</span></h3>{% endif %}
+      <p class="small muted">{{ n.source }}, {{ n.year }}</p>
+    </div></li>
+    {%- endfor %}
+  </ol>
+  <div class="row" style="margin-top:1.25rem"><div class="m"></div><p class="t muted small">See it on the <a href="/teaching/">atlas</a>.</p></div>
+</section>
+{%- endif %}
+{%- if notes.length %}
+<section class="span">
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>Lecture notes</h2></div></div>
+  <ul class="row-list notes-list">
+    {%- for n in notes %}
+    <li class="row"><div class="m">{% if n.data.lecture %}Lecture {{ n.data.lecture }}{% endif %}</div><div class="t">
+      <h3><a href="{{ n.url }}">{{ n.data.title }}</a>{% if n.data.draft %}<span class="draft-flag">Draft</span>{% endif %}</h3>
+      {%- if n.data.summary %}<p>{{ n.data.summary }}</p>{% endif %}
+    </div></li>
+    {%- endfor %}
+  </ul>
+</section>
+{%- endif %}

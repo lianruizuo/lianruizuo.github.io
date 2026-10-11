@@ -1,0 +1,26 @@
+{
+  "name": "lianruizuo.github.io",
+  "version": "1.0.0",
+  "description": "Personal site of Lianrui Zuo",
+  "scripts": {
+    "start": "eleventy --serve --port 8080",
+    "build": "eleventy",
+    "lock": "node scripts/lock.mjs",
+    "preview:locked": "LOCKED=1 eleventy --serve --port 8080"
+  },
+  "author": "",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "@11ty/eleventy-plugin-rss": "^3.1.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
+    "@retorquere/bibtex-parser": "^11.0.0",
+    "js-yaml": "^5.4.3",
+    "katex": "^0.16.22",
+    "markdown-it": "^15.0.2",
+    "markdown-it-anchor": "^10.0.0",
+    "markdown-it-footnote": "^4.0.0",
+    "markdown-it-texmath": "^1.0.0"
+  },
+  "type": "module",
+  "private": true
+}

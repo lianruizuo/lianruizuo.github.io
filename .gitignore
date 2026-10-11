@@ -1,0 +1,7 @@
+node_modules/
+_site/
+.DS_Store
+
+# lecture bodies and labs: stay on this computer; only the encrypted copies are published
+private/
+.lockbuild/

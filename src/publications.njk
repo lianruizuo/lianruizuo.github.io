@@ -1,0 +1,19 @@
+---
+layout: page.njk
+title: Publications
+---
+<div class="span">
+  {%- for g in publications.byYear %}
+  <div class="year-group row">
+    <div class="m">{{ g.year }}</div>
+    <div class="t"><ul class="pub-list">{% for p in g.items %}{% include "pub.njk" %}{% endfor %}</ul></div>
+  </div>
+  {%- endfor %}
+</div>
+
+{%- if publications.review.length %}
+<section class="span" id="in-review">
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>Under review and preprints</h2></div></div>
+  <div class="row"><div class="m"></div><div class="t"><ul class="pub-list">{% for p in publications.review %}{% include "pub.njk" %}{% endfor %}</ul></div></div>
+</section>
+{%- endif %}

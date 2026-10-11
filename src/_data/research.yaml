@@ -1,0 +1,38 @@
+# The three arcs of the research program. Paper keys refer to entries in own-bib.bib.
+arcs:
+  - id: harmonization
+    title: See the patient, not the scanner
+    short: Harmonizing MRI and CT so that differences between scanners, protocols, and reconstruction kernels stop masquerading as differences between patients.
+    body: |
+      The same brain scanned on two machines gives two different images. Before anything downstream can be trusted (a volume, a segmentation, a risk score), the variation that comes from the instrument has to be separated from the variation that comes from the patient. Much of my training went into this problem, mostly through disentangled representation learning for MRI, and it now extends to CT reconstruction kernels and to studies that span more than a hundred scanners.
+    papers: [zuo2023haca3, zuo2021unsupervised, zuo2021information, zuo2022disentangling, hays2026harmonizing, krishnan2026harmonizing]
+  - id: completion
+    title: Recover what was not captured
+    short: Using generative models to extend a truncated field of view, complete missing data, and synthesize images that were never acquired.
+    body: |
+      Clinical images are rarely complete. A chest CT is cropped to the lungs, a contrast is missing from a protocol, a study keeps a handful of 2D slices where a 3D volume was needed. I use generative models, recently latent diffusion and flow matching, to recover what the scanner did not capture: extending a truncated field of view, building 3D volumes from a few 2D slices, filling and synthesizing lesions, and synthesizing contrasts that were never acquired. The interesting part is not only making the missing region look right, but knowing what the recovered region can and cannot be used for.
+    papers: [zuo2025beyond, zuo2025robust, zhang2025bi, zuo2020synthesizing, hays2026synthetic]
+  - id: value
+    title: Ask what each measurement adds
+    short: Measuring what each modality, time point, and processing step contributes to a clinical decision, starting with lung cancer risk.
+    body: |
+      A patient accumulates scans, time points, and records, and each one costs something to acquire, process, and interpret. I want to quantify what each of them actually adds to a clinical prediction, rather than assume that more data is always better. Lung cancer screening is where I am starting; it is the focus of my NIH/NCI K99/R00 award.
+    papers: [zuo2026prospective, zuo2026artifact, zuo2023latent, li2025contrastive, liard2026impact]
+
+funding:
+  - years: 2026–2031
+    sponsor: NIH/NCI K99/R00 Pathway to Independence Award
+    title: Accelerating Early Diagnosis and Risk Assessment with Multimodal AI for Lung Cancer Care
+    role: Principal Investigator
+  - years: 2025–2030
+    sponsor: NIH/NLM R01
+    title: Retrospective Magnetic Resonance Image Harmonization for Robust Federated Learning
+    role: Co-Investigator (MPI Dzung Pham and Jerry Prince)
+  - years: 2025
+    sponsor: NSF NAIRR Pilot
+    title: "Accessible Plug-and-Play AI: A Medical-informed Foundation Model for Consistent Lung CT Analysis"
+    role: Principal Investigator (25,000 H100 GPU hours)
+  - years: 2025
+    sponsor: NSF NAIRR Pilot
+    title: Uncovering Brain Biotypes and Clinical Outcomes with a Neuroimage Foundation Model
+    role: Co-Investigator (PI Yihao Liu)

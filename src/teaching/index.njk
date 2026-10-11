@@ -1,0 +1,34 @@
+---
+layout: base.njk
+title: Teaching
+permalink: /teaching/
+description: An atlas of the methods I teach in image processing, placed by the year of their primary source, and the courses that route through it.
+scripts: ["/assets/js/atlas.js"]
+---
+{%- set map = atlas | atlasLayout(collections.atlas) %}
+<header class="teach-head span">
+  <h1 class="sr-only">Teaching</h1>
+  {%- if teaching.epigraph.lines.length %}
+  <blockquote class="epigraph">
+    <p>{% for l in teaching.epigraph.lines %}{{ l }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+    <footer>— {{ teaching.epigraph.source }}</footer>
+  </blockquote>
+  {%- endif %}
+</header>
+
+<div class="wide amap-wrap">{% include "atlas-map.njk" %}</div>
+
+<section class="span" id="courses">
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>Courses</h2></div></div>
+  <ul class="row-list course-list">
+    {%- for c in cv.teaching %}
+    <li class="row">
+      <div class="m">{{ c.term }}</div>
+      <div class="t">
+        <h3><a href="/teaching/{{ c.slug }}/">{{ c.course }}</a></h3>
+        <p>{{ c.role }}, {{ c.where }}</p>
+      </div>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
