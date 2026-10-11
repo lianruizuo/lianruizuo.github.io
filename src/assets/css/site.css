@@ -445,7 +445,9 @@ eqn { display: block; }
 .node-prose h2 { scroll-margin-top: 1.5rem; margin: 3.5rem 0 1rem; font-size: 1.6rem; }
 .node-prose > h2:first-child, .lecture-body > h2:first-child { margin-top: 0; }
 .arc-rail ol:empty { display: none; }
-.gate { border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); padding: 1.6rem 0 1.4rem; margin: .5rem 0 3rem; }
+.preview { margin: 0 0 2.5rem; }
+.preview-cap { font-family: var(--sans); font-size: .82rem; color: var(--graphite); margin-top: .7rem; max-width: 34rem; }
+.gate { border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); padding: 1.6rem 0 1.4rem; margin: .5rem 0 1rem; }
 .gate-note { margin: 0 0 1rem; color: var(--graphite); max-width: 32rem; }
 .gate-form { display: flex; gap: .5rem; flex-wrap: wrap; }
 .gate-form input { font: inherit; font-family: var(--sans); font-size: .95rem; padding: .45rem .8rem; border: 1px solid var(--hairline); border-radius: 999px; background: var(--paper); color: var(--ink); min-width: 0; flex: 0 1 16rem; }

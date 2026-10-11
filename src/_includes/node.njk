@@ -5,7 +5,7 @@ mainClass: node-page
 ---
 {%- set map = atlas | atlasLayout(collections.atlas) %}
 {%- set me = map.at[node] %}
-{%- set cx = map | crossingsOf(node) %}
+{%- set cx = map | crossingsFor(node) %}
 
 <header class="node-head row">
   <div class="m"><a href="/teaching/" class="crumb">Atlas</a>{% if me %}<br><span class="node-year">{{ me.year }}</span>{% endif %}</div>
@@ -22,31 +22,10 @@ mainClass: node-page
   <nav class="arc-rail" aria-label="On this page"><ol></ol></nav>
   <article class="prose node-prose">
 {%- set priv = node | privateLecture %}
-{%- if priv %}
-<!--lecture-->
-{% renderFile priv, {}, "njk,md" %}
-{%- for l in labs or [] %}
-<script src="/assets/js/labs/{{ l }}.js?v={{ build.stamp }}"></script>
-{%- endfor %}
-<!--/lecture-->
-{%- elif locked and lockedData[node] %}
-    <div class="gate" data-gate data-node="{{ node }}">
-      <p class="gate-note">This lecture is open to students in {% for c in atlas.courses %}{% if node in c.route | routeIds %}{{ c.code }}{% endif %}{% endfor %}. Enter the course password to read it.</p>
-      <form class="gate-form" autocomplete="off">
-        <label class="sr-only" for="gate-pw">Course password</label>
-        <input id="gate-pw" type="password" name="pw" placeholder="Course password" required>
-        <button type="submit" class="chip chip-strong">Open</button>
-      </form>
-      <p class="gate-msg" aria-live="polite"></p>
-      <script type="application/json" data-payload>{{ lockedData[node] | dump | safe }}</script>
-    </div>
-    <div class="lecture-body" data-lecture hidden></div>
-{%- elif locked %}
-    <p class="muted">This lecture has not been published yet.</p>
-{%- else %}
-{{ content | safe }}
-{%- endif %}
-
+{%- set pd = node | privateData %}
+{%- set crossings = pd.crossings or crossings %}
+{%- set record = pd.record or record %}
+{%- set tail %}
     <h2 id="crossings">Crossings</h2>
     <p>Every boundary in Break is a place where another method starts. {% if cx.out.length %}These are the ones the atlas already knows about.{% endif %}</p>
     {%- if cx.out.length %}
@@ -63,7 +42,6 @@ mainClass: node-page
     {%- if cx.into.length %}
     <p class="muted small">This method crosses a boundary of {% for e in cx.into %}<a href="{{ e.a.url }}">{{ e.a.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.</p>
     {%- endif %}
-
     {%- if record and record.length %}
     <h2 id="record">Record</h2>
     <p class="muted small">Bugs, tests, failure cases and crossings added to this node, semester by semester. <a href="/teaching/atlas/contribute/">How to add one</a>.</p>
@@ -73,6 +51,41 @@ mainClass: node-page
       {%- endfor %}
     </ul>
     {%- endif %}
+{%- endset %}
+{%- if priv %}
+<!--lecture-->
+{% renderFile priv, {}, "njk,md" %}
+{%- for l in labs or [] %}
+<script src="/assets/js/labs/{{ l }}.js?v={{ build.stamp }}"></script>
+{%- endfor %}
+{{ tail | safe }}
+<!--/lecture-->
+{%- elif locked %}
+    {%- if preview %}
+    <figure class="preview" data-preview>
+      <div class="lab" data-lab="{{ preview.lab }}"></div>
+      {%- if preview.caption %}<figcaption class="preview-cap">{{ preview.caption | md | safe }}</figcaption>{% endif %}
+    </figure>
+    {%- endif %}
+    {%- if lockedData[node] %}
+    <div class="gate" data-gate data-node="{{ node }}">
+      <p class="gate-note">The full lecture is open to students in {% for c in atlas.courses %}{% if node in c.route | routeIds %}{{ c.code }}{% endif %}{% endfor %}. Enter the course password to read it.</p>
+      <form class="gate-form" autocomplete="off">
+        <label class="sr-only" for="gate-pw">Course password</label>
+        <input id="gate-pw" type="password" name="pw" placeholder="Course password" required>
+        <button type="submit" class="chip chip-strong">Open</button>
+      </form>
+      <p class="gate-msg" aria-live="polite"></p>
+      <script type="application/json" data-payload>{{ lockedData[node] | dump | safe }}</script>
+    </div>
+    <div class="lecture-body" data-lecture hidden></div>
+    {%- else %}
+    <p class="muted">This lecture has not been published yet.</p>
+    {%- endif %}
+{%- else %}
+{{ content | safe }}
+{{ tail | safe }}
+{%- endif %}
   </article>
 </div>
 {% include "trace.njk" %}

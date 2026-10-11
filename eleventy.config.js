@@ -8,7 +8,7 @@ import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import { atlasLayout, crossingsOf } from "./lib/atlas.js";
 import { RenderPlugin } from "@11ty/eleventy";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 
 const isBuild = process.env.ELEVENTY_RUN_MODE === "build" && !process.env.DRAFTS;
 
@@ -35,6 +35,19 @@ export default function (eleventyConfig) {
   eleventyConfig.addGlobalData("lecturesPrivate", showPrivate);
   eleventyConfig.addFilter("privateLecture", (id) => (showPrivate && existsSync(`private/atlas/${id}.md`) ? `./private/atlas/${id}.md` : ""));
   eleventyConfig.addPlugin(RenderPlugin);
+  // private/atlas/<id>.yaml: a locked node's crossings and record, shown only inside the lecture
+  const privateData = (id) => (showPrivate && existsSync(`private/atlas/${id}.yaml`) ? yamlLoad(readFileSync(`private/atlas/${id}.yaml`, "utf8")) || {} : {});
+  eleventyConfig.addFilter("privateData", privateData);
+  // every crossing that touches a node: from public front matter (unlocked nodes) and private yaml (locked ones)
+  eleventyConfig.addFilter("crossingsFor", (map, id) => {
+    const listed = map.edges.map((e) => ({ from: e.from, to: e.to, layer: e.layer, how: e.how, when: e.when }));
+    if (showPrivate && existsSync("private/atlas")) for (const f of readdirSync("private/atlas").filter((f) => f.endsWith(".yaml"))) {
+      const from = f.slice(0, -5);
+      for (const c of privateData(from).crossings || []) listed.push({ from, to: c.to, layer: c.layer, how: c.how, when: [c.when] });
+    }
+    const full = listed.filter((e) => map.at[e.from] && map.at[e.to]).map((e) => ({ ...e, a: map.at[e.from], b: map.at[e.to] }));
+    return { out: full.filter((e) => e.from === id), into: full.filter((e) => e.to === id) };
+  });
   eleventyConfig.addFilter("routeIds", (route) => (route || []).map((r) => (typeof r === "string" ? r : r.id)));
 
   // ---------- drafts: visible with `npm start`, never published ----------
