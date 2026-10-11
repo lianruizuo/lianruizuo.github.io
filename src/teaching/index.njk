@@ -6,8 +6,8 @@ description: An atlas of the methods I teach in image processing, placed by the 
 scripts: ["/assets/js/atlas.js"]
 ---
 {%- set map = atlas | atlasLayout(collections.atlas) %}
-<header class="teach-head span">
-  <h1 class="sr-only">Teaching</h1>
+<header class="page-head">
+  <h1>Teaching</h1>
   {%- if teaching.epigraph.lines.length %}
   <blockquote class="epigraph">
     <p>{% for l in teaching.epigraph.lines %}{{ l }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>

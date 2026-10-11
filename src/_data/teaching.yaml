@@ -5,5 +5,7 @@
 #     - "Second line"
 # Nothing is shown while `lines` is empty.
 epigraph:
-  lines: []
+  lines:
+    - "first line here"
+    - "second line here"
   source: T. S. Eliot, Choruses from “The Rock” (1934)

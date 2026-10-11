@@ -377,9 +377,8 @@ eqn { display: block; }
 .layer-stroke-code { stroke: var(--l-code); } .layer-stroke-search { stroke: var(--l-search); } .layer-stroke-criterion { stroke: var(--l-criterion); } .layer-stroke-reach { stroke: var(--l-reach); }
 
 /* ---- teaching front page ---- */
-.teach-head { padding-block: 2.6rem 1.4rem; }
-.epigraph { margin: 0; max-width: 34rem; }
-.epigraph p { font-family: var(--serif); font-style: italic; font-size: 1.12rem; line-height: 1.5; color: var(--graphite); margin: 0; }
+.epigraph { margin: 1rem 0 0; max-width: 36rem; }
+.page-head .epigraph p { font-style: italic; margin: 0; }
 .epigraph footer { font-family: var(--sans); font-size: .78rem; color: var(--graphite); margin-top: .45rem; opacity: .85; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .planned-name { color: var(--graphite); }

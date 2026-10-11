@@ -44,19 +44,18 @@ scripts: ["/assets/js/field.js"]
 </section>
 
 <section class="span">
-  <div class="row section-head"><div class="m"></div><div class="t"><h2>Beyond research</h2></div></div>
-  {%- set recent = collections.writing | take(4) %}
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>Outside Work</h2><a class="more" href="/outside/">All</a></div></div>
+  {%- set recent = collections.journal | take(4) %}
   <ul class="entries row-list">
     {%- if recent.length %}
     {%- for p in recent %}
     <li class="row">
-      <div class="m">{{ p.date | shortDate }}<br>{{ p.data.kicker or p.data.course or "Outside Work" }}</div>
+      <div class="m">{{ p.date | shortDate }}</div>
       <div class="t"><h3><a href="{{ p.url }}">{{ p.data.title }}</a></h3>{% if p.data.summary %}<p>{{ p.data.summary }}</p>{% endif %}</div>
     </li>
     {%- endfor %}
     {%- else %}
-    <li class="row"><div class="m">Teaching</div><div class="t"><h3><a href="/teaching/ece6357/">ECE 6357 Advanced Image Processing</a></h3><p>Fall 2026, Vanderbilt University</p></div></li>
-    <li class="row"><div class="m">Outside Work</div><div class="t"><h3><a href="/outside/">Life outside the lab</a></h3><p>Occasional notes from life outside research.</p></div></li>
+    <li class="row"><div class="m"></div><div class="t"><p class="muted">Nothing here yet.</p></div></li>
     {%- endif %}
   </ul>
 </section>
