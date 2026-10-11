@@ -20,26 +20,57 @@
   buildRail();
   document.addEventListener("lecture:open", buildRail); // a locked lecture adds its sections once opened
 
-  // ---- courses: a course pulls its methods into teaching order (down) while keeping their year (across)
+  // ---- courses: a course pulls its methods into teaching order (down) while keeping their year (across).
+  // Several courses can be shown at once; each gets its own stretch of rows and its own color.
+  const smooth = (P) => {
+    if (!P.length) return "";
+    let d = `M${P[0][0].toFixed(1)},${P[0][1].toFixed(1)}`;
+    for (let i = 0; i < P.length - 1; i++) {
+      const p0 = P[i - 1] || P[i], p1 = P[i], p2 = P[i + 1], p3 = P[i + 2] || p2, t = 6;
+      const c1 = [p1[0] + (p2[0] - p0[0]) / t, p1[1] + (p2[1] - p0[1]) / t], c2 = [p2[0] - (p3[0] - p1[0]) / t, p2[1] - (p3[1] - p1[1]) / t];
+      d += ` C${c1[0].toFixed(1)},${c1[1].toFixed(1)} ${c2[0].toFixed(1)},${c2[1].toFixed(1)} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}`;
+    }
+    return d;
+  };
   document.querySelectorAll("[data-amap]").forEach((fig) => {
-    const buttons = [...fig.querySelectorAll("[data-route]")];
+    const all = fig.querySelector('[data-route=""]');
+    const chips = [...fig.querySelectorAll(".chip-course")];
     const nodes = [...fig.querySelectorAll(".am-node")];
-    const paths = [...fig.querySelectorAll("[data-route-path]")];
+    const courses = JSON.parse(fig.dataset.courses || "[]");
+    const top = +fig.dataset.top, plotH = +fig.dataset.plotH;
     const hint = fig.querySelector("[data-hint]"), hint0 = hint && hint.textContent;
-    const show = (id) => {
-      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.route === id)));
-      fig.classList.toggle("routing", !!id);
-      for (const g of nodes) {
-        const at = id && g.getAttribute(`data-${id}`);
-        const [num, y] = at ? at.split(",") : [null, g.dataset.y];
-        g.style.transform = `translate(${g.dataset.x}px,${y}px)`;
-        g.classList.toggle("on", !!at);
-        g.querySelector(".am-num text").textContent = num || "";
+    const on = new Set();
+    const render = () => {
+      const active = courses.filter((c) => on.has(c.slug));
+      all.setAttribute("aria-pressed", String(!active.length));
+      chips.forEach((b) => b.setAttribute("aria-pressed", String(on.has(b.dataset.route))));
+      fig.classList.toggle("routing", active.length > 0);
+      // rows: each active course in turn, one blank row between courses
+      const rows = active.reduce((a, c) => a + c.n, 0) + Math.max(0, active.length - 1);
+      const step = rows > 1 ? plotH / (rows - 1) : 0;
+      const place = {}; let row = 0;
+      for (const c of active) {
+        for (const g of nodes) { const i = g.getAttribute(`data-r-${c.slug}`); if (i && !place[g.dataset.id]) place[g.dataset.id] = { c, i: +i, x: +g.dataset.x, y: top + (row + +i - 1) * step }; }
+        row += c.n + 1;
       }
-      paths.forEach((p) => p.classList.toggle("shown", p.dataset.routePath === id));
-      if (hint) hint.textContent = id ? "Down: the order we meet them in the course. Across: the year each idea appeared." : hint0;
+      for (const g of nodes) {
+        const p = place[g.dataset.id];
+        g.style.transform = `translate(${g.dataset.x}px,${p ? p.y : g.dataset.y}px)`;
+        g.classList.toggle("on", !!p);
+        g.classList.remove("rc0", "rc1", "rc2", "rc3");
+        if (p) g.classList.add(`rc${p.c.k % 4}`);
+        g.querySelector(".am-num text").textContent = p ? p.i : "";
+      }
+      for (const c of courses) {
+        const path = fig.querySelector(`[data-route-path="${c.slug}"]`);
+        const pts = Object.values(place).filter((p) => p.c === c).sort((a, b) => a.i - b.i).map((p) => [p.x, p.y]);
+        if (active.includes(c)) path.setAttribute("d", smooth(pts));
+        path.classList.toggle("shown", active.includes(c));
+      }
+      if (hint) hint.textContent = active.length ? "Down: the order we meet them in the course. Across: the year each idea appeared." : hint0;
     };
-    buttons.forEach((b) => b.addEventListener("click", () => show(b.dataset.route)));
+    all.addEventListener("click", () => { on.clear(); render(); });
+    chips.forEach((b) => b.addEventListener("click", () => { on.has(b.dataset.route) ? on.delete(b.dataset.route) : on.add(b.dataset.route); render(); }));
     // on a narrow screen the map scrolls sideways; open it on the first written method
     const sc = fig.querySelector(".amap-scroll"), w = fig.querySelector(".am-node.written");
     if (sc && w && sc.scrollWidth > sc.clientWidth) sc.scrollLeft = w.getBoundingClientRect().left - sc.getBoundingClientRect().left - 24;

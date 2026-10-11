@@ -114,7 +114,6 @@ teaching:
     term: Fall 2024, Fall 2025
     where: Vanderbilt University
     role: Instructor
-    with: Co-taught with Bennett Landman (2024, 2025) and Zhiyuan Li (2024).
     about: |
       An introduction to engineering through hands-on projects, lectures, and lab sessions: Python on the Raspberry Pi, AI and reinforcement learning, pulse code modulation, servo control, encryption, and communication systems.
   - slug: en520-433

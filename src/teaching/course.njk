@@ -23,18 +23,33 @@ eleventyComputed:
 {%- set map = atlas | atlasLayout(collections.atlas) %}
 {%- set r = (map.routes | where("code", c.code))[0] %}
 {%- if r %}
+{%- set sessions = r.stops[0].session %}
 <section class="span">
-  <div class="row section-head"><div class="m"></div><div class="t"><h2>Route through the atlas</h2></div></div>
+  <div class="row section-head"><div class="m"></div><div class="t"><h2>{{ "Sessions" if sessions else "Route through the atlas" }}</h2></div></div>
   <ol class="row-list route-list">
     {%- for n in r.stops %}
     <li class="row"><div class="m">{{ ("Ch " + n.ch) if n.ch else loop.index }}</div><div class="t">
+      {%- if n.session %}
+      <h3>{{ n.session }}{% if n.lab %} <span class="soon">lab</span>{% endif %}</h3>
+      {%- if n.about %}<p>{{ n.about }}</p>{% endif %}
+      <p class="small muted">On the atlas: {{ n.title }}, {{ n.source }}, {{ n.year }}</p>
+      {%- else %}
       {%- if n.written %}<h3><a href="{{ n.url }}">{{ n.title }}</a></h3>{% if n.question %}<p>{{ n.question }}</p>{% endif %}
       {%- else %}<h3 class="planned-name">{{ n.title }} <span class="soon">{{ "seminar" if n.kind == "seminar" else "planned" }}</span></h3>{% endif %}
+      {%- if n.note %}<p>{{ n.note }}</p>{% endif %}
+      {%- if n.papers %}
+      <ul class="paper-list">
+        {%- for pp in n.papers %}<li>{% if pp.doi %}<a href="https://doi.org/{{ pp.doi }}">{{ pp.cite }}</a>{% elif pp.url %}<a href="{{ pp.url }}">{{ pp.cite }}</a>{% else %}{{ pp.cite }}{% endif %}</li>{% endfor %}
+      </ul>
+      {%- else %}
       <p class="small muted">{{ n.source }}, {{ n.year }}</p>
+      {%- endif %}
+      {%- endif %}
     </div></li>
     {%- endfor %}
   </ol>
-  <div class="row" style="margin-top:1.25rem"><div class="m"></div><p class="t muted small">See it on the <a href="/teaching/">atlas</a>.</p></div>
+  {%- if r.credits %}<div class="row" style="margin-top:1.5rem"><div class="m"></div><p class="t muted small">{{ r.credits }}</p></div>{% endif %}
+  <div class="row" style="margin-top:.75rem"><div class="m"></div><p class="t muted small">See it on the <a href="/teaching/">atlas</a>.</p></div>
 </section>
 {%- endif %}
 {%- if notes.length %}

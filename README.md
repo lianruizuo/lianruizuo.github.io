@@ -121,7 +121,7 @@ The explanation, in plain paragraphs.
 
 The layer is `code`, `search`, `criterion`, `reach`, or `tie` (not an error).
 
-**Adding a course.** Add an entry under `courses:` in `atlas.yaml` with `code`, `title`, `term` and `route` (entries `{ id: <node>, ch: "2.1" }` in teaching order; `ch` is the chapter shown on the course page). Seminars are nodes with `kind: seminar`, drawn as diamonds. A button for it appears above the map, and its course page lists the route.
+**Adding a course.** Add an entry under `courses:` in `atlas.yaml` with `code`, `title`, `term` and `route` (entries `{ id: <node>, ch: "2.1" }` in teaching order; `ch` is the chapter shown on the course page). Seminars are nodes with `kind: seminar`, drawn as diamonds. A button for it appears above the map, and its course page lists the route. Visitors can show several courses at once; each has its own color (`--route-0`, `--route-1` in `site.css`; add `--route-2` and a matching `.rc2`/`.route-c2` rule for a third course). Route entries can carry `papers` (each `{ cite, doi }` or `{ cite, url }`) and a one-line `note`; ES 1400-style entries use `session`, `about` and `lab: true` instead of `ch`. A course's `credits` line is shown at the end of its page.
 
 **Recording contributions.** Add a line to the node's `record:` list, for example `- { term: Spring 2027, kind: Failure case, title: "...", by: "Student name" }`.
 

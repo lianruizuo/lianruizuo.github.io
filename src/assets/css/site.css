@@ -33,6 +33,8 @@
   --hairline: #d3d7d0;
   --accent: #2f43a3;
   --accent-soft: #dde2f2;
+  --route-0: var(--accent);
+  --route-1: #b5650d;
   --field-in: #1b2029;
   --field-out: #2f43a3;
   --scan-a: #b5650d;
@@ -61,6 +63,7 @@
     --hairline: #2c313a;
     --accent: #a3b1f5;
     --accent-soft: #232a45;
+    --route-1: #e8a35a;
     --field-in: #e3e5e8;
     --field-out: #a3b1f5;
     --scan-a: #e8a35a;
@@ -387,6 +390,9 @@ eqn { display: block; }
 .route-list h3 a { text-decoration: none; } .route-list h3 a:hover { text-decoration: underline; }
 .route-list p { margin: .15rem 0 0; color: var(--graphite); font-size: .95rem; }
 .route-list .m { font-variant-numeric: lining-nums; }
+.paper-list { list-style: none; padding: 0; margin: .35rem 0 0; display: grid; gap: .3rem; font-size: .9rem; line-height: 1.45; }
+.paper-list a { color: var(--graphite); text-decoration-color: var(--hairline); }
+.paper-list a:hover { color: var(--accent); }
 
 /* ---- the map ---- */
 .amap-wrap { margin-top: .5rem; }
@@ -410,11 +416,14 @@ eqn { display: block; }
 .am-link:hover .am-label, .am-link:focus-visible .am-label { fill: var(--accent); text-decoration: underline; }
 .am-link:focus { outline: none; }
 .am-num { opacity: 0; transition: opacity .4s ease; }
-.am-num circle { fill: var(--accent); }
+.am-num circle { fill: var(--route-0); }
+.am-node.rc1 .am-num circle { fill: var(--route-1); }
+.route-c0 { --c: var(--route-0); } .route-c1 { --c: var(--route-1); }
+.chip-course .dot { display: inline-block; width: .5rem; height: .5rem; border-radius: 50%; background: var(--c); margin-right: .45rem; vertical-align: .05em; }
 .am-num text { font-family: var(--sans); font-size: 10px; font-weight: 650; fill: var(--paper); text-anchor: middle; font-variant-numeric: lining-nums; }
 .amap.routing .am-node:not(.on) { opacity: .08; }
 .amap.routing .am-node.on .am-num { opacity: 1; transition-delay: .6s; }
-.am-route-line { fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 2 5; stroke-linecap: round; opacity: 0; transition: opacity .2s; }
+.am-route-line { fill: none; stroke: var(--c, var(--accent)); stroke-width: 1.5; stroke-dasharray: 2 5; stroke-linecap: round; opacity: 0; transition: opacity .2s; }
 .am-route-line.shown { opacity: .55; transition: opacity .7s ease .7s; }
 .amap-legend { display: flex; flex-wrap: wrap; gap: .4rem 1.3rem; font-family: var(--sans); font-size: .78rem; color: var(--graphite); margin-top: .4rem; }
 .amap-legend span { display: inline-flex; align-items: center; gap: .4rem; }

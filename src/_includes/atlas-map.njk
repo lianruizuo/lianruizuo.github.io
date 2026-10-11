@@ -1,14 +1,14 @@
 {#- The atlas map. Expects `map` (atlasLayout). Methods float above a time axis; picking a course lines its methods up in teaching order. -#}
-<figure class="amap" data-amap>
+<figure class="amap" data-amap data-top="{{ map.top }}" data-plot-h="{{ map.plotH }}" data-courses='[{% for r in map.routes %}{"slug":"{{ r.slug }}","k":{{ r.k }},"n":{{ r.stops.length }}}{% if not loop.last %},{% endif %}{% endfor %}]'>
   {%- if map.routes.length %}
   <div class="amap-tools" role="group" aria-label="Show a course">
-    <button type="button" class="chip" data-route="" aria-pressed="true">All methods</button>
-    {%- for r in map.routes %}<button type="button" class="chip" data-route="{{ r.slug }}" aria-pressed="false">{{ r.code }}</button>{% endfor %}
+    <button type="button" class="chip" data-route="" aria-pressed="true">All</button>
+    {%- for r in map.routes %}<button type="button" class="chip chip-course" data-route="{{ r.slug }}" data-k="{{ r.k }}" aria-pressed="false"><span class="dot route-c{{ r.k }}" aria-hidden="true"></span>{{ r.code }}</button>{% endfor %}
   </div>
   {%- endif %}
   <div class="amap-scroll">
   <svg viewBox="0 0 {{ map.W }} {{ map.H }}" role="img" aria-labelledby="amap-title">
-    <title id="amap-title">Methods placed by the year of their primary source. Solid dots are written and link to their page; open dots are planned; diamonds are seminars.</title>
+    <title id="amap-title">Methods and ideas placed by the year of their primary source. Solid dots are written and link to their page; open dots are planned; diamonds are seminars.</title>
     {%- for t in map.ticks %}
     {%- if t.major %}<line x1="{{ t.x }}" x2="{{ t.x }}" y1="{{ map.top - 18 }}" y2="{{ map.axisY }}" class="am-grid"/>{% endif %}
     <line x1="{{ t.x }}" x2="{{ t.x }}" y1="{{ map.axisY }}" y2="{{ map.axisY + (6 if t.major else 3) }}" class="am-tick"/>
@@ -16,12 +16,12 @@
     {%- endfor %}
     <line x1="0" x2="{{ map.W }}" y1="{{ map.axisY }}" y2="{{ map.axisY }}" class="am-axis"/>
     {%- for r in map.routes %}
-    <path d="{{ r.d }}" class="am-route-line" data-route-path="{{ r.slug }}"/>
+    <path d="" class="am-route-line route-c{{ r.k }}" data-route-path="{{ r.slug }}"/>
     {%- endfor %}
     {%- for n in map.nodes %}
     {%- if n.written %}<a href="{{ n.url }}" class="am-link">{% endif %}
     <g class="am-node{{ ' written' if n.written else ' planned' }}{{ ' seminar' if n.kind == 'seminar' }}" data-id="{{ n.id }}" data-y="{{ n.y }}" data-x="{{ n.x }}" style="transform:translate({{ n.x }}px,{{ n.y }}px)"
-      {%- for r in map.routes %}{% if r.pos[n.id] %} data-{{ r.slug }}="{{ r.pos[n.id] | join(',') }}"{% endif %}{% endfor %}>
+      {%- for r in map.routes %}{% if r.pos[n.id] %} data-r-{{ r.slug }}="{{ r.pos[n.id] }}"{% endif %}{% endfor %}>
       <title>{{ n.title }} ({{ n.source }}, {{ n.year }}){{ ', seminar' if n.kind == 'seminar' else ('' if n.written else ', planned') }}</title>
       {%- if n.kind == "seminar" %}<rect x="-4.6" y="-4.6" width="9.2" height="9.2" transform="rotate(45)" class="am-dot"/>{% else %}<circle r="{{ 6.5 if n.written else 5.5 }}" class="am-dot"/>{% endif %}
       <g class="am-num"><circle r="9"/><text y="3.6"></text></g>
@@ -35,6 +35,6 @@
     <span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" class="lg-written"/></svg>Written</span>
     <span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" class="lg-planned"/></svg>Planned</span>
     <span><svg width="14" height="14" aria-hidden="true"><rect x="3" y="3" width="8" height="8" transform="rotate(45 7 7)" class="lg-seminar"/></svg>Seminar</span>
-    <span class="amap-hint" data-hint>Placed by the year of each method’s primary source.</span>
+    <span class="amap-hint" data-hint>Placed by the year each idea first appeared.</span>
   </figcaption>
 </figure>

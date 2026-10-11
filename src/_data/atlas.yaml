@@ -35,7 +35,7 @@ layers:
     fix: Let it see more, or say more.
 
 nodes:
-  # methods (id, title, year and authors of the primary source)
+  # ECE 6357: methods (id, title, year and authors of the primary source)
   - { id: kmeans,      title: k-means,                  year: 1967, source: MacQueen }
   - { id: mixtures,    title: Mixtures and EM,          year: 1977, source: "Dempster, Laird and Rubin" }
   - { id: otsu,        title: Otsu thresholding,        year: 1979, source: Otsu }
@@ -44,21 +44,36 @@ nodes:
   - { id: reddi,       title: Multilevel thresholds,    year: 1984, source: "Reddi, Rudin and Keshavan" }
   - { id: canny,       title: Canny edges,              year: 1986, source: Canny }
   - { id: snakes,      title: Snakes,                   year: 1988, source: "Kass, Witkin and Terzopoulos" }
-  - { id: levelsets,   title: Level sets,               year: 1988, source: "Osher and Sethian" }
   - { id: regframe,    title: Registration framework,   year: 1992, source: Brown }
+  - { id: levelsets,   title: Level sets,               year: 1995, source: "Malladi, Sethian and Vemuri; Chan and Vese" }
   - { id: mi,          title: Mutual information,       year: 1995, source: "Viola and Wells; Collignon et al." }
   - { id: gvf,         title: Gradient vector flow,     year: 1998, source: "Xu and Prince" }
   - { id: demons,      title: Demons,                   year: 1998, source: Thirion }
   - { id: biasfield,   title: Bias field correction,    year: 1999, source: "Van Leemput et al." }
   - { id: interp,      title: Interpolation,            year: 2000, source: "Thévenaz, Blu and Unser" }
-  - { id: graphcut,    title: Graph cuts,               year: 2001, source: "Boykov and Jolly" }
-  # seminars: discussions rather than single methods, placed at the paper that anchors them
-  - { id: regeval,     title: Evaluating registration,  year: 1997, source: "West et al.", kind: seminar }
-  - { id: modernseg,   title: Modern segmentation,      year: 2015, source: "Ronneberger et al. (U-Net)", kind: seminar }
-  - { id: modernreg,   title: Modern registration,      year: 2019, source: "Balakrishnan et al. (VoxelMorph)", kind: seminar }
-  - { id: segeval,     title: Evaluating segmentation,  year: 2024, source: "Maier-Hein et al. (Metrics Reloaded)", kind: seminar }
+  # ECE 6357 seminars: discussions rather than single methods, placed near the work they center on
+  - { id: modernseg,   title: Modern segmentation,      year: 2015, source: "U-Net and after", kind: seminar }
+  - { id: segeval,     title: Evaluating segmentation,  year: 2017, source: "Carass et al.", kind: seminar }
+  - { id: modernreg,   title: Modern registration,      year: 2019, source: "SyN to vector field attention", kind: seminar }
+  - { id: regeval,     title: Evaluating registration,  year: 2026, source: "Medical Image Analysis", kind: seminar }
+  # ES 1400: the idea each session rests on, at the year it first appeared
+  - { id: radio,       title: Radio,                    year: 1895, source: Marconi }
+  - { id: sonar,       title: Ultrasonic echo ranging,  year: 1917, source: Langevin }
+  - { id: theremin,    title: Theremin,                 year: 1920, source: "Léon Theremin" }
+  - { id: feedback,    title: Feedback control,         year: 1922, source: Minorsky }
+  - { id: oxo,         title: Tic-tac-toe on a computer, year: 1952, source: "Douglas (OXO)" }
+  - { id: dimension,   title: Curse of dimensionality,  year: 1957, source: Bellman }
+  - { id: magstripe,   title: Magnetic stripe card,     year: 1960, source: "Parry (IBM)" }
+  - { id: menace,      title: A matchbox that learns,   year: 1961, source: "Michie (MENACE)" }
+  - { id: tcpip,       title: TCP/IP,                   year: 1974, source: "Cerf and Kahn" }
+  - { id: publickey,   title: Public-key cryptography,  year: 1976, source: "Diffie and Hellman" }
+  - { id: tdlearning,  title: Learning from reward,     year: 1988, source: "Sutton (temporal differences)" }
+  - { id: raspi,       title: Raspberry Pi,             year: 2012, source: "Raspberry Pi Foundation" }
 
-# A course is its route through the atlas, in teaching order. `ch` is the chapter in the course.
+# A course is its route through the atlas, in teaching order.
+#   ch       the chapter (ECE 6357); session/about/lab: the session (ES 1400)
+#   papers   what the session reads, listed on the course page
+#   note     one line, e.g. a guest speaker
 courses:
   - code: ECE 6357
     title: Advanced Image Processing
@@ -73,13 +88,53 @@ courses:
       - { id: canny,       ch: "3.1" }
       - { id: snakes,      ch: "3.2" }
       - { id: gvf,         ch: "3.3" }
-      - { id: levelsets,   ch: "3.4" }
-      - { id: modernseg,   ch: "3.5" }
-      - { id: segeval,     ch: "3.6" }
+      - id: levelsets
+        ch: "3.4"
+        papers:
+          - { cite: "R. Malladi, J. A. Sethian and B. C. Vemuri, “Shape modeling with front propagation: a level set approach,” IEEE TPAMI, 1995.", doi: 10.1109/34.368173 }
+          - { cite: "T. F. Chan and L. A. Vese, “Active contours without edges,” IEEE Transactions on Image Processing, 2001.", doi: 10.1109/83.902291 }
+      - id: modernseg
+        ch: "3.5"
+        papers:
+          - { cite: "O. Ronneberger, P. Fischer and T. Brox, “U-Net: convolutional networks for biomedical image segmentation,” MICCAI, 2015.", doi: 10.1007/978-3-319-24574-4_28 }
+          - { cite: "F. Isensee et al., “nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation,” Nature Methods, 2021.", doi: 10.1038/s41592-020-01008-z }
+          - { cite: "A. Kirillov et al., “Segment anything,” ICCV, 2023.", url: "https://arxiv.org/abs/2304.02643" }
+      - id: segeval
+        ch: "3.6"
+        note: Guest lecture by Aaron Carass.
+        papers:
+          - { cite: "A. Carass et al., “Longitudinal multiple sclerosis lesion segmentation: resource and challenge,” NeuroImage, vol. 148, pp. 77–102, 2017.", url: "https://www.sciencedirect.com/science/article/abs/pii/S1053811916307819" }
       - { id: interp,      ch: "4.1" }
       - { id: regframe,    ch: "4.2a–c" }
       - { id: mi,          ch: "4.2d" }
       - { id: opticalflow, ch: "4.3" }
       - { id: demons,      ch: "4.4" }
-      - { id: modernreg,   ch: "4.5" }
-      - { id: regeval,     ch: "4.6" }
+      - id: modernreg
+        ch: "4.5"
+        papers:
+          - { cite: "B. B. Avants et al., “Symmetric diffeomorphic image registration with cross-correlation (SyN),” Medical Image Analysis, 2008.", doi: 10.1016/j.media.2007.06.004 }
+          - { cite: "G. Balakrishnan et al., “VoxelMorph: a learning framework for deformable medical image registration,” IEEE TMI, 2019.", doi: 10.1109/TMI.2019.2897538 }
+          - { cite: "J. Chen et al., “TransMorph: Transformer for unsupervised medical image registration,” Medical Image Analysis, 2022.", doi: 10.1016/j.media.2022.102615 }
+          - { cite: "Y. Liu et al., “Vector field attention for deformable image registration,” Journal of Medical Imaging, 2024.", doi: 10.1117/1.JMI.11.6.064001 }
+      - id: regeval
+        ch: "4.6"
+        papers:
+          - { cite: "Medical Image Analysis, 2026.", url: "https://www.sciencedirect.com/science/article/abs/pii/S1361841526002446" }
+
+  - code: ES 1400
+    title: Introduction to Engineering, ECE Module
+    term: Fall 2024, Fall 2025
+    credits: Co-taught with Bennett Landman (2024, 2025) and Zhiyuan Li (2024). Bennett Landman leads sessions 1, 5 and 9, and session 2 with Zhiyuan Li; sessions 6 and 12 were developed with Zhiyuan Li.
+    route:
+      - { id: dimension,  session: The curious goat, about: "What do we actually mean when we measure something? And what does a corner case mean once data has many dimensions?" }
+      - { id: oxo,        session: "Hello, world", about: "Hands on with tic-tac-toe, and a tour of electrical and computer engineering through sensing, interfaces, software and AI." }
+      - { id: tdlearning, session: Reinforcement learning, about: "How do people learn? The same habits train a computer agent: look far ahead to balance long- and short-term reward, reflect to update what each choice is expected to bring, and balance exploring with exploiting." }
+      - { id: menace,     session: Learning to play, lab: true, about: "Train a tic-tac-toe agent on a Raspberry Pi with reinforcement learning, and watch its choices improve." }
+      - { id: feedback,   session: Pulses that move things, about: "A small motor spins. Add gears, a sensor and a controller, and it moves to a position on purpose." }
+      - { id: magstripe,  session: A card full of clues, about: "A card is a key you carry. Follow its information from the stripe or antenna to the reader, and ask what the reader can really know." }
+      - { id: publickey,  session: "Keys, locks and secrets", about: "How encryption protects a message, and how authentication checks who is allowed in." }
+      - { id: raspi,      session: Build a candy safe, lab: true, about: "Bring code, sensors, outputs and decisions together in one Raspberry Pi project." }
+      - { id: radio,      session: A message on a wave, about: "Follow a signal through a radio system as it carries a message across space." }
+      - { id: sonar,      session: Listening with ultrasound, about: "Send a pulse of sound above human hearing, and use its echo to estimate distance." }
+      - { id: theremin,   session: Play the space around you, lab: true, about: "Turn distance into pitch, and build an instrument inspired by the theremin." }
+      - { id: tcpip,      session: A hello across the network, about: "Send a message between computers, and discover the agreement that lets it arrive." }
