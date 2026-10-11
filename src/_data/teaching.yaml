@@ -6,6 +6,6 @@
 # Nothing is shown while `lines` is empty.
 epigraph:
   lines:
-    - "first line here"
-    - "second line here"
+    - "Where is the wisdom we have lost in knowledge?"
+    - "Where is the knowledge we have lost in information?"
   source: T. S. Eliot, Choruses from “The Rock” (1934)
