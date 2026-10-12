@@ -64,7 +64,7 @@
   }
   const soft = (d) => 0.5 * (1 - erf(d / (Math.SQRT2 * 1.3)));
   const bgAt = (x, y) => 0.085 + 0.03 * Math.exp(-((x - 300) ** 2 + (y - 420) ** 2) / (2 * 260 ** 2));
-  function blobImage() {
+  function blobImage(haze = 0.52) {
     const img = new Float32Array(W * H), nz = noiseField(7);
     const wth = -88 * Math.PI / 180, hx = CX + (radius(wth) + 30) * Math.cos(wth), hy = CY + (radius(wth) + 30) * Math.sin(wth);
     const gran = [[CX - 55, CY + 70, 11, 0.12], [CX + 95, CY - 40, 9, -0.12], [CX - 20, CY - 60, 8, 0.10], [CX + 100, CY + 85, 10, -0.10]];
@@ -72,7 +72,7 @@
     for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
       const dx = x - CX, dy = y - CY, rho = Math.hypot(dx, dy), th = Math.atan2(dy, dx);
       const ins = soft(rho - radius(th));
-      const bg = bgAt(x, y) + 0.52 * Math.exp(-((x - hx) ** 2 / (2 * 85 ** 2) + (y - hy) ** 2 / (2 * 42 ** 2)));
+      const bg = bgAt(x, y) + haze * Math.exp(-((x - hx) ** 2 / (2 * 85 ** 2) + (y - hy) ** 2 / (2 * 42 ** 2)));
       let obj = 0.66 - 0.06 * (dx / 200) + 0.04 * (dy / 200);
       obj -= 0.30 * Math.exp(-((((x - (CX + 38)) / 52) ** 2 + ((y - (CY + 22)) / 40) ** 2) ** 5));
       for (const [gx, gy, gr, ga] of gran) obj += ga * Math.exp(-((x - gx) ** 2 + (y - gy) ** 2) / (2 * gr * gr));
@@ -98,8 +98,8 @@
     }
     return img;
   }
-  function twoImage() {
-    const img = blobImage(), sm = gauss(img, W, H, 3), cx2 = 790, cy2 = 330, r2 = 48;
+  function twoImage(haze = 0.52) {
+    const img = blobImage(haze), sm = gauss(img, W, H, 3), cx2 = 790, cy2 = 330, r2 = 48;
     for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
       const i = y * W + x, d = Math.hypot(x - cx2, y - cy2) - r2 * (1 + 0.08 * Math.cos(3 * Math.atan2(y - cy2, x - cx2) + 0.7));
       const ins = soft(d); img[i] = Math.min(1, Math.max(0, img[i] * (1 - ins) + ins * (0.62 + (img[i] - sm[i]))));
@@ -226,7 +226,7 @@
     if (beads) { ctx.fillStyle = color; for (const p of P) { ctx.beginPath(); ctx.arc(p[0], p[1], 4.2, 0, 7); ctx.fill(); } }
   }
 
-  window.SnakeKit = { W, H, SCENES, BASE, imageOf, external, snakeMatrix, inverse, matvec, Snake, sample, gauss, grad,
+  window.SnakeKit = { W, H, SCENES, BASE, imageOf, blobNoHaze: () => (imageCache.nohaze ||= blobImage(0)), twoNoHaze: () => (imageCache.twonohaze ||= twoImage(0)), external, snakeMatrix, inverse, matvec, Snake, sample, gauss, grad,
     circle, radius, CX, CY, grayRGBA, energyRGBA, makeStage, drawSnake, path, SNAKE, TRAIL, css };
 
   // ------------------------------------------------------------------ the public widgets
