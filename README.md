@@ -89,7 +89,7 @@ Every wrong answer is traced to one of four layers: **Code** and **Search** (bug
 
 On your computer (`npm start`) you see the full lecture. Visitors see the title, question and source, one public widget, then a password box.
 
-- **The public widget.** Each locked node shows one interactive example outside the lock. Name it in the public front matter (`preview: { lab: <id>-preview, caption: "..." }`) and put its code in `src/assets/js/previews/<id>.js`, listed under `scripts`. Keep that file self-contained: it is public, so copy into it only what the one widget needs. Once a student opens the lecture, the preview is hidden, because the lecture shows its own copy.
+- **The public widget.** Each locked node shows one interactive example outside the lock. Name it in the public front matter (`preview: { lab: <id>-preview, caption: "..." }`, or a list under `previews:` for more than one) and put its code in `src/assets/js/previews/<id>.js`, listed under `scripts`. Keep that file self-contained: it is public, so copy into it only what the one widget needs. Once a student opens the lecture, the preview is hidden, because the lecture shows its own copy.
 - **Crossings and record of a locked node** go in `private/atlas/<id>.yaml` (same format as front matter), so they are encrypted with the lecture.
 
 **Locking lectures (do this after every lecture edit).**

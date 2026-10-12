@@ -601,3 +601,50 @@ eqn { display: block; }
   .record .rec-title, .record .rec-by { grid-column: 2; }
   .dx summary { grid-template-columns: 1fr; }
 }
+
+/* ---- snakes lecture ---- */
+.snk-canvas { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 3px; background: #15171c; touch-action: pan-y; }
+.snk-k { margin-left: auto; align-self: center; font-family: var(--sans); font-size: .76rem; color: var(--graphite); font-variant-numeric: tabular-nums; }
+.snk-stage { margin-top: .9rem; }
+.snk-note { align-self: center; font-family: var(--sans); font-size: .78rem; color: var(--graphite); }
+.snk-slider { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--sans); font-size: .8rem; color: var(--graphite); }
+.snk-slider input { width: 11rem; accent-color: var(--accent); }
+.snk-slider output { color: var(--ink); min-width: 2.6rem; font-variant-numeric: tabular-nums; }
+.snk-two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.2rem; align-items: center; }
+.snk-two svg { width: 100%; height: auto; display: block; }
+.snk-axis { stroke: var(--hairline); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.snk-curve { fill: none; stroke: var(--l-code); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.snk-tick { fill: var(--graphite); }
+.snk-dot { fill: var(--accent); stroke: var(--paper); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.snk-cursor { stroke: var(--accent); stroke-width: 1; stroke-dasharray: 3 3; }
+.snk-lab { font-family: var(--sans); font-size: 11px; fill: var(--graphite); } .snk-lab.mid { text-anchor: middle; }
+.snk-chain { width: 100%; max-width: 30rem; height: auto; display: block; margin: .6rem auto 0; touch-action: none; }
+.snk-seg { stroke: var(--l-code); stroke-linecap: round; }
+.snk-bead { fill: color-mix(in srgb, var(--l-criterion) calc(var(--bend, 0) * 100%), var(--paper)); stroke: var(--ink); stroke-width: 1.4; cursor: grab; }
+.snk-bead:focus-visible { outline: none; stroke: var(--accent); stroke-width: 3; }
+.snk-meters { display: grid; gap: .45rem; margin-top: .6rem; }
+.snk-meter { display: grid; grid-template-columns: 5.2rem minmax(0, 1fr) 7rem 3.5rem; gap: .7rem; align-items: center; font-family: var(--sans); font-size: .78rem; color: var(--graphite); }
+.snk-mk { color: var(--ink); }
+.snk-mf { font-family: var(--serif); font-style: italic; font-size: .85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.snk-bar { height: .45rem; background: var(--paper-2); border-radius: 999px; overflow: hidden; }
+.snk-bar i { display: block; height: 100%; border-radius: 999px; transition: width .15s; }
+.snk-mv { text-align: right; color: var(--ink); font-variant-numeric: tabular-nums; }
+.snk-readout { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 1rem; align-items: center; margin-top: .8rem; }
+.snk-spark { width: 100%; height: 3rem; border-bottom: 1px solid var(--hairline); }
+.snk-sparkline { fill: none; stroke: var(--accent); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.snk-status { margin: 0; font-family: var(--sans); font-size: .8rem; color: var(--graphite); display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; }
+.snk-status b { color: var(--ink); font-weight: 560; }
+.snk-status .acc { color: var(--accent); }
+.snk-fig { margin: 1.5rem 0; }
+.snk-fig svg { width: 100%; max-width: 30rem; height: auto; display: block; margin: 0 auto; }
+.snk-fig figcaption { font-family: var(--sans); font-size: .78rem; color: var(--graphite); text-align: center; margin-top: .4rem; }
+.snk-f-curve { stroke: #e0435a; stroke-width: 2; }
+.snk-f-dash { stroke: var(--graphite); stroke-width: 1.2; stroke-dasharray: 4 4; }
+.snk-f-arrow { stroke: var(--l-reach); stroke-width: 2.2; } .snk-f-head { fill: var(--l-reach); }
+.snk-f-bead { fill: #e0435a; } .snk-f-mid { fill: var(--graphite); }
+.snk-f-t { font-family: var(--serif); font-style: italic; font-size: 14px; fill: var(--ink); } .snk-f-t.muted { fill: var(--graphite); } .snk-f-t.acc { fill: var(--l-reach); }
+@media (max-width: 640px) {
+  .snk-two { grid-template-columns: 1fr; }
+  .snk-meter { grid-template-columns: 4.6rem minmax(0, 1fr) 2.8rem; } .snk-mf { display: none; }
+  .snk-readout { grid-template-columns: 1fr; }
+}

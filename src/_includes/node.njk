@@ -27,7 +27,7 @@ mainClass: node-page
 {%- set record = pd.record or record %}
 {%- set tail %}
     <h2 id="crossings">Crossings</h2>
-    <p>Every boundary in Break is a place where another method starts. {% if cx.out.length %}These are the ones the atlas already knows about.{% endif %}</p>
+    <p>Every boundary found above is a place where another method starts. {% if cx.out.length %}These are the ones the atlas already knows about.{% endif %}</p>
     {%- if cx.out.length %}
     <ul class="crossings">
       {%- for e in cx.out %}
@@ -61,12 +61,13 @@ mainClass: node-page
 {{ tail | safe }}
 <!--/lecture-->
 {%- elif locked %}
-    {%- if preview %}
+    {%- set pvs = previews or ([preview] if preview else []) %}
+    {%- for pv in pvs %}
     <figure class="preview" data-preview>
-      <div class="lab" data-lab="{{ preview.lab }}"></div>
-      {%- if preview.caption %}<figcaption class="preview-cap">{{ preview.caption | md | safe }}</figcaption>{% endif %}
+      <div class="lab" data-lab="{{ pv.lab }}"></div>
+      {%- if pv.caption %}<figcaption class="preview-cap">{{ pv.caption | md | safe }}</figcaption>{% endif %}
     </figure>
-    {%- endif %}
+    {%- endfor %}
     {%- if lockedData[node] %}
     <div class="gate" data-gate data-node="{{ node }}">
       <p class="gate-note">The full lecture is open to students in {% for c in atlas.courses %}{% if node in c.route | routeIds %}{{ c.code }}{% endif %}{% endfor %}. Enter the course password to read it.</p>

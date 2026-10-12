@@ -21,8 +21,7 @@
     body.innerHTML = html;
     body.hidden = false;
     gate.remove();
-    const preview = document.querySelector("[data-preview]"); // the lecture shows the same widget in its own place
-    if (preview) preview.remove();
+    document.querySelectorAll("[data-preview]").forEach((p) => p.remove()); // the lecture shows the same widgets in their own places
     // scripts inserted as HTML do not run; recreate them so the labs start
     body.querySelectorAll("script").forEach((old) => {
       const s = document.createElement("script");
