@@ -16,6 +16,6 @@ locked: true
 labs: [levelsets]
 previews:
   - lab: ls-run
-    caption: "A front grows from a small circle inside a cell. Left: the function φ whose zero level set (gold) is the front, drawn as a surface over the image. Right: the same zero level set on the image. Watch it flow around the dark nucleus and close behind it: one curve becomes two, and nothing in the program decided where to cut. Then add a bright haze above the cell."
+    caption: "Left: a function φ drawn as a surface over the image; its zero level set (gold) is the boundary. Right: the same boundary on the image. One contour around two objects shrinks, pinches, and becomes two. Started inside a cell instead, the front flows around the dark nucleus and closes behind it. Nothing in the program decides where to cut."
 scripts: ["/assets/js/atlas.js", "/assets/js/lock.js", "/assets/js/previews/snakes.js", "/assets/js/previews/levelsets.js"]
 ---

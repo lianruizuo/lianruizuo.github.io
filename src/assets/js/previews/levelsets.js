@@ -256,14 +256,14 @@
   // scenes: crop = [x0, y0, w, h] of the 960 x 540 image (w x h = 720 x 405), seed = [x, y, r] in grid units (inside starts) or box (outside starts)
   const CELL_CROP = [118, 76, 720, 404];
   const SCENES = {
-    cell: { name: "The cell", image: () => SK.blobNoHaze(), crop: CELL_CROP, c: 0.5, seed: [210, 125, 15] },
+    cell: { name: "Inside a cell", image: () => SK.blobNoHaze(), crop: CELL_CROP, c: 0.5, seed: [210, 125, 15] },
     haze: { name: "With a bright haze above it", image: () => SK.imageOf("object"), crop: CELL_CROP, c: 0.5, seed: [210, 125, 15] },
-    two: { name: "Two objects", image: () => SK.twoNoHaze(), crop: [190, 68, 720, 404], c: -0.5, box: [118, 42, 445, 228] },
+    two: { name: "Two objects", image: () => SK.twoNoHaze(), crop: [190, 68, 720, 404], c: -0.5, box: [118, 56, 445, 228] },
     ushape: { name: "A U shape", image: () => SK.imageOf("ushape"), crop: [120, 82, 720, 404], c: -0.5, box: [135, 46, 345, 228] },
   };
   const stopCache = {};
   const sceneData = (key) => stopCache[key] || (stopCache[key] = (() => { const sc = SCENES[key], img = sc.image(); return { img, kI: stopping(img), pic: imageCanvas(img, sc.crop) }; })());
-  function runner(root, { scenes = ["cell", "haze"], controls = false, label = "Image" } = {}) {
+  function runner(root, { scenes = ["two", "cell"], controls = false, label = "Start" } = {}) {
     root.innerHTML = `<div class="lab-row snk-top"><span class="bench-label">${label}</span>
         ${scenes.map((k, i) => `<button type="button" class="chip" data-scene="${k}" aria-pressed="${i === 0}">${SCENES[k].name}</button>`).join("")}</div>
       <div class="ls-pair"><canvas class="ls-3d" width="640" height="440" role="img" aria-label="The level set function phi drawn as a surface over the image; its zero level set in gold"></canvas>
@@ -307,14 +307,14 @@
       if (m === 0) done = "gone";
       if (F.k >= 3000) done = "settled";
       draw();
-      if (playing && !done) raf = requestAnimationFrame(tick); else { playing = false; play.textContent = done === "settled" && F.k < 3000 ? "Keep going" : done ? "Play again" : "Play"; }
+      if (playing && !done) raf = requestAnimationFrame(tick); else { playing = false; play.textContent = controls && done === "settled" && F.k < 3000 ? "Keep going" : done ? "Play again" : "Play"; }
     }
     root.addEventListener("click", (e) => {
       const b = e.target.closest("button"); if (!b) return;
       if (b.dataset.scene) { key = b.dataset.scene; seed = null; root.querySelectorAll("[data-scene]").forEach((q) => q.setAttribute("aria-pressed", String(q === b))); note.textContent = "Computing the stopping factor…"; setTimeout(reset, 20); }
       if (b.dataset.act === "reinit") { reinit = !reinit; b.setAttribute("aria-pressed", String(reinit)); reset(); }
       if (b.dataset.act === "reset") reset();
-      if (b.dataset.act === "play") { if (playing) { playing = false; play.textContent = "Play"; return; } if (done === "settled" && F.k < 3000) { done = false; more = true; } else if (done) reset(); playing = true; play.textContent = "Pause"; raf = requestAnimationFrame(tick); }
+      if (b.dataset.act === "play") { if (playing) { playing = false; play.textContent = "Play"; return; } if (controls && done === "settled" && F.k < 3000) { done = false; more = true; } else if (done) reset(); playing = true; play.textContent = "Pause"; raf = requestAnimationFrame(tick); }
     });
     if (epsIn) { epsIn.addEventListener("input", () => (epsIn.nextElementSibling.textContent = (+epsIn.value).toFixed(2))); epsIn.addEventListener("change", reset); }
     ci.addEventListener("click", (e) => {
