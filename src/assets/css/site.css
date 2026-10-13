@@ -721,3 +721,21 @@ eqn { display: block; }
   .cny-nms { grid-template-columns: 1fr; }
   .cny-patch { max-width: 20rem; margin: 0 auto; }
 }
+
+/* ---- level set lecture ---- */
+.ls-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: .8rem; align-items: center; margin-top: .9rem; }
+.ls-pair.one { grid-template-columns: minmax(0, 1fr); max-width: 40rem; margin-left: auto; margin-right: auto; }
+.ls-3d, .ls-img, .ls-flat { display: block; width: 100%; height: auto; border-radius: 3px; background: #0c0d11; }
+.ls-3d { cursor: grab; touch-action: pan-y; } .ls-3d:active { cursor: grabbing; }
+.ls-img { cursor: crosshair; }
+.ls-slice { background: transparent; }
+.ls-inside { fill: var(--l-code); opacity: .55; }
+.ls-zero { fill: #e8b33c; stroke: var(--paper); stroke-width: 1.2; }
+.snk-axis.faint { stroke-dasharray: 2 4; }
+.ls-rule { border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); margin: 1.2rem 0; padding: .5rem 0; }
+.ls-rule p { display: grid; grid-template-columns: 9rem 1fr; gap: 1rem; margin: .35rem 0; }
+.ls-rule span:first-child { font-family: var(--sans); font-size: .82rem; color: var(--graphite); padding-top: .15rem; }
+@media (max-width: 640px) {
+  .ls-pair { grid-template-columns: 1fr; }
+  .ls-rule p { grid-template-columns: 1fr; gap: .1rem; }
+}
