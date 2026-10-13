@@ -754,3 +754,5 @@ eqn { display: block; }
 .ls-vn { stroke: #e8b33c; stroke-width: 2.4; } .ls-vn.head { fill: #e8b33c; stroke: none; }
 .ls-vt { stroke: var(--accent); stroke-width: 2.4; } .ls-vt.head { fill: var(--accent); stroke: none; }
 .ls-lab-a { fill: var(--l-reach); font-weight: 600; } .ls-lab-b { fill: #e0435a; font-weight: 600; }
+.ls-strip-in { fill: #e8b33c; opacity: .28; }
+.ls-front-line { stroke: #e8b33c; stroke-width: 2.4; }
