@@ -776,3 +776,13 @@ eqn { display: block; }
 .km-bar { fill: var(--hairline); } .km-bar.cur { fill: var(--graphite); } .km-bar.best { fill: var(--l-reach); }
 .km-run { fill: var(--accent); opacity: .8; }
 @media (max-width: 640px) { .km-pair, .km-two { grid-template-columns: 1fr; } }
+.ls-up-col { fill: var(--accent); opacity: .06; } .ls-up-col.me { opacity: .14; }
+.ls-up-sel { fill: #e0435a; stroke: var(--paper); stroke-width: 1.5; cursor: pointer; }
+.ls-up .cny-dot { cursor: pointer; }
+.ls-up-from { stroke: #e8b33c; stroke-width: 1.6; stroke-dasharray: 4 3; }
+.ls-up-arrow { stroke: #e8b33c; stroke-width: 1.6; fill: none; marker-end: none; }
+.ls-up-weights { font-family: var(--sans); font-size: .84rem; line-height: 1.9; color: var(--ink); margin-top: .5rem; }
+.ls-up-weights p { margin: 0 0 .3rem; }
+.ls-up-w { display: inline-block; padding: 0 .5rem; border: 1px solid var(--hairline); border-radius: 4px; background: var(--paper-2); white-space: nowrap; font-variant-numeric: tabular-nums; line-height: 1.6; }
+.ls-up-w.bad { border-color: var(--l-code); background: color-mix(in srgb, var(--l-code) 18%, var(--paper)); }
+.ls-ok { color: var(--l-reach); } .ls-bad { color: var(--l-code); }
