@@ -2,30 +2,30 @@
 arcs:
   - id: harmonization
     title: See the patient, not the scanner
-    where: the scanner leaves its mark on the image
+    where: "the device or scanner leaves its mark on the measurement"
     short: Harmonizing MRI and CT so that differences between scanners, protocols, and reconstruction kernels stop masquerading as differences between patients.
     fig: scanners
-    caption: Two patients, five scanners. Each scanner draws the same anatomy with its own contrast, resolution, and noise. Harmonize, and the columns stop differing while the two rows still do.
+    caption: "Two patients, five scanners. Each scanner draws the same anatomy with its own contrast, resolution, and noise. Harmonize, and the columns stop differing while the two rows still do."
     body: |
-      The same brain scanned on two machines gives two different images, and every number computed from them inherits the difference. Harmonization should remove the scanner and keep the patient. I do this by separating anatomy from contrast, first for brain MRI and now for CT reconstruction kernels and for studies that span more than a hundred scanners.
+      Measurements of the same patient taken on different devices or scanners can differ, and this undesired variation often biases the downstream interpretation of the measurements. Harmonization should remove the variation that comes from the device or scanner and keep the variation that comes from the patient. I do this by separating anatomy from contrast, first for MRI, then at the scale of studies with more than a hundred scanners, and now for CT reconstruction kernels.
     papers: [zuo2023haca3, zuo2021unsupervised, zuo2021information, zuo2022disentangling, hays2026harmonizing, krishnan2026harmonizing]
   - id: completion
     title: Recover what was not captured
-    where: the image misses part of the patient
+    where: "a measurement holds more than what it shows"
     short: Using generative models to extend a truncated field of view, complete missing data, and synthesize images that were never acquired.
     fig: recover
-    caption: Inside the frame is what was captured. Recover fills in the rest. Near the frame the guess follows this patient; far away it falls back on what patients usually look like, and the lines fade to say so. Show the patient to compare, and look for the small spot on the right. Drag to move the frame.
+    caption: "Inside the frame is what was measured. Recover infers the patient just around it, and the lines fade as the inference gets less certain. It stops there: one measurement cannot tell you the whole patient. Show the patient to compare. Drag to move the frame."
     body: |
-      Clinical images are rarely complete. A chest CT is cropped to the lungs, a contrast is missing from a protocol, a study keeps a few 2D slices where a 3D volume was needed. I use generative models to recover what the scanner did not capture, and ask what the recovered part can be trusted for: a body-wide quantity often can be recovered, a small finding outside the field of view cannot.
+      The information in a biomedical measurement is not limited to what we can see in it directly. A chest CT, for example, is reconstructed within a limited field of view that often cuts off part of the body, yet the image still carries information about what lies just outside it. I use generative models to extend a truncated field of view, and more broadly to recover what the device or scanner did not capture, such as missing slices and contrasts. The recovered part is most reliable close to what was measured, and part of the work is knowing how far it can be trusted.
     papers: [zuo2025beyond, zuo2025robust, zhang2025bi, zuo2020synthesizing, hays2026synthetic]
   - id: value
     title: Ask what each measurement adds
-    where: does the measurement change the decision?
+    where: "does the measurement change the decision?"
     short: Measuring what each modality, time point, and processing step contributes to a clinical decision, starting with lung cancer risk.
     fig: value
-    caption: Each frame is a measurement this patient could have; click one to take it. The bar shows how much of the patient is pinned down, split by what each measurement added when it came in. Frames 1 and 2 overlap, so whichever comes second adds little.
+    caption: "Each frame is a measurement this patient could have; click one to take it. The bar shows how much of the patient is pinned down, split by what each measurement added when it came in. Frames 1 and 2 overlap, so whichever comes second adds little."
     body: |
-      A patient accumulates scans, time points, and records, and each one costs something to acquire and interpret. I want to measure what each of them adds to a clinical prediction, given what is already known, rather than assume that more data is always better. Lung cancer screening is where I am starting; it is the focus of my NIH/NCI K99/R00 award.
+      A patient accumulates measurements: images from different devices or scanners, repeated over time, alongside clinical records. Each one costs something to acquire and interpret. I want to measure what each of them adds to a clinical decision, given what is already known, rather than assume that more data is always better. Lung cancer screening is where I am starting; it is the focus of my NIH/NCI K99/R00 award.
     papers: [zuo2026prospective, zuo2026artifact, zuo2023latent, li2025contrastive, liard2026impact]
 
 funding:

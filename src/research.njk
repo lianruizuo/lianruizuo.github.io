@@ -1,19 +1,27 @@
 ---
 layout: page.njk
 title: Research
-intro: "Medical images are measurements, and measurements come with an instrument attached. My work is organized around three questions about what a measurement can and cannot tell us. Each comes with a small picture in the spirit of the one on the front page. The papers listed are a selection; the full list is under [Publications](/publications/)."
+intro: "Medical images are measurements, and every measurement comes from a device or scanner. My work is organized around three questions about what a measurement can and cannot tell us. Each comes with a small picture in the spirit of the one on the front page. The papers listed are a selection; the full list is under [Publications](/publications/)."
 scripts: ["/assets/js/research.js"]
 ---
 <section class="span rs-map-wrap" aria-label="Where each question sits">
   <div class="row"><div class="m">Where each question sits</div><div class="t">
+    {#- steps: label, and which questions (1-based) cover it #}
+    {%- set steps = [["Patient", []], ["Device / scanner", [1]], ["Measurement", [1, 2, 3]], ["Decision", [3]]] %}
+    {%- set spans = [[2, 4], [3, 4], [3, 5]] %}
     <div class="rs-map">
-      {%- set steps = [["Patient", "Patient"], ["Scanner", "Scanner"], ["Image", "Image"], ["Measurement", "Measure"], ["Decision", "Decision"]] %}
-      {%- for s in steps %}<span class="rs-step" style="grid-column: {{ loop.index }}"><span class="rs-long">{{ s[0] }}</span><span class="rs-short" aria-hidden="true">{{ s[1] }}</span></span>{% endfor %}
-      {%- set spans = [[2, 4], [3, 4], [4, 6]] %}
+      {%- for s in steps %}
+      {%- if s[1].length %}
+      <button type="button" class="rs-step{% if loop.last %} rs-step-end{% endif %}" style="grid-column: {{ loop.index }}" data-arcs="{{ s[1] | join(' ') }}">{{ s[0] }}</button>
+      {%- else %}
+      <span class="rs-step rs-step-still" style="grid-column: {{ loop.index }}">{{ s[0] }}</span>
+      {%- endif %}
+      {%- endfor %}
       {%- for arc in research.arcs %}
-      <a class="rs-arc rs-arc-{{ loop.index }}" href="#{{ arc.id }}" style="--row: {{ loop.index + 1 }}">
+      <a class="rs-arc rs-arc-{{ loop.index }}" href="#{{ arc.id }}" data-arc="{{ loop.index }}">
         <span class="rs-bar" style="grid-column: {{ spans[loop.index0][0] }} / {{ spans[loop.index0][1] }}"></span>
-        <span class="rs-arc-text"><span class="rs-num">{{ loop.index }}</span><i>{{ arc.title }}</i><span class="rs-where">{{ arc.where }}</span></span>
+        <span class="rs-arc-text"><span class="rs-num">{{ loop.index }}</span><i>{{ arc.title }}</i></span>
+        <span class="rs-where"><span>{{ arc.where }}</span></span>
       </a>
       {%- endfor %}
     </div>

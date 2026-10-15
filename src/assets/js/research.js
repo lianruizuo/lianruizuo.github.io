@@ -4,8 +4,8 @@
 //
 //   <canvas data-fig="scanners">  two patients (rows) seen by five scanners (columns); Harmonize removes the
 //                                  scanner look and keeps the difference between the patients
-//   <canvas data-fig="recover">   one frame was captured; Recover fills in the rest, close to the patient near
-//                                  the frame and closer to a typical patient far from it
+//   <canvas data-fig="recover">   one frame was measured; Recover infers the patient just around it, fading out with
+//                                  distance, and stops: one measurement cannot tell you the whole patient
 //   <canvas data-fig="value">     four possible measurements; each adds what the others do not already cover
 (() => {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -158,25 +158,24 @@
   }
 
   // ================================================================ 2. recover
-  // Inside the frame: what was captured. Outside, the recovered field blends from this patient (near the frame)
-  // to a typical patient (far away): close by, what was measured pins the guess down; far away it cannot.
+  // Inside the frame: what was measured. Just outside it, the inferred field blends from this patient toward a
+  // typical patient as the distance grows, and the lines fade from solid to dotted; beyond `reach` nothing is drawn.
   function figRecover(canvas) {
     const TRUE = [[0.35, 0.58, 0.2, 0.3, 0.4, 0.8], [0.8, 0.34, 0.28, 0.17, -0.3, 1.0], [1.2, 0.7, 0.15, 0.13, 0.0, 0.7], [1.62, 0.44, 0.3, 0.21, 0.6, 0.95], [2.15, 0.3, 0.17, 0.26, -0.5, 0.78], [2.55, 0.66, 0.24, 0.17, 0.2, 0.86]];
-    const SMALL = [2.3, 0.76, 0.05, 0.05, 0, 0.42];                      // a small finding far from the frame
     const TYPICAL = [[0.42, 0.5, 0.22, 0.26, 0.1, 0.85], [0.8, 0.34, 0.28, 0.17, -0.3, 1.0], [1.2, 0.7, 0.15, 0.13, 0.0, 0.7], [1.55, 0.5, 0.26, 0.24, 0.2, 0.9], [2.05, 0.42, 0.22, 0.22, 0.0, 0.85], [2.6, 0.5, 0.2, 0.22, 0.0, 0.8]];
-    const fTrue = field([...TRUE, SMALL]), fTyp = field(TYPICAL), CELL = 5;
+    const fTrue = field(TRUE), fTyp = field(TYPICAL), CELL = 5;
     let rec = false, truth = false, reveal = 0, fx = null, drag = false, cache = null;
     const S = stage(canvas, draw, (dt) => { const goal = rec ? 1 : 0, nr = reduce ? goal : goal ? Math.min(1, reveal + dt / 1.2) : Math.max(0, reveal - dt / 0.4); reveal = nr; return nr !== goal; });
     function layout() {
       const { W, H } = S, off = (Math.max(W / H, 2.9) * H - W) / 2, fw = Math.max(100, Math.min(W * 0.24, 200)), fh = H * 0.7;
       if (fx === null) fx = W * 0.3;
       fx = Math.min(W - fw / 2 - 2, Math.max(fw / 2 + 2, fx));
-      return { off, fw, fh, x0: fx - fw / 2, y0: (H - fh) / 2, x1: fx + fw / 2, y1: (H + fh) / 2, reach: Math.max(150, W * 0.42) };
+      return { off, fw, fh, x0: fx - fw / 2, y0: (H - fh) / 2, x1: fx + fw / 2, y1: (H + fh) / 2, reach: Math.max(50, Math.min(100, W * 0.14)) };
     }
     function compute(L) {
       const { W, H } = S, o = L.off / H, dist = (x, y) => Math.hypot(Math.max(L.x0 - x, 0, x - L.x1), Math.max(L.y0 - y, 0, y - L.y1));
       const gt = grid((u, v) => fTrue(u + o, v), W, H, CELL, H), [lo, hi] = range(gt.g), levs = levels(lo, hi);
-      const gr = grid((u, v) => { const w = Math.exp(-Math.pow(dist(u * H, v * H) / (0.4 * L.reach), 1.6)); return w * fTrue(u + o, v) + (1 - w) * fTyp(u + o, v); }, W, H, CELL, H);
+      const gr = grid((u, v) => { const w = Math.exp(-Math.pow(dist(u * H, v * H) / (1.2 * L.reach), 2)); return w * fTrue(u + o, v) + (1 - w) * fTyp(u + o, v); }, W, H, CELL, H);
       return { key: `${W}x${H}:${L.x0}`, tru: march(gt.g, gt.nx, gt.ny, CELL, levs), rec: march(gr.g, gr.nx, gr.ny, CELL, levs), dist };
     }
     function draw() {
@@ -184,10 +183,10 @@
       const L = layout(); if (!cache || cache.key !== `${W}x${H}:${L.x0}`) cache = compute(L);
       const inF = (x, y) => x > L.x0 && x < L.x1 && y > L.y0 && y < L.y1;
       if (truth) { const p = [], t = cache.tru; for (let q = 0; q < t.length; q += 4) if (!inF((t[q] + t[q + 2]) / 2, (t[q + 1] + t[q + 3]) / 2)) p.push(t[q], t[q + 1], t[q + 2], t[q + 3]); strokeSolid(ctx, p, C.ink, 1, 0.3); }
-      if (reveal > 0) { const R = ease(reveal) * Math.hypot(W, H); strokeFaded(ctx, cache.rec, (x, y) => { if (inF(x, y)) return -1; const d = cache.dist(x, y); return d > R ? -1 : d / L.reach; }, C.far, 1.25); }
+      if (reveal > 0) { const R = ease(reveal) * L.reach; strokeFaded(ctx, cache.rec, (x, y) => { if (inF(x, y)) return -1; const d = cache.dist(x, y); return d > R ? -1 : d / L.reach; }, C.far, 1.4); }
       ctx.save(); ctx.beginPath(); ctx.rect(L.x0, L.y0, L.fw, L.fh); ctx.clip(); strokeSolid(ctx, cache.tru, C.ink, 2.6); ctx.restore();
       corners(ctx, L.x0, L.y0, L.x1, L.y1, 16, C.ink);
-      label(ctx, "captured", L.x0 + 6, L.y1 + 7 > H - 14 ? L.y1 - 18 : L.y1 + 7, C.ink);
+      label(ctx, "measured", L.x0 + 6, L.y1 + 7 > H - 14 ? L.y1 - 18 : L.y1 + 7, C.ink);
     }
     controls(canvas).forEach((b) => b.addEventListener("click", () => {
       if (b.dataset.act === "recover") { rec = !rec; press(b, rec); }
@@ -254,6 +253,34 @@
     canvas.addEventListener("pointermove", (e) => { const b = canvas.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top; canvas.style.cursor = rects().some((q) => x > q[0] && x < q[2] && y > q[1] && y < q[3]) ? "pointer" : "default"; });
     controls(canvas).forEach((b) => b.addEventListener("click", () => { if (b.dataset.act === "reset") { order = []; updateBar(); S.kick(); } }));
   }
+
+  // ================================================================ the pipeline map at the top
+  // Pointing at a step pops up the questions that cover it and dims the rest; pointing at a question lights its steps.
+  // On touch screens a tap on a step does the same, and a second tap (or a tap elsewhere) clears it.
+  function pipeline(map) {
+    const steps = [...map.querySelectorAll("button.rs-step")], arcs = [...map.querySelectorAll(".rs-arc")];
+    const cover = (b) => b.dataset.arcs.split(" ");
+    const show = (on, lit) => {
+      arcs.forEach((a) => { a.classList.toggle("is-on", !!on && on.includes(a.dataset.arc)); a.classList.toggle("is-off", !!on && !on.includes(a.dataset.arc)); });
+      steps.forEach((b) => { b.classList.toggle("is-on", lit === b); b.classList.toggle("is-lit", !lit && !!on && on.length === 1 && cover(b).includes(on[0])); });
+      if (lit === null && on && on.length === 1) { const c = getComputedStyle(arcs[+on[0] - 1]).getPropertyValue("--arc"); map.style.setProperty("--lit", c); }
+    };
+    let pinned = null;
+    const clear = () => { pinned = null; show(null, null); };
+    steps.forEach((b) => {
+      b.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") show(cover(b), b); });
+      b.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") pinned ? show(cover(pinned), pinned) : clear(); });
+      b.addEventListener("focus", () => show(cover(b), b));
+      b.addEventListener("blur", () => (pinned === b ? null : clear()));
+      b.addEventListener("click", () => { if (pinned === b) clear(); else { pinned = b; show(cover(b), b); } });
+    });
+    arcs.forEach((a) => {
+      a.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse" && !pinned) show([a.dataset.arc], null); });
+      a.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse" && !pinned) clear(); });
+    });
+    document.addEventListener("click", (e) => { if (pinned && !map.contains(e.target)) clear(); });
+  }
+  document.querySelectorAll(".rs-map").forEach(pipeline);
 
   const FIGS = { scanners: figScanners, recover: figRecover, value: figValue };
   readColors();
