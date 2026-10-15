@@ -7,7 +7,7 @@ arcs:
     fig: scanners
     caption: "Two patients, five scanners. Each scanner draws the same anatomy with its own contrast, resolution, and noise. Harmonize, and the columns stop differing while the two rows still do."
     body: |
-      Measurements of the same patient taken on different devices or scanners can differ, and this undesired variation often biases the downstream interpretation of the measurements. Harmonization should remove the variation that comes from the device or scanner and keep the variation that comes from the patient. I do this by separating anatomy from contrast, for MRI and CT.
+      Measurements of the same patient taken on different devices or scanners can differ, and this undesired variation often biases the downstream interpretation of medical data. I develop harmonization methods to remove the undesired scanner variation in MRI and CT while retaining the true biological signal from the patient.
     papers: [zuo2023haca3, zuo2021unsupervised, zuo2021information, zuo2022disentangling, hays2026harmonizing, krishnan2026harmonizing]
   - id: completion
     title: Recover what was not captured

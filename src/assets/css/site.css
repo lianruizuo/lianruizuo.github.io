@@ -805,8 +805,6 @@ button.rs-step { cursor: pointer; }
 .rs-icon > svg { width: 58%; height: 58%; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
 .rs-icon > svg .fill { fill: var(--paper); transition: fill .2s; }
 .rs-step-label { font-size: .8rem; line-height: 1.25; text-align: center; }
-.rs-step-still .rs-icon { border-style: dashed; border-color: var(--graphite); color: var(--graphite); }
-.rs-step-still .rs-step-label { color: var(--graphite); }
 button.rs-step:hover .rs-icon, button.rs-step.is-on .rs-icon, button.rs-step:focus-visible .rs-icon { background: var(--ink); color: var(--paper); }
 button.rs-step:hover .rs-icon svg .fill, button.rs-step.is-on .rs-icon svg .fill { fill: var(--ink); }
 button.rs-step:focus-visible { outline: none; }
