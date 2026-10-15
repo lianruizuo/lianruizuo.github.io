@@ -157,6 +157,14 @@ eqn { display: block; }
 .field canvas { -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); width: 100%; height: clamp(230px, 40vh, 400px); display: block; touch-action: pan-y; cursor: crosshair; }
 .field figcaption { margin-top: .9rem; font-size: .9rem; line-height: 1.5; color: var(--graphite); font-style: italic; max-width: var(--text); }
 .field .hint-touch { display: none; }
+/* the sentence each figure option adds to the caption, in its own color */
+.field [data-note] { transition: color .2s; }
+.field [data-note="scanner"] { color: var(--scan-b); }
+.field [data-note="time"] { color: var(--l-search); }
+.field [data-note="value"] { color: var(--accent); }
+@keyframes note-in { from { opacity: 0; } to { opacity: 1; } }
+.field [data-note]:not([hidden]) { animation: note-in .35s ease; }
+@media (prefers-reduced-motion: reduce) { .field [data-note]:not([hidden]) { animation: none; } }
 @media (hover: none) { .field .hint-mouse { display: none; } .field .hint-touch { display: inline; } }
 .field figcaption .hint { font-style: normal; font-family: var(--sans); font-size: .8rem; margin-left: .35rem; white-space: nowrap; }
 

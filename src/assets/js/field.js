@@ -15,10 +15,11 @@
 //             next scan.
 //   Measurements  two more measurements (dashed boxes) join the frame. What can
 //             be inferred now fades with distance from the nearest measurement,
-//             and each box is labeled with what it adds to what is already known:
-//             known = average over the figure of 1 - min(1, distance / reach);
-//             a box's label is known(all) - known(all but that box). Move the
-//             frame over a box and its label drops.
+//             and each box says whether it adds little or more to what is
+//             already known. known(set) = average over the figure of
+//             1 - min(1, distance to the nearest measurement / reach); a box adds
+//             little when known(all) - known(all but the box) is under half of
+//             known(the box alone). Move the frame over a box and it adds little.
 //
 // Move the frame with the pointer, by dragging, or with the arrow keys.
 (() => {
@@ -79,7 +80,8 @@
   let valAmt = 0;        // 0 = only the frame, 1 = the extra measurements fully shown (animated)
   // extra measurements as fractions of the figure: x0, y0, x1, y1
   const EXTRA = [[0.62, 0.16, 0.73, 0.56], [0.79, 0.44, 0.9, 0.86]];
-  const EXTRA_NARROW = [[0.7, 0.07, 0.93, 0.4], [0.7, 0.58, 0.93, 0.9]];   // phones: stacked on the right, clear of the frame
+  const VALUE_SPLIT = 0.35;  // below this share of its own view, a box "adds little"
+  const EXTRA_NARROW = [[0.52, 0.22, 0.74, 0.52], [0.76, 0.62, 0.97, 0.9]];   // phones: one beside the frame, one far from it
   let harm = 0;          // 0 = raw scanner look, 1 = harmonized (animated)
   let scanAmt = 0;       // 0 = plain measurement, 1 = scanner look (animated)
   let tau = 0, tauScan = 0, flash = 0;
@@ -271,9 +273,10 @@
     }
     ctx.restore();
 
-    // extra measurements: dashed boxes, lightly shaded, with what each adds to what is already known
+    // extra measurements: dashed boxes, lightly shaded, each labeled by whether it adds little or more
+    // to what the frame and the other box already show
     if (valAmt > 0.001 && extras.length) {
-      const frameBox = [x0, y0, x1, y1], all = [frameBox, ...extras], kAll = known(all, reach);
+      const frameBox = [x0, y0, x1, y1], all = [frameBox, ...extras], kr = W * 0.2, kAll = known(all, kr);   // kr: the labels' notion of reach, scaled to the figure
       extras.forEach((r, i) => {
         const [bx0, by0, bx1, by1] = r;
         ctx.save();
@@ -287,11 +290,16 @@
         ctx.restore();
         ctx.globalAlpha = valAmt; ctx.strokeStyle = css(colors.ink); ctx.lineWidth = 1.2; ctx.setLineDash([5, 4]);
         ctx.strokeRect(bx0 + 0.5, by0 + 0.5, bx1 - bx0 - 1, by1 - by0 - 1); ctx.setLineDash([]);
-        const added = kAll - known(all.filter((_, j) => j !== i + 1), reach);
-        ctx.font = '500 11px "Schibsted Grotesk", system-ui, sans-serif'; ctx.fillStyle = css(colors.ink); ctx.textAlign = "left"; ctx.textBaseline = "top";
-        const txt = `adds ${Math.round(100 * added)}%`, ty = by1 + 6 > H - 14 ? by0 - 17 : by1 + 6, tw = ctx.measureText(txt).width;
-        ctx.fillStyle = colors.paper; ctx.fillRect(bx0 + 1, ty - 2, tw + 8, 15);   // a paper backing so the label stays readable over the lines
-        ctx.fillStyle = css(colors.ink); ctx.fillText(txt, bx0 + 5, ty);
+        // what the box adds on top of the others, relative to what it would show on its own
+        const share = (kAll - known(all.filter((_, j) => j !== i + 1), kr)) / Math.max(1e-6, known([r], kr));
+        const word = share < VALUE_SPLIT ? "adds little" : "adds more";
+        if (typeof window !== "undefined" && window.__fieldDebug) window.__fieldDebug[i] = share;
+        ctx.font = '500 11px "Schibsted Grotesk", system-ui, sans-serif'; ctx.textAlign = "left"; ctx.textBaseline = "top";
+        const a = "new measurement", b = ` · ${word}`, ty = by1 + 6 > H - 14 ? by0 - 17 : by1 + 6, wa = ctx.measureText(a).width, wb = ctx.measureText(b).width;
+        const lx = Math.max(4, Math.min(bx0 + 5, W - wa - wb - 6));                   // keep the label inside the figure
+        ctx.fillStyle = colors.paper; ctx.fillRect(lx - 4, ty - 2, wa + wb + 8, 15);   // a paper backing so the label stays readable over the lines
+        ctx.fillStyle = css(colors.ink); ctx.fillText(a, lx, ty);
+        ctx.fillStyle = css(colors.graphite); ctx.fillText(b, lx + wa, ty);
       });
       ctx.globalAlpha = 1;
     }
