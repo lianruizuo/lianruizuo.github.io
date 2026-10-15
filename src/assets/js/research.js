@@ -164,19 +164,26 @@
     const TRUE = [[0.35, 0.58, 0.2, 0.3, 0.4, 0.8], [0.8, 0.34, 0.28, 0.17, -0.3, 1.0], [1.2, 0.7, 0.15, 0.13, 0.0, 0.7], [1.62, 0.44, 0.3, 0.21, 0.6, 0.95], [2.15, 0.3, 0.17, 0.26, -0.5, 0.78], [2.55, 0.66, 0.24, 0.17, 0.2, 0.86]];
     const TYPICAL = [[0.42, 0.5, 0.22, 0.26, 0.1, 0.85], [0.8, 0.34, 0.28, 0.17, -0.3, 1.0], [1.2, 0.7, 0.15, 0.13, 0.0, 0.7], [1.55, 0.5, 0.26, 0.24, 0.2, 0.9], [2.05, 0.42, 0.22, 0.22, 0.0, 0.85], [2.6, 0.5, 0.2, 0.22, 0.0, 0.8]];
     const fTrue = field(TRUE), fTyp = field(TYPICAL), CELL = 5;
-    let rec = false, truth = false, reveal = 0, fx = null, drag = false, cache = null;
-    const S = stage(canvas, draw, (dt) => { const goal = rec ? 1 : 0, nr = reduce ? goal : goal ? Math.min(1, reveal + dt / 1.2) : Math.max(0, reveal - dt / 0.4); reveal = nr; return nr !== goal; });
+    let rec = false, truth = false, reveal = 0, fx = null, tx = null, cache = null, base = null;
+    // the frame eases toward the pointer, as on the home page
+    const S = stage(canvas, draw, (dt) => {
+      const goal = rec ? 1 : 0, nr = reduce ? goal : goal ? Math.min(1, reveal + dt / 1.2) : Math.max(0, reveal - dt / 0.4); reveal = nr;
+      let moving = false;
+      if (fx !== null && tx !== null) { const k = reduce ? 1 : 1 - Math.pow(0.86, dt * 60 || 1); fx += (tx - fx) * k; if (Math.abs(tx - fx) > 0.3) moving = true; else fx = tx; }
+      return nr !== goal || moving;
+    });
     function layout() {
       const { W, H } = S, off = (Math.max(W / H, 2.9) * H - W) / 2, fw = Math.max(100, Math.min(W * 0.24, 200)), fh = H * 0.7;
       if (fx === null) fx = W * 0.3;
-      fx = Math.min(W - fw / 2 - 2, Math.max(fw / 2 + 2, fx));
-      return { off, fw, fh, x0: fx - fw / 2, y0: (H - fh) / 2, x1: fx + fw / 2, y1: (H + fh) / 2, reach: Math.max(50, Math.min(100, W * 0.14)) };
+      const clampX = (x) => Math.min(W - fw / 2 - 2, Math.max(fw / 2 + 2, x));
+      fx = clampX(fx); if (tx !== null) tx = clampX(tx);
+      return { off, fw, fh, x0: Math.round(fx - fw / 2), y0: (H - fh) / 2, x1: fx + fw / 2, y1: (H + fh) / 2, reach: Math.max(50, Math.min(100, W * 0.14)) };
     }
     function compute(L) {
       const { W, H } = S, o = L.off / H, dist = (x, y) => Math.hypot(Math.max(L.x0 - x, 0, x - L.x1), Math.max(L.y0 - y, 0, y - L.y1));
-      const gt = grid((u, v) => fTrue(u + o, v), W, H, CELL, H), [lo, hi] = range(gt.g), levs = levels(lo, hi);
-      const gr = grid((u, v) => { const w = Math.exp(-Math.pow(dist(u * H, v * H) / (1.2 * L.reach), 2)); return w * fTrue(u + o, v) + (1 - w) * fTyp(u + o, v); }, W, H, CELL, H);
-      return { key: `${W}x${H}:${L.x0}`, tru: march(gt.g, gt.nx, gt.ny, CELL, levs), rec: march(gr.g, gr.nx, gr.ny, CELL, levs), dist };
+      if (!base || base.key !== `${W}x${H}`) { const gt = grid((u, v) => fTrue(u + o, v), W, H, CELL, H), [lo, hi] = range(gt.g), levs = levels(lo, hi); base = { key: `${W}x${H}`, levs, tru: march(gt.g, gt.nx, gt.ny, CELL, levs) }; }
+      const levs = base.levs, gr = grid((u, v) => { const w = Math.exp(-Math.pow(dist(u * H, v * H) / (1.2 * L.reach), 2)); return w * fTrue(u + o, v) + (1 - w) * fTyp(u + o, v); }, W, H, CELL, H);
+      return { key: `${W}x${H}:${L.x0}`, tru: base.tru, rec: march(gr.g, gr.nx, gr.ny, CELL, levs), dist };
     }
     function draw() {
       const { ctx, W, H } = S; ctx.clearRect(0, 0, W, H);
@@ -192,11 +199,11 @@
       if (b.dataset.act === "recover") { rec = !rec; press(b, rec); }
       if (b.dataset.act === "truth") { truth = !truth; press(b, truth); }
       S.kick(); }));
-    const move = (e) => { fx = e.clientX - canvas.getBoundingClientRect().left; S.kick(); };
-    canvas.addEventListener("pointerdown", (e) => { drag = true; move(e); });
-    canvas.addEventListener("pointermove", (e) => { if (drag) move(e); });
-    window.addEventListener("pointerup", () => (drag = false));
-    canvas.addEventListener("keydown", (e) => { const d = { ArrowLeft: -20, ArrowRight: 20 }[e.key]; if (!d) return; e.preventDefault(); fx += d; S.kick(); });
+    // the frame follows the mouse; on touch screens it follows a finger dragged across the figure
+    const moveTo = (e) => { tx = e.clientX - canvas.getBoundingClientRect().left; S.kick(); };
+    canvas.addEventListener("pointermove", (e) => { if (e.pointerType === "mouse" || e.buttons) moveTo(e); });
+    canvas.addEventListener("pointerdown", moveTo);
+    canvas.addEventListener("keydown", (e) => { const d = { ArrowLeft: -20, ArrowRight: 20 }[e.key]; if (!d) return; e.preventDefault(); tx = (tx ?? fx) + d; S.kick(); });
   }
 
   // ================================================================ 3. value

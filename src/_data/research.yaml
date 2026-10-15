@@ -14,7 +14,7 @@ arcs:
     where: "a measurement holds more than what it shows"
     short: Using generative models to extend a truncated field of view, complete missing data, and synthesize images that were never acquired.
     fig: recover
-    caption: "Inside the frame is what was measured. Recover infers the patient just around it, and the lines fade as the inference gets less certain. It stops there: one measurement cannot tell you the whole patient. Show the patient to compare. Drag to move the frame."
+    caption: "Inside the frame is what was measured. Recover infers the patient just around it, and the lines fade as the inference gets less certain. It stops there: one measurement cannot tell you the whole patient. Show the patient to compare, and move the frame with your cursor (on a phone, drag it)."
     body: |
       The information in a biomedical measurement is not limited to what we can see in it directly. A chest CT, for example, is reconstructed within a limited field of view that often cuts off part of the body, yet the image still carries information about what lies just outside it. I use generative models to extend a truncated field of view, and more broadly to recover what the device or scanner did not capture, such as missing slices and contrasts. The recovered part is most reliable close to what was measured, and part of the work is knowing how far it can be trusted.
     papers: [zuo2025beyond, zuo2025robust, zhang2025bi, zuo2020synthesizing, hays2026synthetic]
