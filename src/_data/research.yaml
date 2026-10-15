@@ -7,7 +7,7 @@ arcs:
     fig: scanners
     caption: "Two patients, five scanners. Each scanner draws the same anatomy with its own contrast, resolution, and noise. Harmonize, and the columns stop differing while the two rows still do."
     body: |
-      Measurements of the same patient taken on different devices or scanners can differ, and this undesired variation often biases the downstream interpretation of the measurements. Harmonization should remove the variation that comes from the device or scanner and keep the variation that comes from the patient. I do this by separating anatomy from contrast, first for MRI, then at the scale of studies with more than a hundred scanners, and now for CT reconstruction kernels.
+      Measurements of the same patient taken on different devices or scanners can differ, and this undesired variation often biases the downstream interpretation of the measurements. Harmonization should remove the variation that comes from the device or scanner and keep the variation that comes from the patient. I do this by separating anatomy from contrast, for MRI and CT.
     papers: [zuo2023haca3, zuo2021unsupervised, zuo2021information, zuo2022disentangling, hays2026harmonizing, krishnan2026harmonizing]
   - id: completion
     title: Recover what was not captured
@@ -25,7 +25,7 @@ arcs:
     fig: value
     caption: "Each frame is a measurement this patient could have; click one to take it. The bar shows how much of the patient is pinned down, split by what each measurement added when it came in. Frames 1 and 2 overlap, so whichever comes second adds little."
     body: |
-      A patient accumulates measurements: images from different devices or scanners, repeated over time, alongside clinical records. Each one costs something to acquire and interpret. I want to measure what each of them adds to a clinical decision, given what is already known, rather than assume that more data is always better. Lung cancer screening is where I am starting; it is the focus of my NIH/NCI K99/R00 award.
+      A patient accumulates measurements: images from different devices or scanners, repeated over time, alongside clinical records. Each one costs something to acquire and interpret. I want to measure what each of them adds to a clinical decision, given what is already known, rather than assume that more data is always better.
     papers: [zuo2026prospective, zuo2026artifact, zuo2023latent, li2025contrastive, liard2026impact]
 
 funding:

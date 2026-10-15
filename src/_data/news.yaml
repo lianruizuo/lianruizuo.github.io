@@ -1,7 +1,7 @@
 # Newest first. `date` is YYYY-MM (or just YYYY). `text` is Markdown.
 # The home page shows the first six; the About page shows all of them.
 - date: 2026-09
-  text: I was awarded the NIH K99/R00 Pathway to Independence Award by the National Cancer Institute and the NIH Office of the Director.
+  text: I was awarded the NIH K99/R00 Pathway to Independence Award by the National Cancer Institute and the NIH Office of the Director ($962,460 total direct costs).
 - date: 2026
   text: I received the Outstanding Area Chair Award at MICCAI 2026.
 - date: 2026-08

@@ -255,15 +255,16 @@
   }
 
   // ================================================================ the pipeline map at the top
-  // Pointing at a step pops up the questions that cover it and dims the rest; pointing at a question lights its steps.
+  // Pointing at a step pops up the questions that cover it (their bars and their titles) and dims the rest;
+  // pointing at a question's bar or title lights its steps.
   // On touch screens a tap on a step does the same, and a second tap (or a tap elsewhere) clears it.
   function pipeline(map) {
-    const steps = [...map.querySelectorAll("button.rs-step")], arcs = [...map.querySelectorAll(".rs-arc")];
+    const steps = [...map.querySelectorAll("button.rs-step")], arcs = [...map.querySelectorAll("[data-arc]")];
     const cover = (b) => b.dataset.arcs.split(" ");
     const show = (on, lit) => {
       arcs.forEach((a) => { a.classList.toggle("is-on", !!on && on.includes(a.dataset.arc)); a.classList.toggle("is-off", !!on && !on.includes(a.dataset.arc)); });
       steps.forEach((b) => { b.classList.toggle("is-on", lit === b); b.classList.toggle("is-lit", !lit && !!on && on.length === 1 && cover(b).includes(on[0])); });
-      if (lit === null && on && on.length === 1) { const c = getComputedStyle(arcs[+on[0] - 1]).getPropertyValue("--arc"); map.style.setProperty("--lit", c); }
+      if (lit === null && on && on.length === 1) { const c = getComputedStyle(arcs.find((a) => a.dataset.arc === on[0])).getPropertyValue("--arc"); map.style.setProperty("--lit", c); }
     };
     let pinned = null;
     const clear = () => { pinned = null; show(null, null); };
