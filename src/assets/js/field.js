@@ -13,6 +13,12 @@
 //   Time      the patient changes slowly. The measurement is a snapshot from the
 //             last scan, so it drifts out of step with the patient until the
 //             next scan.
+//   Measurements  two more measurements (dashed boxes) join the frame. What can
+//             be inferred now fades with distance from the nearest measurement,
+//             and each box is labeled with what it adds to what is already known:
+//             known = average over the figure of 1 - min(1, distance / reach);
+//             a box's label is known(all) - known(all but that box). Move the
+//             frame over a box and its label drops.
 //
 // Move the frame with the pointer, by dragging, or with the arrow keys.
 (() => {
@@ -69,7 +75,11 @@
   const frame = { x: 0, y: 0, w: 0, h: 0 };
   const target = { x: 0, y: 0, set: false };
   let open = reduce ? 1 : 0, fade = reduce ? 1 : 0, introStart = 0;
-  let scannerOn = false, harmonizeOn = false, timeOn = false;
+  let scannerOn = false, harmonizeOn = false, timeOn = false, valueOn = false;
+  let valAmt = 0;        // 0 = only the frame, 1 = the extra measurements fully shown (animated)
+  // extra measurements as fractions of the figure: x0, y0, x1, y1
+  const EXTRA = [[0.62, 0.16, 0.73, 0.56], [0.79, 0.44, 0.9, 0.86]];
+  const EXTRA_NARROW = [[0.7, 0.07, 0.93, 0.4], [0.7, 0.58, 0.93, 0.9]];   // phones: stacked on the right, clear of the frame
   let harm = 0;          // 0 = raw scanner look, 1 = harmonized (animated)
   let scanAmt = 0;       // 0 = plain measurement, 1 = scanner look (animated)
   let tau = 0, tauScan = 0, flash = 0;
@@ -173,6 +183,23 @@
     target.y = Math.min(H - frame.h / 2 - 2, Math.max(frame.h / 2 + 2, target.y));
   }
 
+  // ---------------------------------------------------------------- extra measurements
+  function extraBoxes() {
+    return (W < 600 ? EXTRA_NARROW : EXTRA).map(([a, b, c, d]) => {
+      const cx = (a + c) / 2 * W, cy = (b + d) / 2 * H, w = Math.max(64, (c - a) * W), h = (d - b) * H;
+      return [cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2];
+    });
+  }
+  const boxDist = (r, x, y) => Math.hypot(Math.max(r[0] - x, 0, x - r[2]), Math.max(r[1] - y, 0, y - r[3]));
+  function known(boxes, reach) {
+    let s = 0, n = 0;
+    for (let y = 6; y < H; y += 12) for (let x = 6; x < W; x += 12) {
+      let d = Infinity; for (const r of boxes) d = Math.min(d, boxDist(r, x, y));
+      s += 1 - Math.min(1, d / reach); n++;
+    }
+    return n ? s / n : 0;
+  }
+
   // ---------------------------------------------------------------- drawing
   const ease = (t) => 1 - Math.pow(1 - t, 3);
   const smooth = (t) => t * t * (3 - 2 * t);
@@ -183,6 +210,8 @@
     const fw = frame.w * (0.15 + 0.85 * open), fh = frame.h * (0.15 + 0.85 * open);
     const x0 = frame.x - fw / 2, y0 = frame.y - fh / 2, x1 = x0 + fw, y1 = y0 + fh;
     const reach = Math.max(150, W * 0.24); // distance over which inference fades out
+    const extras = valueOn ? extraBoxes() : [];
+    const inExtra = (x, y) => extras.some((r) => x > r[0] && x < r[2] && y > r[1] && y < r[3]);
 
     // outside: the patient, solid near the frame, dashed, then dotted far away
     const paths = Array.from({ length: BINS }, () => new Path2D());
@@ -191,8 +220,11 @@
       const ax = o[k], ay = o[k + 1], bx = o[k + 2], by = o[k + 3];
       const mx = (ax + bx) / 2, my = (ay + by) / 2;
       if (mx > x0 && mx < x1 && my > y0 && my < y1) continue;
+      if (valAmt > 0.5 && inExtra(mx, my)) continue;
       const dx = Math.max(x0 - mx, 0, mx - x1), dy = Math.max(y0 - my, 0, my - y1);
-      const t = Math.min(1, Math.hypot(dx, dy) / reach);
+      let dist = Math.hypot(dx, dy);
+      if (valAmt > 0) for (const r of extras) dist = Math.min(dist, boxDist(r, mx, my) + (1 - valAmt) * reach);
+      const t = Math.min(1, dist / reach);
       const bin = Math.min(BINS - 1, Math.floor(t * BINS));
       const duty = 0.9 - 0.78 * Math.pow((bin + 0.5) / BINS, 0.8); // share of each segment drawn: solid-ish to dotted
       paths[bin].moveTo(ax, ay);
@@ -238,6 +270,31 @@
       ctx.beginPath(); ctx.moveTo(mid, y0); ctx.lineTo(mid, y1); ctx.stroke();
     }
     ctx.restore();
+
+    // extra measurements: dashed boxes, lightly shaded, with what each adds to what is already known
+    if (valAmt > 0.001 && extras.length) {
+      const frameBox = [x0, y0, x1, y1], all = [frameBox, ...extras], kAll = known(all, reach);
+      extras.forEach((r, i) => {
+        const [bx0, by0, bx1, by1] = r;
+        ctx.save();
+        ctx.globalAlpha = 0.05 * valAmt; ctx.fillStyle = css(colors.ink); ctx.fillRect(bx0, by0, bx1 - bx0, by1 - by0);
+        ctx.beginPath(); ctx.rect(bx0, by0, bx1 - bx0, by1 - by0); ctx.clip();
+        const seg = march(gSnap, levels(1), Math.floor(bx0 / CELL) - 1, Math.ceil(bx1 / CELL) + 1, Math.floor(by0 / CELL) - 1, Math.ceil(by1 / CELL) + 1, []);
+        const p = new Path2D();
+        for (let q = 0; q < seg.length; q += 4) { p.moveTo(seg[q], seg[q + 1]); p.lineTo(seg[q + 2], seg[q + 3]); }
+        ctx.globalAlpha = valAmt; ctx.strokeStyle = css(colors.ink); ctx.lineWidth = MEASURED_WIDTH * 0.8; ctx.lineJoin = "round"; ctx.lineCap = "round";
+        ctx.stroke(p);
+        ctx.restore();
+        ctx.globalAlpha = valAmt; ctx.strokeStyle = css(colors.ink); ctx.lineWidth = 1.2; ctx.setLineDash([5, 4]);
+        ctx.strokeRect(bx0 + 0.5, by0 + 0.5, bx1 - bx0 - 1, by1 - by0 - 1); ctx.setLineDash([]);
+        const added = kAll - known(all.filter((_, j) => j !== i + 1), reach);
+        ctx.font = '500 11px "Schibsted Grotesk", system-ui, sans-serif'; ctx.fillStyle = css(colors.ink); ctx.textAlign = "left"; ctx.textBaseline = "top";
+        const txt = `adds ${Math.round(100 * added)}%`, ty = by1 + 6 > H - 14 ? by0 - 17 : by1 + 6, tw = ctx.measureText(txt).width;
+        ctx.fillStyle = colors.paper; ctx.fillRect(bx0 + 1, ty - 2, tw + 8, 15);   // a paper backing so the label stays readable over the lines
+        ctx.fillStyle = css(colors.ink); ctx.fillText(txt, bx0 + 5, ty);
+      });
+      ctx.globalAlpha = 1;
+    }
 
     // the frame: viewfinder corners; they grow briefly when a new scan is taken
     ctx.globalAlpha = Math.min(1, open * 1.4);
@@ -289,6 +346,7 @@
     const rate = reduce ? 1 : dt / 0.9;
     scanAmt = scannerOn ? Math.min(1, scanAmt + rate) : Math.max(0, scanAmt - rate);
     harm = harmonizeOn && scannerOn ? Math.min(1, harm + rate * 0.8) : Math.max(0, harm - rate);
+    valAmt = valueOn ? Math.min(1, valAmt + rate) : Math.max(0, valAmt - rate);
     flash = Math.max(0, flash - dt * 2.5);
 
     if (timeOn) {
@@ -302,7 +360,7 @@
 
     const moving = Math.abs(target.x - frame.x) > 0.3 || Math.abs(target.y - frame.y) > 0.3;
     const wantHarm = harmonizeOn && scannerOn ? 1 : 0;
-    const easing = open < 1 || fade < 1 || scanAmt !== (scannerOn ? 1 : 0) || harm !== wantHarm || flash > 0;
+    const easing = open < 1 || fade < 1 || scanAmt !== (scannerOn ? 1 : 0) || harm !== wantHarm || flash > 0 || valAmt !== (valueOn ? 1 : 0);
     if (visible && (moving || easing || timeOn)) kick();
     else last = 0;
   }
@@ -333,10 +391,12 @@
     set("scanner", scannerOn);
     set("harmonize", harmonizeOn && scannerOn);
     set("time", timeOn);
+    set("value", valueOn);
     const h = btn("harmonize"); if (h) h.hidden = !scannerOn;
   }
   btn("scanner")?.addEventListener("click", () => { scannerOn = !scannerOn; if (!scannerOn) harmonizeOn = false; sync(); kick(); });
   btn("harmonize")?.addEventListener("click", () => { harmonizeOn = !harmonizeOn; sync(); kick(); });
+  btn("value")?.addEventListener("click", () => { valueOn = !valueOn; sync(); kick(); });
   btn("time")?.addEventListener("click", () => {
     timeOn = !timeOn;
     if (!timeOn) { tau = 0; tauScan = 0; gNow = sample(0); gSnap = gNow; rebuildOutside(); }
