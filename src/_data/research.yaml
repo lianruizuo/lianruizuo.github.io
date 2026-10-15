@@ -2,21 +2,30 @@
 arcs:
   - id: harmonization
     title: See the patient, not the scanner
+    where: the scanner leaves its mark on the image
     short: Harmonizing MRI and CT so that differences between scanners, protocols, and reconstruction kernels stop masquerading as differences between patients.
+    fig: scanners
+    caption: Two patients, five scanners. Each scanner draws the same anatomy with its own contrast, resolution, and noise. Harmonize, and the columns stop differing while the two rows still do.
     body: |
-      The same brain scanned on two machines gives two different images. Before anything downstream can be trusted (a volume, a segmentation, a risk score), the variation that comes from the instrument has to be separated from the variation that comes from the patient. Much of my training went into this problem, mostly through disentangled representation learning for MRI, and it now extends to CT reconstruction kernels and to studies that span more than a hundred scanners.
+      The same brain scanned on two machines gives two different images, and every number computed from them inherits the difference. Harmonization should remove the scanner and keep the patient. I do this by separating anatomy from contrast, first for brain MRI and now for CT reconstruction kernels and for studies that span more than a hundred scanners.
     papers: [zuo2023haca3, zuo2021unsupervised, zuo2021information, zuo2022disentangling, hays2026harmonizing, krishnan2026harmonizing]
   - id: completion
     title: Recover what was not captured
+    where: the image misses part of the patient
     short: Using generative models to extend a truncated field of view, complete missing data, and synthesize images that were never acquired.
+    fig: recover
+    caption: Inside the frame is what was captured. Recover fills in the rest. Near the frame the guess follows this patient; far away it falls back on what patients usually look like, and the lines fade to say so. Show the patient to compare, and look for the small spot on the right. Drag to move the frame.
     body: |
-      Clinical images are rarely complete. A chest CT is cropped to the lungs, a contrast is missing from a protocol, a study keeps a handful of 2D slices where a 3D volume was needed. I use generative models, recently latent diffusion and flow matching, to recover what the scanner did not capture: extending a truncated field of view, building 3D volumes from a few 2D slices, filling and synthesizing lesions, and synthesizing contrasts that were never acquired. The interesting part is not only making the missing region look right, but knowing what the recovered region can and cannot be used for.
+      Clinical images are rarely complete. A chest CT is cropped to the lungs, a contrast is missing from a protocol, a study keeps a few 2D slices where a 3D volume was needed. I use generative models to recover what the scanner did not capture, and ask what the recovered part can be trusted for: a body-wide quantity often can be recovered, a small finding outside the field of view cannot.
     papers: [zuo2025beyond, zuo2025robust, zhang2025bi, zuo2020synthesizing, hays2026synthetic]
   - id: value
     title: Ask what each measurement adds
+    where: does the measurement change the decision?
     short: Measuring what each modality, time point, and processing step contributes to a clinical decision, starting with lung cancer risk.
+    fig: value
+    caption: Each frame is a measurement this patient could have; click one to take it. The bar shows how much of the patient is pinned down, split by what each measurement added when it came in. Frames 1 and 2 overlap, so whichever comes second adds little.
     body: |
-      A patient accumulates scans, time points, and records, and each one costs something to acquire, process, and interpret. I want to quantify what each of them actually adds to a clinical prediction, rather than assume that more data is always better. Lung cancer screening is where I am starting; it is the focus of my NIH/NCI K99/R00 award.
+      A patient accumulates scans, time points, and records, and each one costs something to acquire and interpret. I want to measure what each of them adds to a clinical prediction, given what is already known, rather than assume that more data is always better. Lung cancer screening is where I am starting; it is the focus of my NIH/NCI K99/R00 award.
     papers: [zuo2026prospective, zuo2026artifact, zuo2023latent, li2025contrastive, liard2026impact]
 
 funding:

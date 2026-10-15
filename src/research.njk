@@ -1,12 +1,43 @@
 ---
 layout: page.njk
 title: Research
-intro: "Medical images are measurements, and measurements come with an instrument attached. My work is organized around three questions about what a measurement can and cannot tell us. The papers below are a selection; the full list is under [Publications](/publications/)."
+intro: "Medical images are measurements, and measurements come with an instrument attached. My work is organized around three questions about what a measurement can and cannot tell us. Each comes with a small picture in the spirit of the one on the front page. The papers listed are a selection; the full list is under [Publications](/publications/)."
+scripts: ["/assets/js/research.js"]
 ---
+<section class="span rs-map-wrap" aria-label="Where each question sits">
+  <div class="row"><div class="m">Where each question sits</div><div class="t">
+    <div class="rs-map">
+      {%- set steps = [["Patient", "Patient"], ["Scanner", "Scanner"], ["Image", "Image"], ["Measurement", "Measure"], ["Decision", "Decision"]] %}
+      {%- for s in steps %}<span class="rs-step" style="grid-column: {{ loop.index }}"><span class="rs-long">{{ s[0] }}</span><span class="rs-short" aria-hidden="true">{{ s[1] }}</span></span>{% endfor %}
+      {%- set spans = [[2, 4], [3, 4], [4, 6]] %}
+      {%- for arc in research.arcs %}
+      <a class="rs-arc rs-arc-{{ loop.index }}" href="#{{ arc.id }}" style="--row: {{ loop.index + 1 }}">
+        <span class="rs-bar" style="grid-column: {{ spans[loop.index0][0] }} / {{ spans[loop.index0][1] }}"></span>
+        <span class="rs-arc-text"><span class="rs-num">{{ loop.index }}</span><i>{{ arc.title }}</i><span class="rs-where">{{ arc.where }}</span></span>
+      </a>
+      {%- endfor %}
+    </div>
+  </div></div>
+</section>
 {%- for arc in research.arcs %}
-<section class="arc span" id="{{ arc.id }}">
-  <div class="row"><div class="m"></div><div class="t">
+<section class="arc span rs-arc-sec rs-arc-{{ loop.index }}" id="{{ arc.id }}">
+  <div class="row"><div class="m"><span class="rs-num">{{ loop.index }}</span></div><div class="t">
     <h2>{{ arc.title }}</h2>
+    <figure class="rsf rsf-{{ arc.fig }}">
+      <canvas data-fig="{{ arc.fig }}" tabindex="0" role="img" aria-label="{{ arc.caption }}"></canvas>
+      <div class="rsf-foot">
+        {%- if arc.fig == "scanners" %}
+        <button type="button" class="chip" data-act="harmonize" aria-pressed="false">Harmonize</button>
+        {%- elif arc.fig == "recover" %}
+        <button type="button" class="chip" data-act="recover" aria-pressed="false">Recover</button>
+        <button type="button" class="chip" data-act="truth" aria-pressed="false">Show the patient</button>
+        {%- elif arc.fig == "value" %}
+        <div class="rsf-meter"><div class="rsf-bar" aria-hidden="true"></div><p class="rsf-known" aria-live="polite"></p></div>
+        <button type="button" class="chip" data-act="reset">Start over</button>
+        {%- endif %}
+      </div>
+      <figcaption>{{ arc.caption }}</figcaption>
+    </figure>
     {{ arc.body | mdBlock | safe }}
   </div></div>
   <div class="row arc-papers"><div class="m">Selected papers</div><div class="t">
