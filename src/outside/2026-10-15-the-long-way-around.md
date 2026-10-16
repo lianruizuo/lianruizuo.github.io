@@ -59,13 +59,17 @@ Sol was away on a long journey, somewhere beyond the mountains. His last message
 
 <p class="book-msg"><span>Arrived. Weather terrible. Food acceptable.</span></p>
 
-Moss had replied with several questions about the weather, the roads, and whether Sol had remembered to bring his coat.
+Moss had promptly sent several questions about the weather, the roads, and whether Sol had remembered to bring his coat.
 
-Sol's response had been characteristically brief.
+Sol had replied:
 
 <p class="book-msg"><span>Yes, Mom.</span></p>
 
-Moss had spent an unreasonable amount of time deciding whether that was funny.
+A moment later, another message arrived.
+
+<p class="book-msg"><span>Roads are fine. Coat is warm. Stop worrying.</span></p>
+
+Moss had spent an unreasonable amount of time deciding whether the first reply was funny.
 
 He eventually decided that it was.
 
@@ -196,7 +200,11 @@ Sol regarded the window for a moment.
 
 "A disturbing economic principle."
 
-But when Moss opened the door, Sol followed him inside.
+Moss smiled and reached for the door.
+
+Sol glanced once at the sample portraits, then at Moss, who was already looking considerably happier.
+
+He followed him inside.
 
 The photographer was an elderly tortoiseshell cat with enormous spectacles and a cheerful disposition.
 
@@ -212,13 +220,13 @@ Moss shuffled toward the middle.
 
 Sol remained where he was.
 
-"Closer."
+"Closer," the photographer repeated.
 
 Moss shuffled again.
 
 Sol looked at him.
 
-"You know," he said, "there's a perfectly good amount of space over there."
+"You know," Sol said, "there's a perfectly good amount of space over there."
 
 "The photographer wants us closer."
 
@@ -237,6 +245,10 @@ Sol looked at him.
 Sol moved approximately two inches.
 
 It was, in his opinion, a generous compromise.
+
+Then, noticing that Moss was still sitting rather awkwardly at the edge of the bench, Sol shifted another inch without being asked.
+
+Neither of them mentioned it.
 
 The photographer adjusted her spectacles.
 
@@ -354,11 +366,13 @@ Moss was still smiling as they walked.
 
 Moss glanced at Sol.
 
-"Don't you think it's strange?"
+"Don't you think it's strange?" Moss asked.
 
 "What?"
 
 "That little cat. Half you, half me."
+
+Sol considered the photograph.
 
 "Poor thing."
 
@@ -366,7 +380,7 @@ Moss glanced at Sol.
 
 "One half has excellent judgment. The other half worries about the weather."
 
-"Someone has to worry about the weather."
+"Someone has to worry about the weather," Moss protested.
 
 "That's what forecasts are for."
 
@@ -416,6 +430,8 @@ He wisely said nothing.
 
 They took a table overlooking the harbor.
 
+Sol chose the seat facing the street, leaving Moss the better view of the boats.
+
 Moss ordered tea and a slice of lemon cake. Sol ordered coffee and announced that he did not want dessert.
 
 When the cake arrived, Sol ate approximately half of it.
@@ -450,7 +466,7 @@ It was orange and gray. Familiar and unfamiliar. Rather absurd, yet somehow perf
 
 "I suppose," Moss said slowly, "he doesn't have to choose which one of us to be."
 
-Sol took another bite of cake.
+Sol looked at the photograph.
 
 "Good for him."
 
@@ -458,9 +474,11 @@ Moss smiled.
 
 "I mean it."
 
-"I know."
+"I know," said Sol.
 
-Sol pushed the remaining piece of cake toward Moss.
+For a moment, neither cat spoke.
+
+Then Sol pushed the remaining piece of cake toward Moss.
 
 "You should finish that before the gull comes back."
 
