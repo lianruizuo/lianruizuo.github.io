@@ -49,12 +49,8 @@ scripts: ["/assets/js/field.js"]
   {%- set recent = collections.journal | take(3) %}{#- the three newest Outside Work entries, picked automatically #}
   <ul class="entries row-list">
     {%- if recent.length %}
-    {%- for p in recent %}
-    <li class="row">
-      <div class="m">{{ p.date | shortDate }}</div>
-      <div class="t"><h3><a href="{{ p.url }}">{{ p.data.title }}</a></h3>{% if p.data.summary %}<p>{{ p.data.summary }}</p>{% endif %}</div>
-    </li>
-    {%- endfor %}
+    {%- set chs = collections.chapters %}{% set dateFormat = "short" %}
+    {%- for p in recent %}{% include "entry-row.njk" %}{% endfor %}
     {%- else %}
     <li class="row"><div class="m"></div><div class="t"><p class="muted">Nothing here yet.</p></div></li>
     {%- endif %}

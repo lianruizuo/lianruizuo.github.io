@@ -1,0 +1,12 @@
+{#- One row in an Outside Work list. Expects `p` (a story, or a book's index page), `chs` (all chapters) and `dateFormat`.
+    A book shows once, dated by its newest chapter, with a link to that chapter. -#}
+{%- set bookChs = (chs | bookChapters(p.data.book)) if p.data.book else [] %}
+{%- set newest = bookChs | last %}
+<li class="row">
+  <div class="m">{% if dateFormat == "short" %}{{ p | entryDate(chs) | shortDate }}{% else %}{{ p | entryDate(chs) | longDate }}{% endif %}</div>
+  <div class="t">
+    <h3><a href="{{ p.url }}">{{ p.data.bookTitle if p.data.book else p.data.title }}</a>{% if p.data.draft %}<span class="draft-flag">Draft</span>{% endif %}</h3>
+    {%- if newest %}<p class="entry-chapter"><a href="{{ newest.url }}">Chapter {{ newest.data.chapter | chapterWord }}: {{ newest.data.chapterTitle }}</a>{% if bookChs.length > 1 %}<span> · {{ bookChs.length }} chapters</span>{% endif %}</p>{% endif %}
+    {%- if p.data.summary %}<p>{{ p.data.summary }}</p>{% endif %}
+  </div>
+</li>

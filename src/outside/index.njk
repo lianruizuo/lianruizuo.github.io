@@ -7,12 +7,8 @@ intro: "Occasional notes from life outside research."
 {%- set entries = collections.journal %}
 {%- if entries.length %}
 <ul class="entries row-list span">
-  {%- for p in entries %}
-  <li class="row">
-    <div class="m">{{ p.date | longDate }}</div>
-    <div class="t"><h3><a href="{{ p.url }}">{{ p.data.title }}</a>{% if p.data.draft %}<span class="draft-flag">Draft</span>{% endif %}</h3>{% if p.data.summary %}<p>{{ p.data.summary }}</p>{% endif %}</div>
-  </li>
-  {%- endfor %}
+  {%- set chs = collections.chapters %}{% set dateFormat = "long" %}
+  {%- for p in entries %}{% include "entry-row.njk" %}{% endfor %}
 </ul>
 {%- else %}
 <p class="empty">The first entry is on its way.</p>

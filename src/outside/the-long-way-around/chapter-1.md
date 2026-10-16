@@ -1,33 +1,9 @@
 ---
-title: The Long Way Around
+chapter: 1
+chapterTitle: A Cat Between Two Worlds
 date: 2026-10-15
-summary: "A travel journal of two cats, Sol and Moss. Chapter One: a seaside town, a stubborn pair of sunglasses, and a photograph with one cat too many."
+summary: A seaside town, a stubborn pair of sunglasses, and a photograph with one cat too many.
 ---
-
-<details class="book-note">
-  <summary><span class="book-note-label">Before the journey</span><span class="book-note-sub">an author’s note</span></summary>
-  <div class="book-note-body">
-    <p>Sol and Moss did not begin in a storybook. They first appeared in the fall of 2026, on the title slides of ECE 6357, the advanced image-processing course I was teaching: Sol, the orange cat who never takes off his sunglasses, and Moss, the thoughtful gray one. They were only there to introduce some mathematics.</p>
-    <p>As the semester went on, they kept landing in more ridiculous situations: a photography studio, an archery range, a roller coaster, two icebergs. Somewhere along the way I began to wonder what they did when the lectures were over. The half-orange, half-gray cat in Chapter One, for one, started life on the slide for fuzzy c‑means, a lecture about points that do not have to choose just one group.</p>
-    <p>The slides are where they came from. The rest is new, and it begins on a quiet Saturday night.</p>
-    <div class="book-slides">
-      <a class="book-slide" href="/outside/long-way/slides/fcm.jpg"><img src="/outside/long-way/slides/fcm.jpg" alt="Fuzzy C-Means title slide: Sol, Moss, and a half-orange, half-gray cat between them." loading="lazy" width="960" height="537"><span>Fuzzy c-means</span></a>
-      <a class="book-slide" href="/outside/long-way/slides/gmm.jpg"><img src="/outside/long-way/slides/gmm.jpg" alt="Gaussian Mixture Models title slide: the two cats with bows, two archery targets, and one stray arrow on the wall." loading="lazy" width="960" height="537"><span>Gaussian mixtures</span></a>
-      <a class="book-slide" href="/outside/long-way/slides/biasfield.jpg"><img src="/outside/long-way/slides/biasfield.jpg" alt="Bias field correction title slide: the two cats sitting under a studio light." loading="lazy" width="960" height="537"><span>Bias field correction</span></a>
-      <a class="book-slide" href="/outside/long-way/slides/canny.jpg"><img src="/outside/long-way/slides/canny.jpg" alt="Canny Edge Detection title slide: the two cats in a cart at the top of a roller coaster." loading="lazy" width="960" height="537"><span>Canny edges</span></a>
-      <a class="book-slide" href="/outside/long-way/slides/snakes.jpg"><img src="/outside/long-way/slides/snakes.jpg" alt="Snakes title slide: the two cats in a tug of war around a rock." loading="lazy" width="960" height="537"><span>Snakes</span></a>
-      <a class="book-slide" href="/outside/long-way/slides/gvf.jpg"><img src="/outside/long-way/slides/gvf.jpg" alt="Gradient Vector Flow title slide: the two cats with a torch and a compass in a canyon." loading="lazy" width="960" height="537"><span>Gradient vector flow</span></a>
-      <a class="book-slide" href="/outside/long-way/slides/levelsets.jpg"><img src="/outside/long-way/slides/levelsets.jpg" alt="Level Sets title slide: the two cats on two icebergs, most of each hidden under the water." loading="lazy" width="960" height="537"><span>Level sets</span></a>
-    </div>
-    <p class="book-note-sign">L.&nbsp;Z., October 2026</p>
-  </div>
-</details>
-
-<div class="book-cover">
-  <p class="book-kicker">A Travel Journal of Sol &amp; Moss</p>
-  <p class="book-chapter">Chapter One</p>
-  <p class="book-chapter-title">A Cat Between Two Worlds</p>
-</div>
 
 <p class="book-time">Saturday, 9:47 p.m.</p>
 
@@ -37,7 +13,7 @@ Outside, the rain had stopped, leaving tiny droplets clinging to the leaves in M
 
 Moss sat at his desk by the window.
 
-{% figure "/outside/long-way/desk.jpg", "Moss, at his desk by the window.", "A gray cat seen from behind at a wooden desk by a rainy window at night, with a candle, a mug, scattered travel photographs, and an open notebook." %}
+{% figure "/outside/the-long-way-around/images/desk.jpg", "Moss, at his desk by the window.", "A gray cat seen from behind at a wooden desk by a rainy window at night, with a candle, a mug, scattered travel photographs, and an open notebook." %}
 
 He had intended to do something productive.
 
@@ -302,7 +278,7 @@ A perfectly blended combination of the two.
 
 <p class="book-verse">Half orange, half gray.<br>Half sunglasses, half bare face.</p>
 
-{% figure "/outside/long-way/portrait.jpg", "The defective photograph: Sol, Moss, and the cat in between.", "Three cats on a cushioned bench in a photography studio: an orange cat in round black sunglasses, a cat that is half orange and half gray with one dark lens, and a round gray cat." %}
+{% figure "/outside/the-long-way-around/images/portrait.jpg", "The defective photograph: Sol, Moss, and the cat in between.", "Three cats on a cushioned bench in a photography studio: an orange cat in round black sunglasses, a cat that is half orange and half gray with one dark lens, and a round gray cat." %}
 
 The photographer stared at it in bewilderment.
 
@@ -595,9 +571,3 @@ He opened his laptop one last time.
 The expense report could wait until Sunday.
 
 Tonight, he had a story to tell.
-
-<div class="book-end">
-  <p class="book-break" aria-hidden="true">* * *</p>
-  <p class="book-continued">To be continued</p>
-  <p class="book-credit">Written by Lianrui Zuo · revised by ChatGPT (grammar and language) and Claude (formatting)</p>
-</div>

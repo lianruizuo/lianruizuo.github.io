@@ -95,11 +95,23 @@ export default function (eleventyConfig) {
     api.getFilteredByGlob("src/teaching/**/*.md").filter((p) => !p.inputPath.includes("/atlas/")).sort((a, b) =>
       (a.data.course || "").localeCompare(b.data.course || "") || (a.data.lecture ?? 0) - (b.data.lecture ?? 0) || a.date - b.date)
   );
-  eleventyConfig.addCollection("journal", (api) =>
-    api.getFilteredByGlob("src/outside/*.md").sort((a, b) => b.date - a.date)
-  );
+  // Outside Work: single stories are src/outside/*.md; a book is a folder src/outside/<book>/ with index.md
+  // (the book page) and chapter-N.md. Lists show a book once, dated by its newest chapter.
+  const chaptersOf = (api) => api.getFilteredByGlob("src/outside/*/chapter-*.md").sort((a, b) => a.data.chapter - b.data.chapter);
+  const entryDate = (p, chs) => (p.data.book ? Math.max(p.date, ...chs.filter((c) => c.data.book === p.data.book).map((c) => c.date)) : +p.date);
+  eleventyConfig.addCollection("chapters", (api) => chaptersOf(api));
+  eleventyConfig.addCollection("books", (api) => api.getFilteredByGlob("src/outside/*/index.md"));
+  eleventyConfig.addCollection("journal", (api) => {
+    const chs = chaptersOf(api);
+    return api.getFilteredByGlob(["src/outside/*.md", "src/outside/*/index.md"]).sort((a, b) => entryDate(b, chs) - entryDate(a, chs));
+  });
+  eleventyConfig.addFilter("entryDate", (p, chs) => new Date(entryDate(p, chs || [])));
+  eleventyConfig.addFilter("bookChapters", (chs, book) => (chs || []).filter((c) => c.data.book === book));
+  eleventyConfig.addFilter("bookHub", (books, book) => (books || []).find((b) => b.data.book === book));
+  const WORDS = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty"];
+  eleventyConfig.addFilter("chapterWord", (n) => WORDS[n] || String(n));
   eleventyConfig.addCollection("writing", (api) =>
-    api.getFilteredByGlob(["src/teaching/**/*.md", "src/outside/*.md"]).filter((p) => !p.data.eleventyExcludeFromCollections && !p.inputPath.endsWith("contribute.md")).sort((a, b) => b.date - a.date)
+    api.getFilteredByGlob(["src/teaching/**/*.md", "src/outside/*.md", "src/outside/*/chapter-*.md"]).filter((p) => !p.data.eleventyExcludeFromCollections && !p.inputPath.endsWith("contribute.md")).sort((a, b) => b.date - a.date)
   );
 
   // ---------- filters ----------

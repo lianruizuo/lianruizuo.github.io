@@ -1,0 +1,30 @@
+---
+layout: base.njk
+---
+{#- The page of a book in Outside Work: its note, then its chapters in order. -#}
+{%- set chs = collections.chapters | bookChapters(book) %}
+<header class="post-head row">
+  <div class="m"><a href="/outside/" style="text-decoration:none">Outside Work</a></div>
+  <div class="t">
+    <h1>{{ bookTitle }}</h1>
+    <p class="post-meta">{% if subtitle %}<span>{{ subtitle }}</span>{% endif %}<span>{{ chs.length }} chapter{% if chs.length != 1 %}s{% endif %} so far</span></p>
+  </div>
+</header>
+<article class="prose" style="display:contents">
+<section class="book-toc" aria-label="Chapters">
+  <ol>
+    {%- for c in chs %}
+    <li>
+      <a href="{{ c.url }}"><span class="book-toc-n">Chapter {{ c.data.chapter | chapterWord }}</span><span class="book-toc-t">{{ c.data.chapterTitle }}</span></a>
+      {%- if c.data.summary %}<p>{{ c.data.summary }}</p>{% endif %}
+      {%- if loop.last and not finished %}<p class="book-toc-more">To be continued</p>{% endif %}
+    </li>
+    {%- endfor %}
+  </ol>
+</section>
+{{ content | safe }}
+{%- if credit %}<p class="book-credit book-credit-page">{{ credit }}</p>{% endif %}
+</article>
+<nav class="pager" aria-label="Outside Work">
+  <a class="next" href="/outside/"><span class="lab">Back to</span>Outside Work</a>
+</nav>
