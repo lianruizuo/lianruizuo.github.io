@@ -891,3 +891,4 @@ button.rs-step:focus-visible { outline: none; }
 .book-slide:hover img { transform: translateY(-2px); }
 .book-slide:hover { color: var(--ink); }
 .book-note-sign { text-align: right; font-style: italic; color: var(--graphite) !important; margin: .2rem 0 0 !important; font-size: .9rem; }
+.book-credit { margin: 2.2rem 0 0 !important; font-family: var(--sans); font-size: .72rem; letter-spacing: .03em; color: var(--graphite); opacity: .8; }
