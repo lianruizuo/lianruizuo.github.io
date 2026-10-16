@@ -581,4 +581,5 @@ Tonight, he had a story to tell.
 <div class="book-end">
   <p class="book-break" aria-hidden="true">* * *</p>
   <p class="book-continued">To be continued</p>
+  <p class="book-credit">Written by Lianrui Zuo · revised by ChatGPT (grammar and language) and Claude (formatting)</p>
 </div>
