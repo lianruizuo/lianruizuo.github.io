@@ -874,3 +874,20 @@ button.rs-step:focus-visible { outline: none; }
 .book-end { text-align: center; margin: 3rem 0 1rem; }
 .book-end .book-break { margin: 0 0 .9rem; }
 .book-continued { margin: 0; font-style: italic; font-variant: small-caps; letter-spacing: .08em; font-size: 1.1rem; color: var(--graphite); }
+/* the author's note: a quiet, collapsed side track before the chapter */
+.book-note { margin: 0 0 1.6rem; }
+.book-note summary { list-style: none; cursor: pointer; display: inline-flex; align-items: baseline; gap: .55rem; font-family: var(--sans); font-size: .8rem; color: var(--graphite); padding: .2rem 0; }
+.book-note summary::-webkit-details-marker { display: none; }
+.book-note summary::before { content: "+"; display: inline-grid; place-items: center; width: 1.05rem; height: 1.05rem; border: 1px solid var(--hairline); border-radius: 50%; font-size: .75rem; line-height: 1; transition: transform .2s; }
+.book-note[open] summary::before { content: "–"; }
+.book-note-label { color: var(--ink); letter-spacing: .04em; }
+.book-note-sub { font-family: var(--serif); font-style: italic; font-size: .9rem; }
+.book-note summary:hover .book-note-label { color: var(--accent); }
+.book-note-body { margin-top: .8rem; padding: 1rem 1.2rem .9rem; background: var(--paper-2); border-radius: 3px; font-size: .95rem; line-height: 1.6; }
+.book-note-body p { margin: 0 0 .75rem; color: var(--ink); }
+.book-slides { display: grid; grid-auto-flow: column; grid-auto-columns: 9.5rem; gap: .6rem; overflow-x: auto; padding: .3rem 0 .6rem; margin: .9rem 0 .4rem; scroll-snap-type: x proximity; }
+.book-slide { scroll-snap-align: start; text-decoration: none; color: var(--graphite); font-family: var(--sans); font-size: .7rem; display: grid; gap: .3rem; }
+.book-slide img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 2px; transition: transform .2s; }
+.book-slide:hover img { transform: translateY(-2px); }
+.book-slide:hover { color: var(--ink); }
+.book-note-sign { text-align: right; font-style: italic; color: var(--graphite) !important; margin: .2rem 0 0 !important; font-size: .9rem; }
