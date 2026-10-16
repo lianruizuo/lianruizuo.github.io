@@ -7,7 +7,7 @@ layout: base.njk
   <div class="m"><a href="/outside/" style="text-decoration:none">Outside Work</a></div>
   <div class="t">
     <h1>{{ bookTitle }}</h1>
-    <p class="post-meta">{% if subtitle %}<span>{{ subtitle }}</span>{% endif %}<span>{{ chs.length }} chapter{% if chs.length != 1 %}s{% endif %} so far</span></p>
+    <p class="post-meta">{% if subtitle %}<span>{{ subtitle }}</span>{% endif %}{% if chs.length %}<span>Begun {{ (chs | first).date | longDate }}</span>{% endif %}<span>{{ chs.length }} chapter{% if chs.length != 1 %}s{% endif %} so far</span></p>
   </div>
 </header>
 <article class="prose" style="display:contents">
@@ -15,7 +15,7 @@ layout: base.njk
   <ol>
     {%- for c in chs %}
     <li>
-      <a href="{{ c.url }}"><span class="book-toc-n">Chapter {{ c.data.chapter | chapterWord }}</span><span class="book-toc-t">{{ c.data.chapterTitle }}</span></a>
+      <a href="{{ c.url }}"><span class="book-toc-n">Chapter {{ c.data.chapter | chapterWord }}</span><span class="book-toc-t">{{ c.data.chapterTitle }}</span><span class="book-toc-d">{{ c.date | longDate }}</span></a>
       {%- if c.data.summary %}<p>{{ c.data.summary }}</p>{% endif %}
       {%- if loop.last and not finished %}<p class="book-toc-more">To be continued</p>{% endif %}
     </li>

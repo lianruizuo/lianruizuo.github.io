@@ -1,7 +1,7 @@
 ---
 chapter: 1
 chapterTitle: A Cat Between Two Worlds
-date: 2026-10-15
+date: 2026-09-12
 summary: A seaside town, a stubborn pair of sunglasses, and a photograph with one cat too many.
 ---
 

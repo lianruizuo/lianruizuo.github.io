@@ -98,7 +98,11 @@ export default function (eleventyConfig) {
   // Outside Work: single stories are src/outside/*.md; a book is a folder src/outside/<book>/ with index.md
   // (the book page) and chapter-N.md. Lists show a book once, dated by its newest chapter.
   const chaptersOf = (api) => api.getFilteredByGlob("src/outside/*/chapter-*.md").sort((a, b) => a.data.chapter - b.data.chapter);
-  const entryDate = (p, chs) => (p.data.book ? Math.max(p.date, ...chs.filter((c) => c.data.book === p.data.book).map((c) => c.date)) : +p.date);
+  // a book is dated by its newest chapter (each chapter carries its own date); a book with no chapters yet uses its own date
+  const entryDate = (p, chs) => {
+    const own = p.data.book ? chs.filter((c) => c.data.book === p.data.book).map((c) => +c.date) : [];
+    return own.length ? Math.max(...own) : +p.date;
+  };
   eleventyConfig.addCollection("chapters", (api) => chaptersOf(api));
   eleventyConfig.addCollection("books", (api) => api.getFilteredByGlob("src/outside/*/index.md"));
   eleventyConfig.addCollection("journal", (api) => {
