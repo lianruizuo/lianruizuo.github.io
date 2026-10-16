@@ -46,7 +46,7 @@ scripts: ["/assets/js/field.js"]
 
 <section class="span">
   <div class="row section-head"><div class="m"></div><div class="t"><h2>Outside Work</h2><a class="more" href="/outside/">All</a></div></div>
-  {%- set recent = collections.journal | take(4) %}
+  {%- set recent = collections.journal | take(3) %}{#- the three newest Outside Work entries, picked automatically #}
   <ul class="entries row-list">
     {%- if recent.length %}
     {%- for p in recent %}
