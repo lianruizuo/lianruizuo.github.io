@@ -2,7 +2,7 @@
 layout: book.njk
 date: 2026-10-15
 subtitle: A Travel Journal of Sol & Moss
-summary: "A storybook about two cats, Sol and Moss, written a chapter at a time."
+summary: "A storybook about two cats, Sol and Moss."
 credit: "Written by Lianrui Zuo · revised by ChatGPT (grammar and language) and Claude (formatting)"
 ---
 
