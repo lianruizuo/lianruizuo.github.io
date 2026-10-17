@@ -7,7 +7,7 @@ summary: A seaside town, a stubborn pair of sunglasses, and a photograph with on
 
 <p class="book-time">Saturday, 9:47 p.m.</p>
 
-<p class="book-drop"><span class="book-lead">It was a quiet</span> Saturday evening.</p>
+<p class="book-drop">It was a quiet Saturday evening.</p>
 
 Outside, the rain had stopped, leaving tiny droplets clinging to the leaves in Moss's garden. A few late-autumn flowers stood beneath the porch light, their petals bowed under the weight of the water. The house smelled faintly of tea, old books, and the cinnamon candle Moss had lit after dinner.
 
@@ -95,7 +95,7 @@ And with that, the unfinished expense report was forgotten.
 
 <p class="book-break" aria-hidden="true">* * *</p>
 
-<p class="book-drop"><span class="book-lead">It had begun with</span> an argument about sunglasses.</p>
+<p class="book-drop">It had begun with an argument about sunglasses.</p>
 
 Not an important argument, although Sol would later insist that it concerned a matter of fundamental personal freedom.
 
@@ -480,7 +480,7 @@ Sol pretended not to notice.
 
 <p class="book-break" aria-hidden="true">* * *</p>
 
-<p class="book-drop"><span class="book-lead">Back at his desk</span>, years later, Moss turned the photograph over.</p>
+<p class="book-drop">Back at his desk, years later, Moss turned the photograph over.</p>
 
 On the back, written in his own careful handwriting, were the words:
 

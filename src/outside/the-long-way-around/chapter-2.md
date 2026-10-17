@@ -8,7 +8,7 @@ summary: A stormy night at an archery club, a blackout, a missing bow, and an ar
 
 <p class="book-time">Thursday night</p>
 
-<p class="book-drop"><span class="book-lead">Everyone agreed that the</span> arrow had caused the blackout.</p>
+<p class="book-drop">Everyone agreed that the arrow had caused the blackout.</p>
 
 By midnight, it was the fact Sol trusted least.
 
@@ -154,7 +154,7 @@ By 1:00 a.m., that seemed optimistic.
 
 <p class="book-break" aria-hidden="true">* * *</p>
 
-<p class="book-drop"><span class="book-lead">The arrow belonged to</span> Rowan.</p>
+<p class="book-drop">The arrow belonged to Rowan.</p>
 
 That much did not take long.
 
@@ -224,7 +224,7 @@ It was reasonable.
 
 <p class="book-break" aria-hidden="true">* * *</p>
 
-<p class="book-drop"><span class="book-lead">At 2:14 a.m.</span>, Juniper Hall admitted that the service stair was not locked.</p>
+<p class="book-drop">At 2:14 a.m., Juniper Hall admitted that the service stair was not locked.</p>
 
 This was inconvenient because she had spent the previous hour insisting that it was.
 
@@ -370,7 +370,7 @@ That was the first time either of them had heard that.
 
 <p class="book-break" aria-hidden="true">* * *</p>
 
-<p class="book-drop"><span class="book-lead">Felix Rook had been</span> in the locker room.</p>
+<p class="book-drop">Felix Rook had been in the locker room.</p>
 
 Possibly.
 
@@ -434,7 +434,7 @@ There was a difference.
 
 <p class="book-break" aria-hidden="true">* * *</p>
 
-<p class="book-drop"><span class="book-lead">At 3:00 a.m.</span>, Dr. Ivo Sable asked for his briefcase.</p>
+<p class="book-drop">At 3:00 a.m., Dr. Ivo Sable asked for his briefcase.</p>
 
 An officer retrieved it.
 
@@ -516,7 +516,7 @@ For the first time that evening, the missing bow seemed less like the valuable t
 
 <p class="book-break" aria-hidden="true">* * *</p>
 
-<p class="book-drop"><span class="book-lead">At 3:27 a.m.</span>, Sol found Moss asleep sitting upright in a wooden chair.</p>
+<p class="book-drop">At 3:27 a.m., Sol found Moss asleep sitting upright in a wooden chair.</p>
 
 He kicked the leg.
 
@@ -602,7 +602,7 @@ Neither of them needed to answer.
 
 <p class="book-break" aria-hidden="true">* * *</p>
 
-<p class="book-drop"><span class="book-lead">Rowan lasted twenty seconds.</span></p>
+<p class="book-drop">Rowan lasted twenty seconds.</p>
 
 “I didn’t mean to release it.”
 
@@ -652,7 +652,7 @@ They should have been asking when.
 
 <p class="book-break" aria-hidden="true">* * *</p>
 
-<p class="book-drop"><span class="book-lead">By 4:00 a.m.</span>, the story everyone had told at 9:45 p.m. was dead.</p>
+<p class="book-drop">By 4:00 a.m., the story everyone had told at 9:45 p.m. was dead.</p>
 
 The arrow had not caused the blackout.
 
@@ -768,7 +768,7 @@ More than three hours before the blackout.
 
 <p class="book-break" aria-hidden="true">* * *</p>
 
-<p class="book-drop"><span class="book-lead">The strange thing was</span> that this did not immediately tell them who had taken it.</p>
+<p class="book-drop">The strange thing was that this did not immediately tell them who had taken it.</p>
 
 It made nearly everybody less suspicious and one cat considerably more interesting.
 
@@ -834,7 +834,7 @@ Not yet.
 
 <p class="book-break" aria-hidden="true">* * *</p>
 
-<p class="book-drop"><span class="book-lead">At 5:15 a.m.</span>, Juniper remembered the banner case.</p>
+<p class="book-drop">At 5:15 a.m., Juniper remembered the banner case.</p>
 
 They had not asked about the bow.
 
@@ -882,7 +882,7 @@ Or what everyone had called the Bellweather Bow.
 
 <p class="book-break" aria-hidden="true">* * *</p>
 
-<p class="book-drop"><span class="book-lead">Merrin did not confess</span> immediately.</p>
+<p class="book-drop">Merrin did not confess immediately.</p>
 
 Moss was glad of that.
 
@@ -1168,7 +1168,7 @@ Because it was a story.
 
 <p class="book-break" aria-hidden="true">* * *</p>
 
-<p class="book-drop"><span class="book-lead">There was still one</span> question left.</p>
+<p class="book-drop">There was still one question left.</p>
 
 It belonged to Dr. Sable.
 
@@ -1290,7 +1290,7 @@ It wasn’t.
 
 <p class="book-break" aria-hidden="true">* * *</p>
 
-<p class="book-drop"><span class="book-lead">They left shortly after</span> sunrise.</p>
+<p class="book-drop">They left shortly after sunrise.</p>
 
 The rain had washed the street clean. Water gathered in the gutters and reflected the pale morning sky.
 
