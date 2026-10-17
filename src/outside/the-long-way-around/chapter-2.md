@@ -3,7 +3,7 @@ chapter: 2
 chapterTitle: The Stray Arrow
 date: 2026-10-16
 place: Nashville
-summary: A blackout at an archery club, an arrow everyone wanted to matter, and a bow that may never have been what the club believed.
+summary: A stormy night at an archery club, a blackout, a missing bow, and an arrow where no arrow should be.
 ---
 
 <p class="book-time">Thursday night</p>
