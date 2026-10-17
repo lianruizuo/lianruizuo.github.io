@@ -1,4 +1,5 @@
-# Builds the site with Eleventy and publishes it to GitHub Pages on every push to main.
+# Builds the site with Eleventy and publishes it to GitHub Pages on every push to main,
+# and once a day so the Visitors corner on the Outside Work page stays current.
 # One-time setup: repository Settings → Pages → Build and deployment → Source: "GitHub Actions".
 name: Deploy site
 
@@ -6,6 +7,8 @@ on:
   push:
     branches: [main, master]
   workflow_dispatch:
+  schedule:
+    - cron: "17 11 * * *" # daily, around 6 am Nashville time
 
 permissions:
   contents: read
@@ -26,6 +29,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Visitor totals for the Outside Work page. Skips quietly until the GOATCOUNTER_TOKEN secret is set.
+      - run: node scripts/visitors.mjs
+        env:
+          GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
