@@ -2,7 +2,6 @@
 layout: base.njk
 math: true
 mainClass: note
-scripts: ["/assets/js/reader.js"]
 ---
 {%- set courseNotes = collections.notes | where("course", course) %}
 {%- set ns = courseNotes | neighbors(page.url) %}
