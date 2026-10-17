@@ -928,3 +928,65 @@ button.rs-step:focus-visible { outline: none; }
   .book-pager .book-all { grid-column: 1 / -1; grid-row: 2; }
   .book-pager .next { grid-column: 2; }
 }
+
+/* ---------------- visitors corner (Outside Work) ---------------- */
+.vz { margin-top: 4.5rem; padding-top: 1.6rem; border-top: 1px solid var(--hairline); position: relative; }
+.vz .row { align-items: start; }
+.vz-h { font-family: var(--sans); font-size: .8125rem; font-weight: 400; color: var(--graphite); letter-spacing: .01em; margin: .2rem 0 0; }
+.vz .t { position: relative; }
+.vz-lede { margin: 0 0 1.1rem; font-style: italic; color: var(--ink); }
+.vz figure { margin: 0; }
+.vz svg { display: block; width: 100%; height: auto; overflow: visible; }
+.vz-cap { font-family: var(--sans); font-size: .75rem; color: var(--graphite); letter-spacing: .02em; margin-bottom: .55rem; }
+
+/* dots: land is faint; visited places step from pale to full accent */
+.vz path { fill: none; stroke-linecap: round; }
+.vz-world .vz-land { stroke: var(--hairline); stroke-width: 3.1; }
+.vz-world .vz-dot { stroke-width: 3.9; }
+.vz-world .vz-hit { stroke-width: 12; }
+.vz-us .vz-land { stroke: var(--hairline); stroke-width: 7.5; }
+.vz-us .vz-dot { stroke-width: 9; }
+.vz-us .vz-hit { stroke-width: 18; }
+.vz-hit { stroke: transparent; pointer-events: stroke; }
+.vz-dot { pointer-events: none; transition: opacity .15s; }
+.vz-l1 { stroke: color-mix(in oklab, var(--accent) 38%, var(--paper)); }
+.vz-l2 { stroke: color-mix(in oklab, var(--accent) 58%, var(--paper)); }
+.vz-l3 { stroke: color-mix(in oklab, var(--accent) 78%, var(--paper)); }
+.vz-l4 { stroke: var(--accent); }
+.vz-place { cursor: default; outline: none; }
+.vz.has-on .vz-place:not(.is-on) .vz-dot { opacity: .45; }
+.vz-place:focus-visible .vz-dot { stroke: var(--ink); }
+
+.vz-pair { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 2.25rem; margin-top: 1.75rem; align-items: start; }
+.vz-side { display: grid; gap: 1.6rem; }
+
+.vz-sections ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; }
+.vz-sections li { display: grid; grid-template-columns: 6.6rem minmax(0, 1fr) 2.4rem; align-items: center; gap: .6rem; font-family: var(--sans); font-size: .8125rem; }
+.vz-sec { color: var(--ink); }
+.vz-bar { height: 4px; }
+.vz-bar i { display: block; height: 100%; min-width: 4px; border-radius: 2px; background: var(--accent); }
+.vz-pct { color: var(--graphite); text-align: right; font-variant-numeric: tabular-nums; }
+
+.vz-strip { display: grid; grid-template-columns: repeat(24, 1fr); gap: 2px; height: 3.2rem; align-items: end; border-bottom: 1px solid var(--hairline); }
+.vz-hour { height: 100%; display: flex; align-items: flex-end; cursor: default; }
+.vz-hour i { display: block; width: 100%; height: calc(var(--h) * 100%); min-height: 1px; border-radius: 2px 2px 0 0; background: color-mix(in oklab, var(--accent) 70%, var(--paper)); transition: opacity .15s; }
+.vz.has-on .vz-hour:not(.is-on) i { opacity: .45; }
+.vz-hour.is-on i { background: var(--accent); }
+.vz-clock { display: grid; grid-template-columns: repeat(4, 1fr); font-family: var(--sans); font-size: .6875rem; color: var(--graphite); margin-top: .3rem; }
+.vz-note { margin: .45rem 0 0; font-size: .9rem; color: var(--graphite); font-style: italic; }
+
+.vz-list { margin-top: 1.6rem; font-family: var(--sans); font-size: .8125rem; color: var(--graphite); }
+.vz-list summary { cursor: pointer; width: fit-content; }
+.vz-list summary:hover { color: var(--ink); }
+.vz-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1rem 2rem; margin-top: .8rem; }
+.vz-cols h3 { font-family: var(--sans); font-size: .75rem; font-weight: 500; color: var(--ink); margin: 0 0 .35rem; }
+.vz-cols ol { margin: 0; padding-left: 1.4rem; display: grid; gap: .1rem; }
+.vz-cols li span { color: var(--graphite); font-variant-numeric: tabular-nums; margin-left: .25rem; }
+.vz-cols li { color: var(--ink); }
+.vz-fine { margin: 1.1rem 0 0; font-family: var(--sans); font-size: .75rem; color: var(--graphite); }
+
+.vz-tip { position: absolute; z-index: 5; pointer-events: none; white-space: nowrap; font-family: var(--sans); font-size: .75rem; color: var(--paper); background: var(--ink); padding: .25rem .55rem; border-radius: 4px; }
+
+@media (max-width: 720px) {
+  .vz-pair { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
+}

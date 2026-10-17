@@ -5,3 +5,6 @@ _site/
 # lecture bodies and labs: stay on this computer; only the encrypted copies are published
 private/
 .lockbuild/
+
+# visitor totals: fetched fresh from GoatCounter on each deploy (scripts/visitors.mjs), never committed
+src/_data/visitors.json

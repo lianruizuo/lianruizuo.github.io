@@ -145,6 +145,13 @@ Both are off until switched on in `src/_data/site.json`. Nothing either one coll
 2. Set `"formspree": "<that id>"` in `site.json`.
 3. Messages arrive by email with the reader's name, affiliation, optional email, a note, and the page they were on. Formspree also keeps them in its dashboard, so you can export the list as CSV. Readers who leave an email asked to hear about new notes; that's your mailing list.
 
+**3. The Visitors corner** at the bottom of the Outside Work page. It draws rough totals from GoatCounter: visits by country and US state, which sections people read, and visits by hour (Nashville time). Your full GoatCounter dashboard stays private; only these totals are published. The corner stays hidden until there is data.
+1. Switch on GoatCounter as in step 1 above. In GoatCounter's settings, set your timezone, and visit the site once with `#toggle-goatcounter` at the end of the address so your own visits aren't counted.
+2. In GoatCounter, go to **Settings → API**, create a key with only "Read statistics" ticked, and copy it.
+3. In the GitHub repository, go to **Settings → Secrets and variables → Actions → New repository secret**. Name it `GOATCOUNTER_TOKEN` and paste the key.
+4. The site rebuilds every morning (and on every push). Each build runs `scripts/visitors.mjs`, which fetches the totals into `src/_data/visitors.json`. That file is never committed. If GoatCounter can't be reached, the build goes on without the corner.
+5. `"visitorsSince"` in `site.json` sets the date counting starts from (default 2026-10-17). The maps' dot grids are in `src/_data/dotmaps.json`, made once by `scripts/dotmaps.mjs`.
+
 ## Deploy
 
 1. Replace the contents of the `lianruizuo.github.io` repository with this folder. Keep the old site on a branch, e.g. `git switch -c old-academicpages`, if you'd like a copy.

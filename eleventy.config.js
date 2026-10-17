@@ -148,6 +148,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("inCourse", (pages, code) => (pages || []).flatMap((p) =>
     (p.data.courses || []).filter((c) => c.code === code).map((c) => ({ page: p, where: c.where }))));
   eleventyConfig.addFilter("json", (x) => JSON.stringify(x));
+  eleventyConfig.addFilter("commas", (n) => Number(n || 0).toLocaleString("en-US"));
 
   // ---------- feed (teaching notes + journal) ----------
   eleventyConfig.addPlugin(feedPlugin, {

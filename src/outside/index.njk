@@ -3,6 +3,7 @@ layout: page.njk
 title: Outside Work
 permalink: /outside/
 intro: "Occasional notes from life outside research."
+scripts: ["/assets/js/visitors.js"]
 ---
 {%- set entries = collections.journal %}
 {%- if entries.length %}
@@ -13,3 +14,4 @@ intro: "Occasional notes from life outside research."
 {%- else %}
 <p class="empty">The first entry is on its way.</p>
 {%- endif %}
+{% include "visitors.njk" %}

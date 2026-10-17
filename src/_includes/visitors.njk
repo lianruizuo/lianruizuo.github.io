@@ -1,0 +1,70 @@
+{#- The Visitors corner: rough totals only. Drawn at build time from visitorsCorner; hidden when there's nothing yet. -#}
+{%- set vz = visitorsCorner %}
+{%- if vz %}
+<section class="span vz" aria-labelledby="vz-h" data-vz>
+  <div class="row">
+    <div class="m"><h2 id="vz-h" class="vz-h">Visitors</h2></div>
+    <div class="t">
+      <p class="vz-lede">{{ vz.visits | commas }} visits from {{ vz.countries.length }} {{ "country" if vz.countries.length == 1 else "countries" }}{% if vz.states.length %} and {{ vz.states.length }} US {{ "state" if vz.states.length == 1 else "states" }}{% endif %} since {{ vz.since }}.</p>
+
+      <figure class="vz-world">
+        <svg viewBox="{{ vz.world.box }}" role="img" aria-label="World map; countries with visitors are shaded, darker for more visits.">
+          <path class="vz-land" d="{{ vz.world.land }}"/>
+          {%- for p in vz.world.lit %}
+          <g class="vz-place" data-name="{{ p.name }}" data-n="{{ p.count }}" tabindex="0"><path class="vz-hit" d="{{ p.d }}"/><path class="vz-dot vz-l{{ p.level }}" d="{{ p.d }}"/></g>
+          {%- endfor %}
+        </svg>
+      </figure>
+
+      <div class="vz-pair">
+        {%- if vz.states.length %}
+        <figure class="vz-us">
+          <figcaption class="vz-cap">Within the US</figcaption>
+          <svg viewBox="{{ vz.us.box }}" role="img" aria-label="US map; states with visitors are shaded, darker for more visits.">
+            <path class="vz-land" d="{{ vz.us.land }}"/>
+            {%- for p in vz.us.lit %}
+            <g class="vz-place" data-name="{{ p.name }}" data-n="{{ p.count }}" tabindex="0"><path class="vz-hit" d="{{ p.d }}"/><path class="vz-dot vz-l{{ p.level }}" d="{{ p.d }}"/></g>
+            {%- endfor %}
+          </svg>
+        </figure>
+        {%- endif %}
+
+        <div class="vz-side">
+          {%- if vz.sections.length %}
+          <figure class="vz-sections">
+            <figcaption class="vz-cap">What they read</figcaption>
+            <ul>
+              {%- for s in vz.sections %}
+              <li><span class="vz-sec">{{ s.name }}</span><span class="vz-bar" aria-hidden="true"><i style="width: {{ s.width }}%"></i></span><span class="vz-pct">{{ s.pct }}%</span></li>
+              {%- endfor %}
+            </ul>
+          </figure>
+          {%- endif %}
+
+          {%- if vz.busiest %}
+          <figure class="vz-hours">
+            <figcaption class="vz-cap">When, in Nashville time</figcaption>
+            <div class="vz-strip" role="img" aria-label="Visits by hour of the day; busiest around {{ vz.busiest }}.">
+              {%- for h in vz.hours %}<span class="vz-hour" data-name="{{ h.label }}" data-n="{{ h.n }}" style="--h: {{ h.height }}"><i></i></span>{% endfor %}
+            </div>
+            <div class="vz-clock" aria-hidden="true"><span>midnight</span><span>6 am</span><span>noon</span><span>6 pm</span></div>
+            <p class="vz-note">Busiest around {{ vz.busiest }}.</p>
+          </figure>
+          {%- endif %}
+        </div>
+      </div>
+
+      <details class="vz-list">
+        <summary>As a list</summary>
+        <div class="vz-cols">
+          <div><h3>Countries</h3><ol>{% for c in vz.countries %}<li>{{ c.name }} <span>{{ c.count | commas }}</span></li>{% endfor %}</ol></div>
+          {%- if vz.states.length %}<div><h3>US states</h3><ol>{% for s in vz.states %}<li>{{ s.name }} <span>{{ s.count | commas }}</span></li>{% endfor %}</ol></div>{% endif %}
+        </div>
+      </details>
+
+      <p class="vz-fine">Counted without cookies or IP addresses. Only these totals are shown, updated once a day.</p>
+      <div class="vz-tip" role="status" aria-live="polite" hidden></div>
+    </div>
+  </div>
+</section>
+{%- endif %}

@@ -17,5 +17,6 @@
 
   "_reader_traces": "Both are optional. Leave empty to switch the feature off. See README.md.",
   "goatcounter": "",
-  "formspree": ""
+  "formspree": "",
+  "visitorsSince": "2026-10-17"
 }
