@@ -11,6 +11,7 @@ layout: base.njk
   </div>
 </header>
 <article class="prose" style="display:contents">
+{{ content | safe }}
 <section class="book-toc" aria-label="Chapters">
   <ol>
     {%- for c in chs %}
@@ -22,7 +23,6 @@ layout: base.njk
     {%- endfor %}
   </ol>
 </section>
-{{ content | safe }}
 {%- if credit %}<p class="book-credit book-credit-page">{{ credit }}</p>{% endif %}
 </article>
 <nav class="pager" aria-label="Outside Work">

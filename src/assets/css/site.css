@@ -896,7 +896,7 @@ button.rs-step:focus-visible { outline: none; }
 /* books in Outside Work: the book page, chapter navigation, and how a book shows in lists */
 .book-home { text-decoration: none; color: inherit; }
 .book-home:hover { color: var(--accent); }
-.book-toc { margin: .5rem 0 2.4rem; }
+.book-toc { margin: 1.6rem 0 2.4rem; }
 .book-toc ol { list-style: none; padding: 0 !important; margin: 0; border-top: 1px solid var(--hairline); }
 .book-toc li { margin: 0; padding: 1rem 0 1.05rem; border-bottom: 1px solid var(--hairline); }
 .book-toc a { text-decoration: none; display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .8rem; }
