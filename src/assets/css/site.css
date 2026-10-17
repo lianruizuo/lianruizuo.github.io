@@ -912,9 +912,6 @@ button.rs-step:focus-visible { outline: none; }
 .book-pager { align-items: flex-start; }
 .book-pager .book-all { text-align: center; margin: 0 auto; }
 .book-pager .prev + .book-all, .book-pager .book-all:first-child { margin: 0 auto; }
-.entries .entry-chapter { margin: 0 0 .15rem; font-family: var(--sans); font-size: .8rem; color: var(--graphite); }
-.entries .entry-chapter a { color: var(--ink); text-decoration-color: var(--hairline); }
-.entries .entry-chapter a:hover { color: var(--accent); }
 .book-toc-d { margin-left: auto; font-family: var(--sans); font-size: .76rem; color: var(--graphite); }
 @media (max-width: 520px) { .book-toc-d { margin-left: 0; flex-basis: 100%; } }
 /* documents quoted inside a chapter: notes, statements, logs */
@@ -931,5 +928,3 @@ button.rs-step:focus-visible { outline: none; }
   .book-pager .book-all { grid-column: 1 / -1; grid-row: 2; }
   .book-pager .next { grid-column: 2; }
 }
-.entries .entry-chapters { list-style: none; padding: 0; margin: .1rem 0 .3rem; display: grid; gap: .15rem; }
-.entries .entry-chapters .entry-chapter { margin: 0; }
