@@ -6,7 +6,12 @@
   <div class="m">{% if dateFormat == "short" %}{{ p | entryDate(chs) | shortDate }}{% else %}{{ p | entryDate(chs) | longDate }}{% endif %}</div>
   <div class="t">
     <h3><a href="{{ p.url }}">{{ p.data.bookTitle if p.data.book else p.data.title }}</a>{% if p.data.draft %}<span class="draft-flag">Draft</span>{% endif %}</h3>
-    {%- if newest %}<p class="entry-chapter"><a href="{{ newest.url }}">Chapter {{ newest.data.chapter | chapterWord }}: {{ newest.data.chapterTitle }}</a>{% if bookChs.length > 1 %}<span> · {{ bookChs.length }} chapters</span>{% endif %}</p>{% endif %}
+    {%- if newest and dateFormat == "long" %}
+    {#- the Outside Work page lists every chapter of a book; the home page shows only the newest #}
+    <ul class="entry-chapters">
+      {%- for c in bookChs %}<li class="entry-chapter"><a href="{{ c.url }}">Chapter {{ c.data.chapter | chapterWord }}: {{ c.data.chapterTitle }}</a></li>{% endfor %}
+    </ul>
+    {%- elif newest %}<p class="entry-chapter"><a href="{{ newest.url }}">Chapter {{ newest.data.chapter | chapterWord }}: {{ newest.data.chapterTitle }}</a>{% if bookChs.length > 1 %}<span> · {{ bookChs.length }} chapters</span>{% endif %}</p>{% endif %}
     {%- if p.data.summary %}<p>{{ p.data.summary }}</p>{% endif %}
   </div>
 </li>

@@ -931,3 +931,5 @@ button.rs-step:focus-visible { outline: none; }
   .book-pager .book-all { grid-column: 1 / -1; grid-row: 2; }
   .book-pager .next { grid-column: 2; }
 }
+.entries .entry-chapters { list-style: none; padding: 0; margin: .1rem 0 .3rem; display: grid; gap: .15rem; }
+.entries .entry-chapters .entry-chapter { margin: 0; }
