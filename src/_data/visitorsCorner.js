@@ -1,5 +1,5 @@
 // Shapes the visitor totals (src/_data/visitors.json, written by scripts/visitors.mjs)
-// into what the Visitors corner draws: two dot maps, section shares and an hour strip.
+// into what the Visitors corner draws: a dot map of the world, one shaded group per country.
 // Returns null when there are no totals yet, which hides the corner.
 import fs from "node:fs";
 
@@ -30,36 +30,9 @@ function dotMap(grid, cell, places, nameOf) {
   return { box, land, lit };
 }
 
-const longMonth = (iso) => new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
-const clock = (h) => (h === 0 ? "midnight" : h === 12 ? "noon" : h < 12 ? `${h} am` : `${h - 12} pm`);
-
 export default function () {
   const v = read(process.env.VISITORS_FILE || new URL("visitors.json", dir));
   const maps = read(new URL("dotmaps.json", dir));
-  if (!v || !maps || !v.visits) return null;
-
-  const world = dotMap(maps.world, 6, v.countries || [], (p) => p.name);
-  const us = dotMap(maps.us, 15, v.states || [], (p) => maps.us.names[p.code] || p.name);
-
-  const secTotal = (v.sections || []).reduce((a, s) => a + s.count, 0) || 1;
-  const sections = (v.sections || []).map((s) => ({ ...s, share: s.count / secTotal }));
-  const top = sections[0] ? sections[0].share : 1;
-  sections.forEach((s) => { s.width = +(100 * s.share / top).toFixed(1); s.pct = Math.max(1, Math.round(100 * s.share)); });
-
-  const hours = v.hours || Array(24).fill(0);
-  const hMax = Math.max(1, ...hours);
-  const busiest = hours.indexOf(Math.max(...hours));
-
-  return {
-    visits: v.visits,
-    since: longMonth(v.since),
-    updated: v.updated,
-    countries: v.countries || [],
-    states: (v.states || []).map((s) => ({ ...s, name: maps.us.names[s.code] || s.name })),
-    world,
-    us,
-    sections,
-    hours: hours.map((n, h) => ({ h, n, height: +(n / hMax).toFixed(3), label: clock(h) })),
-    busiest: Math.max(...hours) ? clock(busiest) : null,
-  };
+  if (!v || !maps || !v.visits || !(v.countries || []).length) return null;
+  return { world: dotMap(maps.world, 6, v.countries, (p) => p.name) };
 }

@@ -1,4 +1,4 @@
-// Hover (or focus) a shaded place or an hour in the Visitors corner to see its count.
+// Hover (or focus) a shaded country on the Visitors map to see how many visitors came from it.
 (() => {
   const box = document.querySelector("[data-vz]");
   if (!box) return;
@@ -9,8 +9,7 @@
 
   function show(el, x, y) {
     const n = +el.dataset.n;
-    const what = el.classList.contains("vz-hour") ? `around ${el.dataset.name}` : el.dataset.name;
-    tip.textContent = `${what} · ${fmt.format(n)} ${n === 1 ? "visit" : "visits"}`;
+    tip.textContent = `${el.dataset.name} · ${fmt.format(n)} ${n === 1 ? "visitor" : "visitors"}`;
     tip.hidden = false;
     const r = t.getBoundingClientRect();
     const w = tip.offsetWidth;
@@ -30,7 +29,7 @@
   }
 
   box.addEventListener("pointermove", (e) => {
-    const el = e.target.closest(".vz-place, .vz-hour");
+    const el = e.target.closest(".vz-place");
     if (el) show(el, e.clientX, e.clientY); else if (on) hide();
   });
   box.addEventListener("pointerleave", hide);
