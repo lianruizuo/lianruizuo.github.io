@@ -101,7 +101,6 @@ courses:
           - { cite: "A. Kirillov et al., “Segment anything,” ICCV, 2023.", url: "https://arxiv.org/abs/2304.02643" }
       - id: segeval
         ch: "3.6"
-        note: Guest lecture by Aaron Carass.
         papers:
           - { cite: "A. Carass et al., “Longitudinal multiple sclerosis lesion segmentation: resource and challenge,” NeuroImage, vol. 148, pp. 77–102, 2017.", url: "https://www.sciencedirect.com/science/article/abs/pii/S1053811916307819" }
       - { id: interp,      ch: "4.1" }

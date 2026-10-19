@@ -419,6 +419,7 @@ eqn { display: block; }
 .am-node.planned .am-dot { fill: var(--paper); stroke: var(--graphite); stroke-dasharray: 2 2.2; }
 .am-node.seminar .am-dot { fill: var(--paper); stroke: var(--graphite); stroke-dasharray: none; }
 .am-node.seminar .am-label { font-style: italic; }
+.am-node.seminar.written .am-dot { fill: var(--ink); stroke: var(--ink); }
 .am-label { font-family: var(--sans); font-size: 13.5px; fill: var(--graphite); paint-order: stroke; stroke: var(--paper); stroke-width: 5px; stroke-linejoin: round; }
 .am-node.written .am-label { fill: var(--ink); font-weight: 600; }
 .am-link:hover .am-label, .am-link:focus-visible .am-label { fill: var(--accent); text-decoration: underline; }
@@ -450,6 +451,19 @@ eqn { display: block; }
 .node-question { font-size: clamp(1.25rem, 1.05rem + .7vw, 1.55rem); line-height: 1.35; font-style: italic; font-weight: 380; margin: 1rem 0 0; max-width: 34rem; text-wrap: balance; }
 .node-source { font-size: .9rem; color: var(--graphite); margin: 1.1rem 0 0; max-width: 38rem; }
 .node-source .label { font-family: var(--sans); font-size: .72rem; color: var(--graphite); margin-right: .4rem; }
+/* a seminar: speaker, when, where */
+.talk { display: grid; gap: .55rem; margin: 1.4rem 0 0; max-width: 38rem; font-size: .95rem; }
+.talk > div { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); column-gap: .9rem; }
+.talk dt { font-family: var(--sans); font-size: .72rem; color: var(--graphite); padding-top: .2rem; }
+.talk dd { margin: 0; color: var(--graphite); line-height: 1.45; }
+.talk .talk-name { color: var(--ink); }
+.talk-outline { display: grid; gap: .7rem; }
+.talk-outline li { margin: 0; }
+.talk-topic { display: block; }
+.talk-points { display: block; color: var(--graphite); font-size: .95rem; }
+/* once opened, the locked part follows the public abstract, so give its first heading the usual room */
+.node-prose > h2 ~ .lecture-body > h2:first-child { margin-top: 3.5rem; }
+.fig-flyer img { max-height: none; width: 100%; max-width: 30rem; box-shadow: 0 0 0 1px var(--hairline); }
 .node-body { display: grid; grid-template-columns: var(--margin) var(--gap) minmax(0, var(--text)); margin-top: 1.5rem; }
 .arc-rail { grid-column: 1; align-self: start; position: sticky; top: 1.5rem; }
 .arc-rail ol { list-style: none; counter-reset: arc; padding: 0; margin: 0; display: grid; gap: .1rem; font-family: var(--sans); font-size: .82rem; }

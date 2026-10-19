@@ -8,10 +8,18 @@ mainClass: node-page
 {%- set cx = map | crossingsFor(node) %}
 
 <header class="node-head row">
-  <div class="m"><a href="/teaching/" class="crumb">Atlas</a>{% if me %}<br><span class="node-year">{{ me.year }}</span>{% endif %}</div>
+  <div class="m"><a href="/teaching/" class="crumb">Atlas</a>{% if talk %}<br><span>Seminar</span>{% elif me %}<br><span class="node-year">{{ me.year }}</span>{% endif %}</div>
   <div class="t">
     <h1>{{ title }}</h1>
-    <p class="node-question">{{ question }}</p>
+    {%- if question %}<p class="node-question">{{ question }}</p>{% endif %}
+    {%- if talk %}
+    {#- a seminar: who, when and where are public; how to join online is inside the lock #}
+    <dl class="talk">
+      <div><dt>Speaker</dt><dd><span class="talk-name">{{ talk.speaker }}</span>{% for l in talk.affiliation %}<br>{{ l }}{% endfor %}</dd></div>
+      <div><dt>When</dt><dd>{{ talk.date | talkDate }}<br>{{ talk.time }}</dd></div>
+      <div><dt>Where</dt><dd>{{ talk.place }}</dd></div>
+    </dl>
+    {%- endif %}
     {%- if source %}
     <p class="node-source"><span class="label">Primary source</span> {{ source.authors }}, “{{ source.title }},” <i>{{ source.venue }}</i>, {{ source.details }}, {{ source.year }}.{% if source.doi %} <a href="https://doi.org/{{ source.doi }}">doi:{{ source.doi }}</a>{% endif %}</p>
     {%- endif %}
@@ -26,6 +34,7 @@ mainClass: node-page
 {%- set crossings = pd.crossings or crossings %}
 {%- set record = pd.record or record %}
 {%- set tail %}
+    {%- if not talk or cx.out.length %}
     <h2 id="crossings">Crossings</h2>
     <p>Every boundary found above is a place where another method starts. {% if cx.out.length %}These are the ones the atlas already knows about.{% endif %}</p>
     {%- if cx.out.length %}
@@ -39,8 +48,9 @@ mainClass: node-page
       {%- endfor %}
     </ul>
     {%- endif %}
+    {%- endif %}
     {%- if cx.into.length %}
-    <p class="muted small">This method crosses a boundary of {% for e in cx.into %}<a href="{{ e.a.url }}">{{ e.a.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.</p>
+    <p class="muted small">{{ "This seminar picks up from a boundary of" if talk else "This method crosses a boundary of" }} {% for e in cx.into %}<a href="{{ e.a.url }}">{{ e.a.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.</p>
     {%- endif %}
     {%- if record and record.length %}
     <h2 id="record">Record</h2>
@@ -52,6 +62,17 @@ mainClass: node-page
     </ul>
     {%- endif %}
 {%- endset %}
+{#- a seminar's abstract or outline is public, so it sits outside the lecture markers #}
+    {%- if talk.abstract %}
+    <h2 id="abstract">Abstract</h2>
+    {{ talk.abstract | mdBlock | safe }}
+    {%- endif %}
+    {%- if talk.outline %}
+    <h2 id="outline">What we’ll explore</h2>
+    <ol class="talk-outline">
+      {%- for o in talk.outline %}<li><span class="talk-topic">{{ o.topic }}</span>{% if o.points %}<span class="talk-points">{{ o.points | join(" · ") }}</span>{% endif %}</li>{% endfor %}
+    </ol>
+    {%- endif %}
 {%- if priv %}
 <!--lecture-->
 {% renderFile priv, {}, "njk,md" %}
@@ -70,7 +91,8 @@ mainClass: node-page
     {%- endfor %}
     {%- if lockedData[node] %}
     <div class="gate" data-gate data-node="{{ node }}">
-      <p class="gate-note">The full lecture is open to students in {% for c in atlas.courses %}{% if node in c.route | routeIds %}{{ c.code }}{% endif %}{% endfor %}. Enter the course password to read it.</p>
+      {%- set code %}{% for c in atlas.courses %}{% if node in c.route | routeIds %}{{ c.code }}{% endif %}{% endfor %}{% endset %}
+      <p class="gate-note">{% if talk %}The Zoom link and the flyer are open to students in {{ code }}. Enter the course password to see them.{% else %}The full lecture is open to students in {{ code }}. Enter the course password to read it.{% endif %}</p>
       <form class="gate-form" autocomplete="off">
         <label class="sr-only" for="gate-pw">Course password</label>
         <input id="gate-pw" type="password" name="pw" placeholder="Course password" required>
@@ -81,7 +103,7 @@ mainClass: node-page
     </div>
     <div class="lecture-body" data-lecture hidden></div>
     {%- else %}
-    <p class="muted">This lecture has not been published yet.</p>
+    <p class="muted">{{ "Details for students will be posted here." if talk else "This lecture has not been published yet." }}</p>
     {%- endif %}
 {%- else %}
 {{ content | safe }}

@@ -34,7 +34,12 @@ eleventyComputed:
       {%- if n.about %}<p>{{ n.about }}</p>{% endif %}
       <p class="small muted">On the atlas: {{ n.title }}, {{ n.source }}, {{ n.year }}</p>
       {%- else %}
-      {%- if n.written %}<h3><a href="{{ n.url }}">{{ n.title }}</a></h3>{% if n.question %}<p>{{ n.question }}</p>{% endif %}
+      {%- if n.written and n.talk %}
+      {#- a seminar: the talk's own title, then who, when and where #}
+      <h3><a href="{{ n.url }}">{{ n.pageTitle }}</a> <span class="soon">seminar</span></h3>
+      <p>{{ n.talk.speaker }}, {{ n.talk.affiliation | last }}</p>
+      <p class="small muted">{{ n.talk.date | talkDate }}, {{ n.talk.time }} · {{ n.talk.place }}</p>
+      {%- elif n.written %}<h3><a href="{{ n.url }}">{{ n.title }}</a></h3>{% if n.question %}<p>{{ n.question }}</p>{% endif %}
       {%- else %}<h3 class="planned-name">{{ n.title }} <span class="soon">{{ "seminar" if n.kind == "seminar" else "planned" }}</span></h3>{% endif %}
       {%- if n.note %}<p>{{ n.note }}</p>{% endif %}
       {%- if n.papers %}

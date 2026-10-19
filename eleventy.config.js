@@ -82,6 +82,14 @@ export default function (eleventyConfig) {
     return `<details class="dx dx-${layer}"><summary><span class="dx-mark" aria-hidden="true"></span><span class="dx-symptom">${md.renderInline(symptom)}</span><span class="dx-open">Where does it live?</span></summary><div class="dx-answer"><p class="dx-verdict"><span class="layer-chip layer-${layer}">${names[layer] || layer}</span> ${kinds[layer] || ""}.</p>${md.render(content.trim())}</div></details>`;
   });
   // Numbered figure: {% figure "/teaching/ece6357/otsu.png", "Caption text" %}
+  // An image kept in private/atlas/media/, written into the page itself so it is encrypted with the lecture.
+  // Only for locked lectures: a normal image path would be public.
+  eleventyConfig.addShortcode("privateImage", (file, alt = "") => {
+    const path = `private/atlas/media/${file}`;
+    if (!existsSync(path)) return `<p class="muted">Missing image: ${file}</p>`;
+    const type = file.endsWith(".png") ? "image/png" : "image/jpeg";
+    return `<figure class="fig fig-flyer"><img src="data:${type};base64,${readFileSync(path).toString("base64")}" alt="${alt.replace(/"/g, "&quot;")}"></figure>`;
+  });
   eleventyConfig.addShortcode("figure", (src, caption = "", alt = "") => {
     return `<figure class="fig"><img src="${src}" alt="${alt || caption.replace(/<[^>]+>/g, "")}" loading="lazy"/>${caption ? `<figcaption>${md.renderInline(caption)}</figcaption>` : ""}</figure>`;
   });
@@ -149,6 +157,8 @@ export default function (eleventyConfig) {
     (p.data.courses || []).filter((c) => c.code === code).map((c) => ({ page: p, where: c.where }))));
   eleventyConfig.addFilter("json", (x) => JSON.stringify(x));
   eleventyConfig.addFilter("commas", (n) => Number(n || 0).toLocaleString("en-US"));
+  // a seminar's date, e.g. "Wednesday, October 21, 2026"
+  eleventyConfig.addFilter("talkDate", (d) => new Date(d).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }));
 
   // ---------- feed (teaching notes + journal) ----------
   eleventyConfig.addPlugin(feedPlugin, {
