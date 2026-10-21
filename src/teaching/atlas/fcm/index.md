@@ -16,6 +16,6 @@ locked: true
 labs: [fcm]
 previews:
   - lab: fcm-run
-    caption: "Fuzzy c-means on points in two dimensions, one half-step at a time. Each point is coloured by its memberships: saturated when it belongs mostly to one class, pale grey when it is shared. Memberships: every point shares itself among the rings, more to the nearer ones. Representatives: every ring moves to an average of all the points, weighted by how much each belongs to it. The plot on the right records the cost after every half-step. Try m = 1.2 and m = 4, and drag the rings to choose your own start."
+    caption: "Fuzzy c-means on points in two dimensions, one half-step at a time. Every point has one unit of membership to split among the classes. Memberships: each point splits its unit among the rings, more to the nearer ones; its colour is saturated when almost all of it goes to one class and pale grey when it is split evenly. Representatives: each ring moves to an average of all the points, each counted by how much of it belongs to that ring. The plot on the right records the cost after every half-step. Try m = 1.2 and m = 4, and drag the rings to choose your own start."
 scripts: ["/assets/js/atlas.js", "/assets/js/lock.js", "/assets/js/previews/fcm.js"]
 ---
