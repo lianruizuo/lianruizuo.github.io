@@ -965,3 +965,37 @@ button.rs-step:focus-visible { outline: none; }
 .vz-place:focus-visible .vz-dot { stroke: var(--ink); }
 
 .vz-tip { position: absolute; z-index: 5; pointer-events: none; white-space: nowrap; font-family: var(--sans); font-size: .75rem; color: var(--paper); background: var(--ink); padding: .25rem .55rem; border-radius: 4px; }
+
+/* ---------------- fuzzy c-means lecture labs ---------------- */
+.fcm-gap { margin-left: .9rem; }
+.fcm-drag { cursor: grab; }
+.fcm-ab-table { overflow-x: auto; margin-top: .4rem; }
+.fcm-ab-table table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: .8rem; font-variant-numeric: tabular-nums; }
+.fcm-ab-table th, .fcm-ab-table td { padding: .4rem .5rem; border-bottom: 1px solid var(--hairline); text-align: left; white-space: nowrap; }
+.fcm-ab-table thead th { font-weight: 500; font-size: .74rem; color: var(--graphite); border-bottom-color: var(--ink); white-space: normal; }
+.fcm-ab-table tbody th { font-family: var(--serif); font-style: italic; font-size: .95rem; }
+.fcm-stack { display: inline-flex; width: 5.5rem; height: .6rem; vertical-align: middle; margin-right: .3rem; border-radius: 2px; overflow: hidden; gap: 2px; }
+.fcm-mini { display: block; height: 100%; }
+.fcm-c0 { fill: #0072B2; color: #0072B2; } .fcm-c1 { fill: #E69F00; color: #E69F00; }
+.fa-contour { fill: none; stroke: var(--graphite); stroke-width: 1; opacity: .4; }
+.fa-contour.fa-faint { opacity: .18; }
+.fa-contour-on { fill: none; stroke: var(--accent); stroke-width: 2.2; }
+.fa-contour-L { fill: none; stroke: var(--accent); stroke-width: 1.3; opacity: .75; }
+.fa-constraint { stroke: #E69F00; stroke-width: 2.4; }
+.fa-path { stroke: var(--accent); stroke-width: 1.2; stroke-dasharray: 2 4; }
+.fa-line { stroke-width: 2.4; }
+.fa-line.fa-blue { stroke: var(--accent); } .fa-line.fa-green { stroke: #009E73; } .fa-line.fa-orange { stroke: #E69F00; } .fa-line.fa-grey { stroke: var(--graphite); stroke-width: 1.6; opacity: .7; }
+marker .fa-blue { fill: var(--accent); } marker .fa-green { fill: #009E73; } marker .fa-orange { fill: #E69F00; } marker .fa-grey { fill: var(--graphite); }
+.fa-blue-t { fill: var(--accent); } .fa-green-t { color: #009E73; } .fa-orange-t { fill: #B7791F; }
+.fa-dash { stroke: var(--graphite); stroke-width: 1; stroke-dasharray: 3 3; opacity: .7; }
+.fa-drop { stroke-width: 1.4; stroke-dasharray: 4 3; }
+.fa-bead { fill: var(--paper); stroke: var(--ink); stroke-width: 2.4; }
+.fa-free { fill: var(--accent); }
+.fa-frame { fill: var(--paper-2); stroke: var(--hairline); }
+.fcm-slider { align-items: center; font-family: var(--sans); font-size: .85rem; color: var(--graphite); gap: .8rem; }
+.fcm-slider input { width: 14rem; accent-color: var(--accent); vertical-align: middle; }
+.fcm-slider output { font-variant-numeric: tabular-nums; color: var(--ink); min-width: 4.5rem; }
+.fcm-memb { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1rem; align-items: center; }
+.fcm-step { fill: none; stroke: var(--graphite); stroke-width: 1.4; stroke-dasharray: 5 4; }
+.fcm-curve { fill: none; stroke-width: 2.4; }
+@media (max-width: 640px) { .fcm-memb { grid-template-columns: 1fr; } }
