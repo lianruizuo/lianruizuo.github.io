@@ -1,7 +1,7 @@
 # Newest first. `date` is YYYY-MM (or just YYYY). `text` is Markdown.
 # The home page shows the first six; the About page shows all of them.
 - date: 2026-10
-  text: The [Learn2Reg Consortium](https://lab.dev.vanderbilt.edu/learn2reg/) is now online. Building on the Learn2Reg challenges that began in 2019, it brings the biomedical image registration community together around shared datasets, benchmarks and open evaluation tools, so that registration research is easier to access and reproduce. I started it with my colleagues on the leadership team, and I'm proud to see it live.
+  text: The [Learn2Reg Consortium](https://lab.dev.vanderbilt.edu/learn2reg/) is now online. Building on the Learn2Reg challenges that began in 2019, it brings the biomedical image registration community together around shared datasets, benchmarks and open evaluation tools, so that registration research is easier to access and reproduce. My colleagues and I initiated this consortium, and after months of work building it, I'm so proud to see it live.
 - date: 2026-09
   text: I was awarded the NIH K99/R00 Pathway to Independence Award by the National Cancer Institute and the NIH Office of the Director ($962,460 total direct costs).
 - date: 2026
