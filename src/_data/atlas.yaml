@@ -50,7 +50,7 @@ nodes:
   - { id: gvf,         title: Gradient vector flow,     year: 1998, source: "Xu and Prince" }
   - { id: demons,      title: Demons,                   year: 1998, source: Thirion }
   - { id: biasfield,   title: Bias field correction,    year: 1999, source: "Van Leemput et al." }
-  - { id: interp,      title: Interpolation,            year: 2000, source: "Thévenaz, Blu and Unser" }
+  - { id: interp,      title: Transformation and interpolation, year: 2000, source: "Thévenaz, Blu and Unser" }
   # ECE 6357 seminars: discussions rather than single methods, placed near the work they center on
   - { id: modernseg,   title: Modern segmentation,      year: 2015, source: "U-Net and after", kind: seminar }
   - { id: segeval,     title: Evaluating segmentation,  year: 2017, source: "Carass et al.", kind: seminar }
