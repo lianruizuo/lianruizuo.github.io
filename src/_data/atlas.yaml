@@ -44,12 +44,12 @@ nodes:
   - { id: reddi,       title: Multilevel thresholds,    year: 1984, source: "Reddi, Rudin and Keshavan" }
   - { id: canny,       title: Canny edges,              year: 1986, source: Canny }
   - { id: snakes,      title: Snakes,                   year: 1988, source: "Kass, Witkin and Terzopoulos" }
-  - { id: regframe,    title: Registration framework,   year: 1992, source: Brown }
   - { id: levelsets,   title: Level sets,               year: 1995, source: "Malladi, Sethian and Vemuri; Chan and Vese" }
-  - { id: mi,          title: Mutual information,       year: 1995, source: "Viola and Wells; Collignon et al." }
+  - { id: similarity,  title: Image similarity,         year: 1997, source: "Maes, Collignon et al.; Viola and Wells" }
   - { id: gvf,         title: Gradient vector flow,     year: 1998, source: "Xu and Prince" }
   - { id: demons,      title: Demons,                   year: 1998, source: Thirion }
   - { id: biasfield,   title: Bias field correction,    year: 1999, source: "Van Leemput et al." }
+  - { id: linreg,      title: Linear registration,      year: 2001, source: "Jenkinson and Smith" }
   - { id: interp,      title: Transformation and interpolation, year: 2000, source: "Thévenaz, Blu and Unser" }
   # ECE 6357 seminars: discussions rather than single methods, placed near the work they center on
   - { id: modernseg,   title: Modern segmentation,      year: 2015, source: "U-Net and after", kind: seminar }
@@ -104,19 +104,19 @@ courses:
         papers:
           - { cite: "A. Carass et al., “Longitudinal multiple sclerosis lesion segmentation: resource and challenge,” NeuroImage, vol. 148, pp. 77–102, 2017.", url: "https://www.sciencedirect.com/science/article/abs/pii/S1053811916307819" }
       - { id: interp,      ch: "4.1" }
-      - { id: regframe,    ch: "4.2a–c" }
-      - { id: mi,          ch: "4.2d" }
-      - { id: opticalflow, ch: "4.3" }
-      - { id: demons,      ch: "4.4" }
+      - { id: similarity,  ch: "4.2" }
+      - { id: linreg,      ch: "4.3" }
+      - { id: opticalflow, ch: "4.4" }
+      - { id: demons,      ch: "4.5" }
       - id: modernreg
-        ch: "4.5"
+        ch: "4.6"
         papers:
           - { cite: "B. B. Avants et al., “Symmetric diffeomorphic image registration with cross-correlation (SyN),” Medical Image Analysis, 2008.", doi: 10.1016/j.media.2007.06.004 }
           - { cite: "G. Balakrishnan et al., “VoxelMorph: a learning framework for deformable medical image registration,” IEEE TMI, 2019.", doi: 10.1109/TMI.2019.2897538 }
           - { cite: "J. Chen et al., “TransMorph: Transformer for unsupervised medical image registration,” Medical Image Analysis, 2022.", doi: 10.1016/j.media.2022.102615 }
           - { cite: "Y. Liu et al., “Vector field attention for deformable image registration,” Journal of Medical Imaging, 2024.", doi: 10.1117/1.JMI.11.6.064001 }
       - id: regeval
-        ch: "4.6"
+        ch: "4.7"
         papers:
           - { cite: "Medical Image Analysis, 2026.", url: "https://www.sciencedirect.com/science/article/abs/pii/S1361841526002446" }
 
