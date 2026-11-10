@@ -56,6 +56,7 @@ nodes:
   - { id: segeval,     title: Evaluating segmentation,  year: 2017, source: "Carass et al.", kind: seminar }
   - { id: modernreg,   title: Modern registration,      year: 2019, source: "SyN to vector field attention", kind: seminar }
   - { id: regeval,     title: Evaluating registration,  year: 2026, source: "Medical Image Analysis", kind: seminar }
+  - { id: practice,    title: Image analysis in practice, year: 2026, source: "Modern tools and quantitative modeling", kind: seminar }
   # ES 1400: the idea each session rests on, at the year it first appeared
   - { id: radio,       title: Radio,                    year: 1895, source: Marconi }
   - { id: sonar,       title: Ultrasonic echo ranging,  year: 1917, source: Langevin }
@@ -119,6 +120,7 @@ courses:
         ch: "4.7"
         papers:
           - { cite: "Medical Image Analysis, 2026.", url: "https://www.sciencedirect.com/science/article/abs/pii/S1361841526002446" }
+      - { id: practice,    ch: "5" }
 
   - code: ES 1400
     title: Introduction to Engineering, ECE Module

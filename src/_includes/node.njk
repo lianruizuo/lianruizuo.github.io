@@ -67,6 +67,10 @@ mainClass: node-page
     <h2 id="abstract">Abstract</h2>
     {{ talk.abstract | mdBlock | safe }}
     {%- endif %}
+    {%- if talk.bio %}
+    <h2 id="speaker">About the speaker</h2>
+    {{ talk.bio | mdBlock | safe }}
+    {%- endif %}
     {%- if talk.outline %}
     <h2 id="outline">What we’ll explore</h2>
     <ol class="talk-outline">
